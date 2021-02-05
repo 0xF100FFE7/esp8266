@@ -577,7 +577,7 @@ struct sta_settings {
 	{
 		packet buf;
 		if (network::sta_status != STA_DISCONNECTED)
-			avail_stations[0].pack(network_settings.sta_tab, (attr::text = network::get_station_name(-1), attr::display = true, attr::background = "green")); //zero slot is reserved for connected station
+			buf += avail_stations[0].pack(network_settings.sta_tab, (attr::text = network::get_station_name(-1), attr::display = true, attr::background = "green")); //zero slot is reserved for connected station
 		
 		for (int i = 1; i < network::avail_networks + 1; i++) {
 			if ((network::sta_status != STA_DISCONNECTED) && (network::get_station_name(-1) == network::get_station_name(i)))
@@ -619,6 +619,7 @@ struct sta_settings {
 		scan_sta.pack(network_settings.sta_tab, (attr::text = l_str(STA_SCAN_NETWORK), attr::background = "cornflowerblue", attributes(scan_sta.turn(true).buffer))); //TODO better applier setter
 	}
 } sta_settings;
+
 
 
 
@@ -700,15 +701,16 @@ void electrobox_loop()
 			//do not save settings here, better do this inside applier.
 		}
 		
-		/*if (network::sta_status != sta_settings.old_status) { //if network status changed
+		if (network::sta_status != sta_settings.old_status) { //if network status changed
 			sta_settings.old_status = network::sta_status;
 			
-			DEBUG_MSG("Status = %i\n", network::sta_status);
+			//DEBUG_MSG("Status = %i\n", network::sta_status);
 			//search network inside available networks list
 			//sta_settings.search();
 			
 			//buf += sta_settings.connection_status.pack(attr::text = sta_settings.status_str());
-		}*/
+			buf += sta_settings.list_avail_stations();
+		}
 		
 		if (network::scan && network::avail_networks > 0)
 		{
