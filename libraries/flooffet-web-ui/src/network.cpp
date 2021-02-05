@@ -114,7 +114,7 @@ namespace ui {
 		
 		void end()
 		{
-			WiFi.softAPdisconnect();
+			//WiFi.softAPdisconnect();
 			WiFi.disconnect();
 		}
 		
@@ -171,9 +171,10 @@ namespace ui {
 			(passphrase_is_valid(passwd) ? passwd : "").toCharArray(settings.changed().sta_pass, 80);
 			settings.save();
 			end();
-			DEBUG_MSG("Network settings applied, restarting...\n");
-			delay(1000);
-			ESP.restart();
+			DEBUG_MSG("Network settings applied, switching...\n");
+			sta_status = STA_SWITCH;
+			//delay(1000);
+			//ESP.restart();
 			return true;
 			//connect_sta();
 		}
@@ -211,7 +212,7 @@ namespace ui {
 				}
 
 				if (attempts > 0) {
-					DEBUG_MSG("Connecting to %s (%s) (%i)...\n", WiFi.SSID().c_str(), WiFi.localIP().toString().c_str(), attempts);
+					DEBUG_MSG("Connecting to %s (%i)...\n", settings.sta_ssid, attempts);
 					attempts--;
 				} else {
 					DEBUG_MSG("Can't connect to sta\n");
@@ -219,6 +220,23 @@ namespace ui {
 					attempts = 5;
 				}
 				
+				break;
+			
+			case STA_SWITCH:
+				static int wait = 5; //delay before switch
+				
+				if (wait > 0) {
+					DEBUG_MSG("Switching to %s in %i...\n", settings.sta_ssid, attempts);
+					wait--;
+					break;
+				} else {
+					sta_status = STA_ATTEMPT_TO_CONNECT;
+					wait = 5;
+				}
+				
+				if (!settings.dhcp_enabled)
+					WiFi.config(settings.sta_ip, settings.sta_gateway, settings.sta_subnet);
+						WiFi.begin(settings.sta_ssid, settings.sta_pass);
 				break;
 				
 			case STA_CONNECTED:

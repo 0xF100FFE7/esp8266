@@ -547,7 +547,7 @@ struct sta_settings {
 			int idx = (&id - static_cast<radio*>(&::sta_settings.avail_stations[0]));
 			if (idx != 0) {
 				network::change_sta_to(idx - 1, "0987w456321s");
-				::sta_settings.list_avail_stations().send_all();
+				//::sta_settings.list_avail_stations().send_all();
 			}
 		}
 		 
@@ -578,11 +578,14 @@ struct sta_settings {
 		packet buf;
 		if (network::sta_status != STA_DISCONNECTED)
 			buf += avail_stations[0].pack(network_settings.sta_tab, (attr::text = network::get_station_name(-1), attr::display = true, attr::background = "green")); //zero slot is reserved for connected station
+		else
+			buf += avail_stations[0].pack(network_settings.sta_tab, (attr::display = false));
 		
-		for (int i = 1; i < network::avail_networks + 1; i++) {
+		for (int i = 0; i < network::avail_networks; i++) {
 			if ((network::sta_status != STA_DISCONNECTED) && (network::get_station_name(-1) == network::get_station_name(i)))
-				continue; //skip same station as from zero slot;
-			buf += avail_stations[i].pack(network_settings.sta_tab, (attr::text = network::get_station_name(i), attr::display = true));
+				buf += avail_stations[i + 1].pack(network_settings.sta_tab, (attr::display = false)); //skip same station as from zero slot;
+			else
+				buf += avail_stations[i + 1].pack(network_settings.sta_tab, (attr::text = network::get_station_name(i), attr::display = true));
 		}
 		
 		//do not display entries further
