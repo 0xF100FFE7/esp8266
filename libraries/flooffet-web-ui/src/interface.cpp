@@ -183,9 +183,9 @@ namespace ui
 		attributes height_t::operator = (unsigned int b) {	return String("h:") + b + ":";										}
 		attributes min_t::operator = (int b) {			return String("min:") + b + ":";									}
 		attributes max_t::operator = (int b) {			return String("max:") + b + ":";									}
-		attributes text_t::operator = (String b) {		return String("text:") + b + ":";									}
+		attributes text_t::operator = (String b) {		return String("text:") + escape(b) + ":";									}
 		attributes esize_t::operator = (unsigned int b) {	return String("size:") + b + ":";									}
-		attributes value_t::operator = (String b) {		return String("value:") + b + ":";									}
+		attributes value_t::operator = (String b) {		return String("value:") + escape(b) + ":";									}
 		attributes value_t::operator = (int b) {		return String("value:") + b + ":";									}
 		attributes background_t::operator = (String b) {	return String("backcolor:") + b + ":";									}
 		attributes textcolor_t::operator = (String b) {		return String("textcolor:") + b + ":";									}
