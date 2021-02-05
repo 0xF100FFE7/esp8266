@@ -22,7 +22,7 @@ namespace ui
 	String hm_to_str(hm_t t)
 	{
 		hm_t hours = t / 100, minutes = t % 60;
-		return (hours < 10 ? String("0") + hours : String(hours)) + "\\:" + (minutes < 10 ? String("0") + minutes : String(minutes));
+		return (hours < 10 ? String("0") + hours : String(hours)) + ":" + (minutes < 10 ? String("0") + minutes : String(minutes));
 	}
 	
 	hm_t convert_to_hm(int h, int m)
@@ -329,7 +329,7 @@ namespace ui
 	
 	String time_field::formatted(time_t t)
 	{
-		return String() + add_leading_zero(hour(t)) + "\\:" + add_leading_zero(minute(t));
+		return String() + add_leading_zero(hour(t)) + ":" + add_leading_zero(minute(t));
 	}
 	
 	time_field::time_field(void (*callback)(struct time_field &id, String value, client_id_t sender))
