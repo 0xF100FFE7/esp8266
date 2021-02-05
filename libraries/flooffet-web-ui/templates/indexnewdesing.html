@@ -1,0 +1,622 @@
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>ElektroBOX WiFi:</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="shortcut icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAPFBMVEUAAACA1VWR21qQ2liR3FqR3FqS3VuR3VqR3VuR3VqO21mS21uS3FqS3FqS21uJ2GKQ21qR3FuR3FoAAAB/3Gu7AAAAEnRSTlMABoA3kPBwz8i5Kzioxg4NVcU3uEJHAAAAAWJLR0QAiAUdSAAAAAlwSFlzAAAN1wAADdcBQiibeAAAAAd0SU1FB+EFEhcEM+HpYwQAAABYSURBVBjThY/JDsAgCESt4lpX/v9jLQZJ6qF9t3khAyj1xXUKbQ4BVowDwqOYgExkkW4iY6lPaF06RqM8YItOuRbMaz6xjbsusDAW/drplBg47jP696cXE8bPA1eUDeK2AAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE3LTA1LTE4VDIzOjA0OjUxKzAyOjAwxE59ewAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxNy0wNS0xOFQyMzowNDo1MSswMjowMLUTxccAAAAZdEVYdFNvZnR3YXJlAHd3dy5pbmtzY2FwZS5vcmeb7jwaAAAAAElFTkSuQmCC"/>
+	<link rel="stylesheet" href="./css/style.css" />
+	<!--<script src="zepto.min.js"></script>-->
+	<script src="/js/main.js"></script>
+</head>
+
+	<script>
+		
+const is_touch = ("ontouchstart" in document.documentElement) ? true : false;
+		
+var websock;
+
+const E_HEADER = 0;
+const E_TAB = 1;
+const E_BOX = 2;
+const E_TEXT = 3;
+const E_BUTTON = 4;
+const E_FIELD = 5;
+const E_RANGE = 6;
+const GET_TIME = 7;
+
+//Парсер вхідних повідомлень
+//Повертає ui елемент формату:
+//ui_element = {type:integer, id:string, parent:string, attributes:{attrib0:string, ..., attribN:string}}
+function parse_message(str, end)
+{
+	while (true) {
+		if (end.val >= str.length) {
+			return "";
+		} else if (str[end.val] == ':') {
+			end.val++;
+			break;
+		}
+		break;
+	}
+
+	var begin = end.val;
+		
+	for (; end.val < str.length; end.val++)
+		if (str[end.val] == ':' && str[end.val-1] != '\\') break;
+	
+	return str.substring(begin, end.val);
+}
+
+function parse_subclass
+{
+	
+}
+
+function parse_attributes(attributes)
+{
+	var idx = 0;
+	while (attributes[idx]) {
+		val = unescape(attributes.substring(1));
+		switch (attributes[idx]) {
+		//continous attributes with fixed length of 2
+		case 'd': message.attributes.direction = val; idx+=2; continue;
+		case 'w': message.attributes.wrap = val; idx+=2; continue;
+		case 'a': message.attributes.align = val; idx+=2; continue;
+		case 'r': message.attributes.display = val; idx+=2; continue;
+		case 'e': message.attributes.enabled = val; idx+=2; continue;
+		
+		//interrupting attributes with variadic length
+		case 'x': message.attributes.width = val; break;
+		case 'y': message.attributes.height = val; break;
+		case 't': message.attributes.text = val; break;
+		case 's': message.attributes.font_size = val; break;
+		case 'v': message.attributes.value = val; break;
+		case 'b': message.attributes.background_color = val; break;
+		case 'c': message.attributes.text_color = val; break;
+		
+		//subclass attributes
+		case: 'S':
+			switch (attributes[idx + 1]) {
+			case 'p': message.attributes.nav_panel = val; break;
+			case 'd': message.attributes.nav_panel_direction = val; break;
+			case 't': message.attributes.nav_button_text = val; break;
+			case 'a': message.attributes.nav_button_align = val; break;
+			case 's': message.attributes.nav_button_selected = val; break;
+			default: break;
+			}
+		}
+		default: break;
+	}
+}
+
+function parse_ui_messages(str)
+{
+	begin = {val : 0};
+	
+	var messages = [];
+	var message;
+	
+	while (true) {
+		var key = parse_message(str, begin); val = unescape(key.substring(1));// = parse_message(str, begin);
+		switch (key[0]) {
+		case 'T': //type
+			if (message)
+				messages.push(message);
+			message = {attributes : {}};
+			message.type = parseInt(val);
+			
+			break;
+		
+		case 'I': //id
+			if (message) {
+				if (message.id) {
+					messages.push(message);
+					message = {attributes : {}};
+				}
+				message.id = val;
+			} else {
+				message = {attributes : {}};
+				message.id = val;
+				message.update = true;
+			}
+			break;
+										
+		case 'P': //parent
+			message.parent = val;
+			break;
+			
+		//case 'C': //Sub-Class	
+		//	break;
+			
+			
+		/*case 'L':
+			console.log(val.replace(/\\:/g, ":"));
+			break;*/
+		
+		//attributes section
+		case 'd': message.attributes.direction = val; break;
+		case 'w': message.attributes.wrap = val; break;
+		case 'a': message.attributes.align = val; break;
+		case 'x': message.attributes.width = val; break;
+		case 'y': message.attributes.height = val; break;
+		case 't': message.attributes.text = val; break;
+		case 's': message.attributes.font_size = val; break;
+		case 'v': message.attributes.value = val; break;
+		case 'b': message.attributes.background_color = val; break;
+		case 'c': message.attributes.text_color = val; break;	
+		case 'r': message.attributes.display = val; break;
+		case 'e': message.attributes.enabled = val; break;
+		
+		//element specific attributes
+		case 'p': message.attributes.nav_panel = val; break;
+		case 'q': message.attributes.nav_panel_direction = val; break;
+		case 'o': message.attributes.nav_button_text = val; break;
+		case 'u': message.attributes.nav_button_align = val; break;
+		case 'i': message.attributes.nav_button_selected = val; break;
+		
+		case undefined:
+			if (message)
+				messages.push(message);
+			return messages;
+
+		default: 
+			//message.attributes[key] = unescape(val);
+			message.attributes[key[0]] = unescape(key.substring(1)); //ACHTUNG AVOID OVERLAP
+			break;
+		}
+	}
+}
+
+//Встановити публічні атрібути які справедливі для всіх ui елементів		
+function set_generic_web_attributes(web_element, attributes)
+{
+	if (!attributes) return;
+	for (const [key, value] of Object.entries(attributes)) {
+		
+		switch(key) {
+		case "direction": //Напрямок піделементів (горизонтальний(по дефолту)/вертикальний)
+			if (value == "v") web_element.style.flexDirection = "column";
+			else web_element.style.flexDirection = "row";
+			break;
+		
+		case "wrap": //Автоперенесення піделементів
+			if (value == "t") {
+				if (web_element.className == "ui_text") { //Костиль
+					web_element.style.whiteSpace = "normal";
+					web_element.style.textAlign = "left";
+				} else {
+					web_element.style.flexWrap = "wrap";
+				}
+			}
+			else web_element.style.flexWrap = "nowrap";
+			break;
+		
+		case "align": //Вирівнювання піделементів по відношенню до напрямку (Start / center / end)
+			if (value == "u" || value == "l") //up, left
+				web_element.style.alignItems = "flex-start";
+			else if (value == "d" || value == "r") //down, right
+				web_element.style.alignItems = "flex-end";
+			else if (value == "c") //center
+				web_element.style.alignItems = "center";
+			else
+				web_element.style.alignItems = "unset";
+			break;
+		
+		case "width": //Ширина елементу в одиницях em.
+			if (value == "f") //fill
+				web_element.style.width = "100%"
+			else if (value == "c") //content
+				web_element.style.flex = "none";			
+			else
+				//web_element.style.flex = "none";
+				web_element.style.minWidth = parseFloat(value) + "em";
+			break;
+			
+		case "height": //Висота елементу в одиницях em.
+			if (value == "f") //fill
+				web_element.style.height= "100%"
+			else if (value == "c") //content
+				web_element.style.flex = "none";			
+			else
+				//web_element.style.flex = "none";
+				web_element.style.minHeight = parseFloat(value) + "em";
+			break;
+			
+		case "text": //Встановити текстове значеня
+			if (web_element.className == "ui_tab") //Костиль
+				get_web_element(web_element.id + "_tab").innerHTML = value;
+			else
+				web_element.innerHTML = value;
+			break;
+			
+		case "font_size": //Встановити текстове значеня
+				web_element.style.fontSize = parseFloat(value) + "%";
+			break;
+		
+		case "value":
+			if (document.activeElement != web_element) {
+				if (web_element.className == "ui_range_output") //Костиль
+					web_element.nextElementSibling.value = value;
+				web_element.value = value;
+			}
+			break;
+		
+		case "background_color":
+			web_element.style.backgroundColor = value;
+			break;
+		
+		case "text_color":
+			web_element.style.color = value;
+			break;	
+			
+		case "display": //Відображати, чи ні.
+			if (value == "f") web_element.style.display = "none";
+			else web_element.style.display = "flex";
+			break;
+			
+		case "enabled":
+			if (value == "f") web_element.disabled = true;
+			else web_element.disabled = false;
+			break;
+		
+		default: break;
+		}
+	}
+}
+
+//Отримати атрібут з його видаленням зі списку атрібутив
+function extrude_ui_attribute(ui_element, attribute)
+{
+	var extruded_attribute = ui_element.attributes[attribute];
+	delete ui_element.attributes[attribute];
+	return extruded_attribute;
+}
+
+function get_web_element(id)
+{
+	return document.getElementById(id);
+}
+
+//Спробувати вставити новий web елемент
+//Інакше - обновити існуюучий
+function try_insert_web_element(parent, web_element, attributes)
+{
+	set_generic_web_attributes(web_element, attributes);
+	var e = get_web_element(web_element.id);
+	if (!e)
+		get_web_element(parent).appendChild(web_element);
+	else 
+		e.replaceWith(web_element);
+}
+
+function open_tab(evt, tab_id)
+{
+	var tab = get_web_element(tab_id);
+	var i, tabcontent, tablinks;
+	
+	tabcontent = document.getElementsByClassName(tab.className);
+	for (i = 0; i < tabcontent.length; i++) {
+		tabcontent[i].style.display = "none";
+	}
+	
+	tablinks = evt.currentTarget.parentNode.children;
+	for (i = 0; i < tablinks.length; i++) {
+		tablinks[i].className = tablinks[i].className.replace(" active", "");
+		tablinks[i].style.removeProperty("background-color");
+	}
+	
+	tab.style.display = "flex";
+	evt.currentTarget.className += " active";
+	//evt.currentTarget.style.backgroundColor = getComputedStyle(evt.currentTarget).backgroundColor;
+	evt.currentTarget.style.backgroundColor = "#0A0"; //hardcoded shit
+}
+
+function parse_messages(messages)
+{
+	parse_ui_messages(messages).forEach((ui_element) => {
+		//Отримати всі аттрібути
+		//message.attr = parse_ui_attributes(message.attr);
+		//console.log(message.attr);
+		//Якщо немає parent атрібута, то встановити body parent
+
+		console.log(ui_element);
+		switch(ui_element.type) {
+		case E_HEADER:
+			var header = document.createElement('div');
+			header.id = ui_element.id;
+			header.className = "ui_header";
+			try_insert_web_element(ui_element.parent, header, ui_element.attributes);
+			
+			break;
+		
+		//redesign this horrible shit
+		case E_TAB:
+			var selected_tab = ui_element.attributes.nav_button_selected;
+			var panel = get_web_element(ui_element.attributes.panel);
+			if (!panel) {
+				panel = document.createElement('div');
+				panel.id = ui_element.attributes.panel;
+				panel.className = "ui_tab_panel";
+
+				//Якщо атрибута не існує, або ж він дорівнює h, то встановити напрямок як h(горизонтальний).
+				if (!ui_element.attributes.nav_panel_direction || ui_element.attributes.nav_panel_direction == "h") panel.style.flexDirection = "row";
+
+				try_insert_web_element(ui_element.parent, panel);
+			}
+			
+			var tab = document.createElement('button');
+			tab.id = ui_element.id + "_tab";
+			if (ui_element.attributes.nav_button_align == "r" && panel.style.flexDirection == "row") tab.style.marginLeft = "auto";
+			tab.setAttribute("onclick", "open_tab(event, '" + ui_element.id + "')");			
+			tab.innerHTML = ui_element.attributes.nav_button_text;
+			try_insert_web_element(panel.id, tab);
+			
+			var tab_content = document.createElement('div');
+			tab_content.id = ui_element.id;
+			tab_content.style.display = "none";
+			tab_content.className = panel.id;
+			try_insert_web_element(ui_element.parent, tab_content, ui_element.attributes);
+			
+			//Сфокусуватися та активувати перший таб у списку.
+			if (selected_tab == "t") {
+				tab.focus();
+				tab.click();
+			}
+			
+			break;
+			
+		case E_BOX:
+			var title;
+			if (ui_element.attributes.text) {
+				title = document.createElement('div');
+				title.id = ui_element.id + "_title";
+				title.className = "ui_title";
+				title.style.flexDirection = "column";
+				if (ui_element.attributes.fill == "t") title.style.flex = "100%";
+				title.innerHTML = extrude_ui_attribute(ui_element, "text");
+				try_insert_web_element(ui_element.parent, title);
+			}
+		
+			var box = document.createElement('div');
+			box.id = ui_element.id;
+			box.className = "ui_box";
+			
+			try_insert_web_element(title ? title.id : ui_element.parent, box, ui_element.attributes);
+			
+			break;
+		
+		case E_TEXT:
+			var text = document.createElement('div');
+			text.id = ui_element.id;
+			text.className = "ui_text";
+			try_insert_web_element(ui_element.parent, text, ui_element.attributes);
+			
+			break;
+		
+		case E_BUTTON:
+			var button = document.createElement('button');
+			button.id = ui_element.id;
+			button.className = "ui_button";
+			button.setAttribute("onclick", "send_button(this.id)"); 
+			try_insert_web_element(ui_element.parent, button, ui_element.attributes);
+			
+			break;
+
+		case E_FIELD:
+			var field = document.createElement('input');
+			field.id = ui_element.id;
+			field.className = "ui_field";
+			field.type = 'field';
+			field.setAttribute("onfocus", "this.oldval = this.value");
+			field.setAttribute("onchange", "this.blur(); try {send_field(this.id, this.value)} finally {this.value = this.oldval}");
+			field.setAttribute("size", "4");
+			try_insert_web_element(ui_element.parent, field, ui_element.attributes);
+			
+			break;
+			
+		//redesign this horrible shit
+		case E_RANGE:
+			var range = document.createElement('div');
+			range.id = ui_element.id + "_range";
+			range.className = "ui_range";
+			range.style.flexDirection = "column";
+			try_insert_web_element(ui_element.parent, range, ui_element.attributes);
+				
+			var output = document.createElement('output')
+			output.value = ui_element.attributes.value;
+			output.id = ui_element.id;
+			output.className = "ui_range_output";
+			try_insert_web_element(range.id, output);
+			
+			var slider = document.createElement('input');
+			slider.id = ui_element.id + "_slider";
+			slider.className = "ui_range_output";
+			slider.type = "range";
+			slider.value = ui_element.attributes.value;
+			slider.min = ui_element.attributes.min;
+			slider.max = ui_element.attributes.max;
+			slider.setAttribute("oninput", "this.previousElementSibling.value = this.value");
+			//slider.setAttribute(is_touch ? "ontouchend" : "onmouseup", "send_range(this.id, this.value)");
+			slider.setAttribute(is_touch ? "ontouchstart" : "onmousedown", "this.oldval = this.value");
+			slider.setAttribute(is_touch ? "ontouchend" : "onmouseup", "try {send_range(previousElementSibling.id, this.value)} finally {this.blur(); this.previousElementSibling.value = this.value = this.oldval}");
+			try_insert_web_element(range.id, slider);
+			
+			break;
+			
+		case GET_TIME:
+			send_time(ui_element.id);
+			break;
+			
+			
+		default:
+			if (!ui_element.type)
+				set_generic_web_attributes(get_web_element(ui_element.id), ui_element.attributes);
+			else
+				console.error("Unknown type or event", ui_element);
+			break;
+		}
+	});
+};
+
+function escape(str)
+{
+	return str.replace(/:/g, "\\:"); //better browser compatiblity
+}
+
+function unescape(str)
+{
+	return str.replace(/\\:/g, ":").replace(/\n/g, "<br>");
+}
+
+function send_button(id) {
+	websock.send(id + ":");
+}
+
+function send_field(id, value) {
+	websock.send(id + ":" + escape(value) + ":");
+}
+
+function update_range(id, out)
+{
+	out.value = value;
+}
+
+function send_range(id, value) {
+	websock.send(id + ":" + value + ":");
+}
+
+function send_time(id) {
+	var d = new Date();
+	var unix_utc_timestamp = Math.round((d.getTime()-(d.getTimezoneOffset()*60000)) / 1000);
+	websock.send(id + ":" + unix_utc_timestamp + ":");
+}
+
+function no_connection()
+{
+	var connection = get_web_element("connection_value");
+	connection.innerHTML = "disconnected"
+	connection.style.color = "red";
+}
+
+function connected()
+{
+	var connection = get_web_element("connection_value");
+	connection.innerHTML = "connected"
+	connection.style.color = "lightgreen";
+}
+
+function main()
+{
+	websock = new WebSocket("ws://" + window.location.hostname + "/ws");
+	
+	websock.onopen = function(evt) {
+		console.log("websock open");
+		connected();
+	};
+
+	websock.onclose = function(evt) {
+		console.log("websock close");
+		no_connection();
+	};
+
+	websock.onerror = function(evt) {
+		console.log(evt);
+		no_connection();
+	};
+
+	websock.onmessage = function(evt) {
+		parse_messages(evt.data);
+	}
+}
+
+function offline_test()
+{
+	//websock = new WebSocket("ws://" + window.location.hostname + "/ws");
+	//var messages = "type:2:id:_dppoppam:log:something here:parent:main:text:Лог змін статусу:type:7:type:3:id:_dppoppae:parent:_dppoppam:wrap:true:text:9/1/2004 (19\\:25\\:52)\\: Статус зарядки;"
+	//var messages = "type:" + E_BOX + ":id:0:parent:main:text:Status log:type:" + E_TEXT + ":id:1:parent:0:wrap:true:text:03/22 08\\:51\\:06 WARNING\\:.....mailslot_create\\: setsockopt(MCAST_ADD) failed - EDC8116I Address not available.\n03/22 08\\:51\\:06 INFO   \\:....mailbox_register\\: mailbox allocated for rsvp-udp\n03/22 08\\:51\\:06 TRACE  \\:..entity_initialize\\: interface 129.1.1.1, entity for rsvp allocated and initialized\n03/22 08\\:51\\:06 INFO   \\:.....mailslot_create\\: creating mailslot for RSVP\n03/22 08\\:51\\:06 INFO   \\:....mailbox_register\\: mailbox allocated for rsvp\n03/22 08\\:51\\:06 INFO   \\:.....mailslot_create\\: creating mailslot for RSVP via UDP\n03/22 08\\:51\\:06 WARNING\\:.....mailslot_create\\: setsockopt(MCAST_ADD) failed - EDC8116I Address not available.\n03/22 08\\:51\\:06 INFO   \\:....mailbox_register\\: mailbox allocated for rsvp-udp\n03/22 08\\:51\\:06 TRACE  \\:..entity_initialize\\: interface 9.37.65.139, entity for rsvp allocated and initialized\n03/22 08\\:51\\:06 INFO   \\:.....mailslot_create\\: creating mailslot for RSVP\n03/22 08\\:51\\:06 INFO   \\:....mailbox_register\\: mailbox allocated for rsvp\n03/22 08\\:51\\:06 INFO   \\:.....mailslot_create\\: creating mailslot for RSVP via UDP\n03/22 08\\:51\\:06 WARNING\\:.....mailslot_create\\: setsockopt(MCAST_ADD) failed - EDC8116I Address not available.\n03/22 08\\:51\\:06 INFO   \\:....mailbox_register\\: mailbox allocated for rsvp-udp\n03/22 08\\:51\\:06 TRACE  \\:..entity_initialize\\: interface 9.67.100.1, entity for rsvp allocated and initialized\n03/22 08\\:51\\:06 INFO   \\:.....mailslot_create\\: creating mailslot for RSVP\n03/22 08\\:51\\:06 INFO   \\:....mailbox_register\\: mailbox allocated for rsvp\n03/22 08\\:51\\:06 INFO   \\:.....mailslot_create\\: creating mailslot for RSVP via UDP\n03/22 08\\:51\\:06 WARNING\\:.....mailslot_create\\: setsockopt(MCAST_ADD) failed - EDC8116I Address not available.\n03/22 08\\:51\\:06 INFO   \\:....mailbox_register\\: mailbox allocated for rsvp-udp\n03/22 08\\:51\\:06 TRACE  \\:..entity_initialize\\: interface 9.67.101.1, entity for rsvp allocated and initialized\n03/22 08\\:51\\:06 INFO   \\:.....mailslot_create\\: creating mailslot for RSVP\n03/22 08\\:51\\:06 INFO   \\:....mailbox_register\\: mailbox allocated for rsvp\n03/22 08\\:51\\:06 INFO   \\:.....mailslot_create\\: creating mailslot for RSVP via UDP\n03/22 08\\:51\\:06 INFO   \\:....mailbox_register\\: mailbox allocated for rsvp-udp\n03/22 08\\:51\\:06 TRACE  \\:..entity_initialize\\: interface 9.67.116.98, entity for rsvp allocated and initialized\n03/22 08\\:51\\:06 INFO   \\:.....mailslot_create\\: creating mailslot for RSVP\n03/22 08\\:51\\:06 INFO   \\:....mailbox_register\\: mailbox allocated for rsvp\n03/22 08\\:51\\:06 INFO   \\:.....mailslot_create\\: creating mailslot for RSVP via UDP\n03/22 08\\:51\\:06 INFO   \\:....mailbox_register\\: mailbox allocated for rsvp-udp\n03/22 08\\:51\\:06 TRACE  \\:..entity_initialize\\: interface 9.67.117.98, entity for rsvp allocated and";
+	//var messages = "type:1:id:_dppopmfm:parent:main:panel:nav:selected:true:dir:h:wrap:true:text:Home:type:1:id:_dppopmfe:parent:main:panel:nav:dir:h:wrap:true:text:Options:type:1:id:_dppopmem:parent:main:panel:nav:dir:h:wrap:true:text:Timers:type:2:id:_dppoplie:parent:_dppopmfm:dir:h:text:Charger status:type:3:id:_dppoplhm:parent:_dppoplie:text:Pistol not inserted:type:2:id:_dppopjje:parent:_dppopmfm:dir:h:text:Time and kWt for session:type:3:id:_dppopjim:parent:_dppopjje:text:00\\:00 - 0.00 kWt:type:2:id:_dppopjla:parent:_dppopmfm:dir:h:text:Voltage, current and kWt consumption:type:3:id:_dppopjki:parent:_dppopjla:text:0.00V  0.00A  0.00kWt:type:2:id:_dppopjie:parent:_dppopmfm:fill:true:dir:h:text:Current regulator:type:6:id:_dppopjhi:parent:_dppopjie:min:6:max:48:value:0:type:2:id:_dppopjgm:parent:_dppopmfm:dir:h:text:Ground check:type:4:id:_dppopjge:parent:_dppopjgm:backcolor:green:text:&#10003;:type:2:id:_dppopjfi:parent:_dppopmfm:dir:h:text:Adaptive mode:type:4:id:_dppopjfa:parent:_dppopjfi:backcolor:red:text:&#10008;:type:2:id:_dppopjee:parent:_dppopmfm:fill:true:dir:h:text:Limit kWt for session:type:4:id:_dppopjdm:parent:_dppopjee:w:5:backcolor:red:text:&#10008;:type:6:id:_dppopjda:parent:_dppopjee:min:1:max:100:value:31:type:2:id:_dppopjce:parent:_dppopmfm:fill:true:dir:h:text:Limit charge time by hours:type:4:id:_dppopjbm:parent:_dppopjce:w:5:backcolor:red:text:&#10008;:type:6:id:_dppopjba:parent:_dppopjce:min:1:max:24:value:23:type:2:id:_dppopini:parent:_dppopmfe:fill:true:h:content:dir:h:text:Display brightness regulator:type:6:id:_dppopimm:parent:_dppopini:min:0:max:100:value:21:type:2:id:_dppopjae:parent:_dppopmfe:fill:true:dir:h:text:Time to turn off the display in minutes:type:4:id:_dppopipm:parent:_dppopjae:w:5:backcolor:red:text:&#10008;:type:6:id:_dppopipa:parent:_dppopjae:min:1:max:60:value:26:type:2:id:_dppopmea:parent:_dppopmfe:dir:h:align:up:text:Setup date and time:type:2:id:_dppopmci:parent:_dppopmea:type:3:id:_dppopmba:parent:_dppopmci:text:Year:type:5:id:_dppoplne:parent:_dppopmci:value:1970:type:3:id:_dppoplpi:parent:_dppopmci:text:Hours:type:5:id:_dppoplla:parent:_dppopmci:value:0:type:2:id:_dppopmda:parent:_dppopmea:type:3:id:_dppopmbi:parent:_dppopmda:text:Month:type:5:id:_dppoploa:parent:_dppopmda:value:1:type:3:id:_dppopmaa:parent:_dppopmda:text:Minutes:type:5:id:_dppopllm:parent:_dppopmda:value:57:type:2:id:_dppopmdi:parent:_dppopmea:type:3:id:_dppopmca:parent:_dppopmdi:text:Day:type:5:id:_dppoplom:parent:_dppopmdi:value:1:type:3:id:_dppopmai:parent:_dppopmdi:text:Seconds:type:5:id:_dppoplmi:parent:_dppopmdi:value:18:type:2:id:_dppoplki:parent:_dppopmfe:dir:v:h:content:text:Select language:type:4:id:_dppoplja:parent:_dppoplki:backcolor:#666:text:Ð£ÐºÑÐ°ÑÐ½ÑÑÐºÐ°:type:4:id:_dppoplji:parent:_dppoplki:backcolor:#666:text:Ð ÑÑÑÐºÐ¸Ð¹:type:4:id:_dppoplka:parent:_dppoplki:backcolor:green:text:English:type:2:id:_dppopioi:parent:_dppopmem:dir:h:text:Charge by schedule:type:4:id:_dppopioa:parent:_dppopioi:backcolor:green:text:&#10003;:type:2:id:_dppoplha:parent:_dppopmem:dir:h:text:Weekly sÑhedule:type:2:id:_dppoplfa:parent:_dppoplha:type:3:id:_dppoplda:parent:_dppoplfa:text:Days of the week:type:2:id:_dppoplfi:parent:_dppoplha:type:3:id:_dppopldi:parent:_dppoplfi:text:Start charging:type:2:id:_dppoplga:parent:_dppoplha:type:3:id:_dppoplea:parent:_dppoplga:text:Stop charging:type:2:id:_dppoplgi:parent:_dppoplha:type:3:id:_dppoplei:parent:_dppoplgi:text:Enable:type:3:id:_dppopkpi:parent:_dppoplfa:text:Monday:type:5:id:_dppopkii:parent:_dppoplfi:value:23\\:00:type:5:id:_dppopkbi:parent:_dppoplga:value:08\\:00:type:4:id:_dppopjme:parent:_dppoplgi:backcolor:red:text:&#10008;:type:3:id:_dppoplaa:parent:_dppoplfa:text:Tuesday:type:5:id:_dppopkji:parent:_dppoplfi:value:23\\:00:type:5:id:_dppopkci:parent:_dppoplga:value:08\\:00:type:4:id:_dppopjna:parent:_dppoplgi:backcolor:red:text:&#10008;:type:3:id:_dppoplai:parent:_dppoplfa:text:Wednesday:type:5:id:_dppopkki:parent:_dppoplfi:value:23\\:00:type:5:id:_dppopkdi:parent:_dppoplga:value:08\\:00:type:4:id:_dppopjnm:parent:_dppoplgi:backcolor:red:text:&#10008;:type:3:id:_dppoplba:parent:_dppoplfa:text:Thursday:type:5:id:_dppopkli:parent:_dppoplfi:value:23\\:00:type:5:id:_dppopkei:parent:_dppoplga:value:08\\:00:type:4:id:_dppopjoi:parent:_dppoplgi:backcolor:red:text:&#10008;:type:3:id:_dppoplbi:parent:_dppoplfa:text:Friday:type:5:id:_dppopkmi:parent:_dppoplfi:value:23\\:00:type:5:id:_dppopkfi:parent:_dppoplga:value:08\\:00:type:4:id:_dppopjpe:parent:_dppoplgi:backcolor:red:text:&#10008;:type:3:id:_dppoplca:parent:_dppoplfa:text:Saturday:type:5:id:_dppopkni:parent:_dppoplfi:value:23\\:00:type:5:id:_dppopkgi:parent:_dppoplga:value:08\\:00:type:4:id:_dppopkaa:parent:_dppoplgi:backcolor:red:text:&#10008;:type:3:id:_dppoplci:parent:_dppoplfa:text:Sunday:type:5:id:_dppopkoi:parent:_dppoplfi:value:23\\:00:type:5:id:_dppopkhi:parent:_dppoplga:value:08\\:00:type:4:id:_dppopkam:parent:_dppoplgi:backcolor:red:text:&#10008;:";
+	//var messages = "type:1:id:_dppopjpi:parent:main:panel:nav:selected:true:dir:h:wrap:true:text:Home:type:1:id:_dppopjpa:parent:main:panel:nav:dir:h:wrap:true:text:Options:type:1:id:_dppopjoi:parent:main:panel:nav:dir:h:wrap:true:text:Timers:type:2:id:_dppopjce:parent:_dppopjpi:dir:h:text:Charger status:type:3:id:_dppopjbm:parent:_dppopjce:text:Pistol not inserted:type:2:id:_dppophde:parent:_dppopjpi:dir:h:text:Time and kWt for session:type:3:id:_dppophcm:parent:_dppophde:text:00\\:00 - 0.00 kWt:type:2:id:_dppophfa:parent:_dppopjpi:dir:h:text:Voltage, current and kWt consumption:type:3:id:_dppophei:parent:_dppophfa:text:0.00V  0.00A  0.00kWt:type:2:id:_dppophce:parent:_dppopjpi:fill:true:dir:h:text:Current regulator:type:6:id:_dppophbi:parent:_dppophce:min:6:max:48:value:37:type:2:id:_dppopham:parent:_dppopjpi:dir:h:text:Ground check:type:4:id:_dppophae:parent:_dppopham:backcolor:green:text:&#10003;:type:2:id:_dppopgpi:parent:_dppopjpi:dir:h:text:Adaptive mode:type:4:id:_dppopgpa:parent:_dppopgpi:backcolor:green:text:&#10003;:type:2:id:_dppopgoe:parent:_dppopjpi:w:40:dir:h:text:Limit kWt for session:type:4:id:_dppopgnm:parent:_dppopgoe:backcolor:green:text:&#10003;:type:6:id:_dppopgna:parent:_dppopgoe:min:1:max:100:value:69:type:2:id:_dppopgmi:parent:_dppopjpi:dir:h:text:Charge by schedule:type:4:id:_dppopgma:parent:_dppopgmi:backcolor:red:text:&#10008;:type:2:id:_dppopgli:parent:_dppopjpa:dir:h:w:content:text:Display brightness regulator:type:6:id:_dppopgkm:parent:_dppopgli:min:0:max:100:value:60:type:2:id:_dppopjoa:parent:_dppopjpa:dir:h:align:up:text:Setup date and time:type:2:id:_dppopjmi:parent:_dppopjoa:type:3:id:_dppopjla:parent:_dppopjmi:text:Year:type:5:id:_dppopjhe:parent:_dppopjmi:value:1970:type:3:id:_dppopjji:parent:_dppopjmi:text:Hours:type:5:id:_dppopjfa:parent:_dppopjmi:value:0:type:2:id:_dppopjna:parent:_dppopjoa:type:3:id:_dppopjli:parent:_dppopjna:text:Month:type:5:id:_dppopjia:parent:_dppopjna:value:1:type:3:id:_dppopjka:parent:_dppopjna:text:Minutes:type:5:id:_dppopjfm:parent:_dppopjna:value:23:type:2:id:_dppopjni:parent:_dppopjoa:type:3:id:_dppopjma:parent:_dppopjni:text:Day:type:5:id:_dppopjim:parent:_dppopjni:value:1:type:3:id:_dppopjki:parent:_dppopjni:text:Seconds:type:5:id:_dppopjgi:parent:_dppopjni:value:38:type:2:id:_dppopjei:parent:_dppopjpa:dir:v:h:content:text:Select language:type:4:id:_dppopjda:parent:_dppopjei:backcolor:#666:text:Ð£ÐºÑÐ°ÑÐ½ÑÑÐºÐ°:type:4:id:_dppopjdi:parent:_dppopjei:backcolor:#666:text:Ð ÑÑÑÐºÐ¸Ð¹:type:4:id:_dppopjea:parent:_dppopjei:backcolor:green:text:English:type:2:id:_dppopjba:parent:_dppopjoi:dir:h:text:Weekly sÑhedule:type:2:id:_dppopipa:parent:_dppopjba:type:3:id:_dppopina:parent:_dppopipa:text:Days of the week:type:2:id:_dppopipi:parent:_dppopjba:type:3:id:_dppopini:parent:_dppopipi:text:Start charging:type:2:id:_dppopjaa:parent:_dppopjba:type:3:id:_dppopioa:parent:_dppopjaa:text:Stop charging:type:2:id:_dppopjai:parent:_dppopjba:type:3:id:_dppopioi:parent:_dppopjai:text:Enable:type:3:id:_dppopiji:parent:_dppopipa:text:Monday:type:5:id:_dppopici:parent:_dppopipi:value:23\\:00:type:5:id:_dppophli:parent:_dppopjaa:value:08\\:00:type:4:id:_dppophge:parent:_dppopjai:backcolor:red:text:&#10008;:type:3:id:_dppopika:parent:_dppopipa:text:Tuesday:type:5:id:_dppopidi:parent:_dppopipi:value:23\\:00:type:5:id:_dppophmi:parent:_dppopjaa:value:08\\:00:type:4:id:_dppophha:parent:_dppopjai:backcolor:red:text:&#10008;:type:3:id:_dppopiki:parent:_dppopipa:text:Wednesday:type:5:id:_dppopiei:parent:_dppopipi:value:23\\:00:type:5:id:_dppophni:parent:_dppopjaa:value:08\\:00:type:4:id:_dppophhm:parent:_dppopjai:backcolor:red:text:&#10008;:type:3:id:_dppopila:parent:_dppopipa:text:Thursday:type:5:id:_dppopifi:parent:_dppopipi:value:23\\:00:type:5:id:_dppophoi:parent:_dppopjaa:value:08\\:00:type:4:id:_dppophii:parent:_dppopjai:backcolor:red:text:&#10008;:type:3:id:_dppopili:parent:_dppopipa:text:Friday:type:5:id:_dppopigi:parent:_dppopipi:value:23\\:00:type:5:id:_dppophpi:parent:_dppopjaa:value:08\\:00:type:4:id:_dppophje:parent:_dppopjai:backcolor:red:text:&#10008;:type:3:id:_dppopima:parent:_dppopipa:text:Saturday:type:5:id:_dppopihi:parent:_dppopipi:value:23\\:00:type:5:id:_dppopiai:parent:_dppopjaa:value:08\\:00:type:4:id:_dppophka:parent:_dppopjai:backcolor:red:text:&#10008;:type:3:id:_dppopimi:parent:_dppopipa:text:Sunday:type:5:id:_dppopiii:parent:_dppopipi:value:23\\:00:type:5:id:_dppopibi:parent:_dppopjaa:value:08\\:00:type:4:id:_dppophkm:parent:_dppopjai:backcolor:red:text:&#10008;:";
+	//var messages = "type:1:id:_dppophgm:parent:main:panel:nav:selected:true:dir:h:wrap:true:text:Головна:type:6:id:_dppopeie:parent:_dppophgm:min:6:max:48:value:6:id:_dppopeie:value:33:id:_dppophgm:text:heoolo:"
+	//var messages = "type:1:id:_dppophgm:parent:main:panel:nav:selected:true:dir:h:wrap:true:text:Головна:type:1:id:_dppophge:parent:main:panel:nav:dir:h:wrap:true:text:Настройки:type:3:id:_dppopema:parent:_dppophgm:dir:h:text:Статус зарядки:type:4:id:_dppopeli:parent:_dppopema:text:Пістолет не вставлено:type:3:id:_dppopela:parent:_dppophgm:dir:h:text:Час та кВт за сесію:type:4:id:_dppopeki:parent:_dppopela:text:00\\:00 - 0.00 кВт:type:3:id:_dppopeka:parent:_dppophgm:dir:h:text:Напруга та струм сроживання:type:4:id:_dppopeji:parent:_dppopeka:text:0.00 V  0.00 A:type:3:id:_dppopeja:parent:_dppophgm:dir:h:text:Регулювання струму:type:8:id:_dppopeie:parent:_dppopeja:min:6:max:48:value:6:id:_dppopeie:value:22:type:3:id:_dppopehm:parent:_dppophgm:dir:h:text:Перевірка заземлення:type:5:id:_dppopeha:parent:_dppopehm:backcolor:red:text:&#10008;:type:3:id:_dppopegi:parent:_dppophgm:dir:h:text:Заряджати по розкладу:type:5:id:_dppopefm:parent:_dppopegi:backcolor:red:text:&#10008;:type:3:id:_dppopghe:parent:_dppophge:dir:h:text:Тижневий розклад:type:3:id:_dppopgfe:parent:_dppopghe:type:4:id:_dppopgde:parent:_dppopgfe:text:Дні тижня:type:3:id:_dppopgfm:parent:_dppopghe:type:4:id:_dppopgdm:parent:_dppopgfm:text:Старт зарядки:type:3:id:_dppopgge:parent:_dppopghe:type:4:id:_dppopgee:parent:_dppopgge:text:Стоп зарядки:type:3:id:_dppopggm:parent:_dppopghe:type:4:id:_dppopgem:parent:_dppopggm:text:Включити:type:4:id:_dppopfpm:parent:_dppopgfe:text:Понеділок:type:7:id:_dppopfim:parent:_dppopgfm:value:23\\:00:type:7:id:_dppopfbm:parent:_dppopgge:value:08\\:00:type:5:id:_dppopemi:parent:_dppopggm:backcolor:red:text:&#10008;:type:4:id:_dppopgae:parent:_dppopgfe:text:Вівторок:type:7:id:_dppopfjm:parent:_dppopgfm:value:23\\:00:type:7:id:_dppopfcm:parent:_dppopgge:value:08\\:00:type:5:id:_dppopene:parent:_dppopggm:backcolor:red:text:&#10008;:type:4:id:_dppopgam:parent:_dppopgfe:text:Середа:type:7:id:_dppopfkm:parent:_dppopgfm:value:23\\:00:type:7:id:_dppopfdm:parent:_dppopgge:value:08\\:00:type:5:id:_dppopeoa:parent:_dppopggm:backcolor:green:text:&#10003;:type:4:id:_dppopgbe:parent:_dppopgfe:text:Четверг:type:7:id:_dppopflm:parent:_dppopgfm:value:23\\:00:type:7:id:_dppopfem:parent:_dppopgge:value:08\\:00:type:5:id:_dppopeom:parent:_dppopggm:backcolor:red:text:&#10008;:type:4:id:_dppopgbm:parent:_dppopgfe:text:П'ятниця:type:7:id:_dppopfmm:parent:_dppopgfm:value:23\\:00:type:7:id:_dppopffm:parent:_dppopgge:value:08\\:00:type:5:id:_dppopepi:parent:_dppopggm:backcolor:red:text:&#10008;:type:4:id:_dppopgce:parent:_dppopgfe:text:Субота:type:7:id:_dppopfnm:parent:_dppopgfm:value:23\\:00:type:7:id:_dppopfgm:parent:_dppopgge:value:08\\:00:type:5:id:_dppopfae:parent:_dppopggm:backcolor:green:text:&#10003;:type:4:id:_dppopgcm:parent:_dppopgfe:text:Неділя:type:7:id:_dppopfom:parent:_dppopgfm:value:23\\:00:type:7:id:_dppopfhm:parent:_dppopgge:value:08\\:00:type:5:id:_dppopfba:parent:_dppopggm:backcolor:red:text:&#10008;:type:3:id:_dppophfm:parent:_dppophge:dir:h:align:up:text:Встановити дату та час:type:3:id:_dppophee:parent:_dppophfm:type:4:id:_dppophcm:parent:_dppophee:text:Рік:type:7:id:_dppopgni:parent:_dppophee:value:1970:type:4:id:_dppophbe:parent:_dppophee:text:Години:type:7:id:_dppopgjm:parent:_dppophee:value:2:type:3:id:_dppophem:parent:_dppophfm:type:4:id:_dppophde:parent:_dppophem:text:Місяць:type:7:id:_dppopgom:parent:_dppophem:value:1:type:4:id:_dppophbm:parent:_dppophem:text:Хвилини:type:7:id:_dppopgla:parent:_dppophem:value:42:type:3:id:_dppophfe:parent:_dppophfm:type:4:id:_dppophdm:parent:_dppophfe:text:День:type:7:id:_dppophaa:parent:_dppophfe:value:1:type:4:id:_dppophce:parent:_dppophfe:text:Секунди:type:7:id:_dppopgme:parent:_dppophfe:value:35:type:3:id:_dppopgje:parent:_dppophge:dir:v:h:content:text:Вибір мови:type:5:id:_dppopghm:parent:_dppopgje:backcolor:green:text:Українська:type:5:id:_dppopgie:parent:_dppopgje:backcolor:#666:text:Русский:type:5:id:_dppopgim:parent:_dppopgje:backcolor:#666:text:English:"
+	//var messages =
+		//"type:1:id:_1:parent:main:panel:nav:selected:true:dir:h:wrap:true:text:Home:" +
+		//"type:1:id:_2:parent:main:panel:nav:dir:h:wrap:true:text:Options:" + 
+		//"type:2:id:_3:parent:_2:fill:true:text:Network settings:" +
+		//"type:1:id:_4:parent:_3:panel:net:selected:true:dir:h:wrap:true:text:Acess Point:" +
+				//"type:2:id:_10:parent:_4:dir:v:w:content:" +
+					//"type:3:id:_11:parent:_10:align:right:text:ssid\\::" +
+					//"type:3:id:_7:parent:_10:align:right:text:ip\\::" +
+					//"type:3:id:_31:parent:_10:align:right:text:gateway\\::" +
+					//"type:3:id:_34:parent:_10:align:right:text:subnet\\::" +
+					
+				//"type:2:id:_41:parent:_4:dir:v:" +
+					//"type:5:id:_12:parent:_41:" +
+					//"type:5:id:_8:parent:_41:" +
+					//"type:5:id:_32:parent:_41:" +	
+					//"type:5:id:_35:parent:_41:" +
+					
+		//"type:1:id:_5:parent:_3:panel:net:wrap:true:dir:h:text:Station:" +
+				//"type:2:id:_20:parent:_5:dir:v:w:content:" +
+					//"type:3:id:_21:parent:_20:align:right:text:enabled\\::" +
+					//"type:3:id:_15:parent:_20:align:right:text:ssid\\::" +
+					//"type:3:id:_17:parent:_20:align:right:text:password\\::" +
+				
+				//"type:2:id:_51:parent:_5:dir:v:" +
+					//"type:4:id:_22:parent:_51:backcolor:green:text:^:" +
+					//"type:5:id:_16:parent:_51:" +
+					//"type:5:id:_18:parent:_51:" +
+				
+		//"type:4:id:_6:parent:_3:backcolor:red:text:Save changes:";
+	//var messages =
+		//"type:1:id:_1:parent:main:panel:nav:selected:true:dir:h:wrap:true:text:Home:" +
+		//"type:1:id:_2:parent:main:panel:nav:dir:h:wrap:true:text:Options:" +
+		//"type:2:id:_3:parent:_2:fill:true:dir:v:text:Network settings:" +
+			//"type:2:id:_ss:parent:_3:dir:h:" +
+				//"type:4:id:_s:parent:_ss:backcolor:red:text:Save changes:" +
+				//"type:4:id:_ee:parent:_ss:backcolor:red:text:Save changes:" +
+			//"type:2:id:_some:parent:_3:dir:h:" +
+			//"type:2:id:_4:parent:_some:selected:true:dir:h:w:fill:" +
+					//"type:2:id:_10:parent:_4:dir:v:w:content:" +
+						//"type:3:id:_11:parent:_10:align:right:text:ssid\\::" +
+						//"type:3:id:_7:parent:_10:align:right:text:ip\\::" +
+						//"type:3:id:_31:parent:_10:align:right:text:gateway\\::" +
+						//"type:3:id:_34:parent:_10:align:right:text:subnet\\::" +
+						
+					//"type:2:id:_41:parent:_4:dir:v:" +
+						//"type:5:id:_12:parent:_41:" +
+						//"type:5:id:_8:parent:_41:" +
+						//"type:5:id:_32:parent:_41:" +	
+						//"type:5:id:_35:parent:_41:" +
+						
+			//"type:2:id:_5:parent:_some:dir:h:w:fill:" +
+					//"type:2:id:_20:parent:_5:dir:v:w:content:" +
+						//"type:3:id:_21:parent:_20:align:right:text:enabled\\::" +
+						//"type:3:id:_15:parent:_20:align:right:text:ssid\\::" +
+						//"type:3:id:_17:parent:_20:align:right:text:password\\::" +
+						//"type:3:id:_3233:parent:_20:align:right:text:password\\::" +
+					
+					//"type:2:id:_51:parent:_5:dir:v:" +
+						//"type:4:id:_22:parent:_51:backcolor:green:text:^:" +
+						//"type:5:id:_16:parent:_51:" +
+						//"type:5:id:_18:parent:_51:" + 
+						//"type:5:id:_1833:parent:_51:";
+	//var messages = "type:1:id:_dpppaffm:parent:main:panel:nav:selected:true:dir:h:wrap:true:text:Home:type:1:id:_dpppaffe:parent:main:panel:nav:dir:h:wrap:true:text:Options:type:1:id:_dpppafem:parent:main:panel:nav:dir:h:wrap:true:text:Timers:type:1:id:_dpppafee:parent:main:panel:nav:tab_align:right:dir:h:wrap:true:text:Logs:type:2:id:_dpppaeaa:parent:_dpppaffm:fill:true:dir:h:text:Enable charger:type:4:id:_dpppadpi:parent:_dpppaeaa:backcolor:red:disabled:true:text:&#10008;:type:2:id:_dpppadom:parent:_dpppaffm:dir:h:text:Charger status:type:3:id:_dpppadoe:parent:_dpppadom:text:Current protection blocking (above 50A):type:2:id:_dpppabpm:parent:_dpppaffm:dir:h:text:Time and kWt for session:type:3:id:_dpppabpe:parent:_dpppabpm:text:00\\:00 - 0.00 kWt:type:2:id:_dpppacbi:parent:_dpppaffm:dir:h:text:Voltage, current and kWt consumption:type:3:id:_dpppacba:parent:_dpppacbi:text:0.00V  0.00A  0.00kWt:type:2:id:_dpppaboi:parent:_dpppaffm:fill:true:dir:h:text:Current regulator:type:6:id:_dpppaboa:parent:_dpppaboi:min:6:max:48:value:26:type:2:id:_dpppabne:parent:_dpppaffm:dir:h:text:Ground check:type:4:id:_dpppabmm:parent:_dpppabne:backcolor:green:text:&#10003;:type:2:id:_dpppabma:parent:_dpppaffm:dir:h:text:Adaptive mode:type:4:id:_dpppabli:parent:_dpppabma:backcolor:green:text:&#10003;:type:2:id:_dpppabki:parent:_dpppaffm:fill:true:dir:h:text:Limit kWt for session:type:4:id:_dpppabka:parent:_dpppabki:w:5:backcolor:green:text:&#10003;:type:6:id:_dpppabji:parent:_dpppabki:min:1:max:100:value:73:type:2:id:_dpppabii:parent:_dpppaffm:fill:true:dir:h:text:Limit charge time by hours:type:4:id:_dpppabia:parent:_dpppabii:w:5:backcolor:green:text:&#10003;:type:6:id:_dpppabhi:parent:_dpppabii:min:1:max:24:value:10:type:2:id:_dpppabdm:parent:_dpppaffe:fill:true:h:content:dir:h:text:Display brightness regulator:type:6:id:_dpppabde:parent:_dpppabdm:min:0:max:100:value:73:type:2:id:_dpppabgi:parent:_dpppaffe:fill:true:dir:h:text:Time to turn off the display in minutes:type:4:id:_dpppabga:parent:_dpppabgi:w:5:backcolor:green:text:&#10003;:type:6:id:_dpppabfi:parent:_dpppabgi:min:1:max:60:value:28:type:2:id:_dpppafca:parent:_dpppaffe:dir:h:align:up:text:Setup date and time:type:2:id:_dpppafai:parent:_dpppafca:type:3:id:_dpppaepa:parent:_dpppafai:text:Year:type:5:id:_dpppaele:parent:_dpppafai:value:1970:type:3:id:_dpppaeni:parent:_dpppafai:text:Hours:type:5:id:_dpppaeja:parent:_dpppafai:value:0:type:2:id:_dpppafba:parent:_dpppafca:type:3:id:_dpppaepi:parent:_dpppafba:text:Month:type:5:id:_dpppaema:parent:_dpppafba:value:1:type:3:id:_dpppaeoa:parent:_dpppafba:text:Minutes:type:5:id:_dpppaejm:parent:_dpppafba:value:3:type:2:id:_dpppafbi:parent:_dpppafca:type:3:id:_dpppafaa:parent:_dpppafbi:text:Day:type:5:id:_dpppaemm:parent:_dpppafbi:value:1:type:3:id:_dpppaeoi:parent:_dpppafbi:text:Seconds:type:5:id:_dpppaeki:parent:_dpppafbi:value:36:type:2:id:_dpppafde:parent:_dpppaffe:dir:h:text:Synchronize time with browser time:type:4:id:_dpppafcm:parent:_dpppafde:backcolor:orange:type:2:id:_dpppaeii:parent:_dpppaffe:dir:v:h:content:text:Select language:type:4:id:_dpppaeha:parent:_dpppaeii:backcolor:#666:text:Українська:type:4:id:_dpppaehi:parent:_dpppaeii:backcolor:#666:text:Русский:type:4:id:_dpppaeia:parent:_dpppaeii:backcolor:green:text:English:type:2:id:_dpppaebe:parent:_dpppaffe:dir:h:text:Factory reset:type:4:id:_dpppaeam:parent:_dpppaebe:backcolor:orange:type:2:id:_dpppabfa:parent:_dpppafem:dir:h:text:Charge by schedule:type:4:id:_dpppabei:parent:_dpppabfa:backcolor:green:text:&#10003;:type:2:id:_dpppadni:parent:_dpppafem:dir:h:text:Weekly sсhedule:type:2:id:_dpppadli:parent:_dpppadni:type:3:id:_dpppadji:parent:_dpppadli:text:Days of the week:type:2:id:_dpppadma:parent:_dpppadni:type:3:id:_dpppadka:parent:_dpppadma:text:Start charging:type:2:id:_dpppadmi:parent:_dpppadni:type:3:id:_dpppadki:parent:_dpppadmi:text:Stop charging:type:2:id:_dpppadna:parent:_dpppadni:type:3:id:_dpppadla:parent:_dpppadna:text:Enable:type:3:id:_dpppadga:parent:_dpppadli:text:Monday:type:5:id:_dpppacpa:parent:_dpppadma:value:23\\:08:type:5:id:_dpppacia:parent:_dpppadmi:value:20\\:20:type:4:id:_dpppaccm:parent:_dpppadna:backcolor:green:text:&#10003;:type:3:id:_dpppadgi:parent:_dpppadli:text:Tuesday:type:5:id:_dpppadaa:parent:_dpppadma:value:23\\:00:type:5:id:_dpppacja:parent:_dpppadmi:value:08\\:00:type:4:id:_dpppacdi:parent:_dpppadna:backcolor:red:text:&#10008;:type:3:id:_dpppadha:parent:_dpppadli:text:Wednesday:type:5:id:_dpppadba:parent:_dpppadma:value:23\\:00:type:5:id:_dpppacka:parent:_dpppadmi:value:08\\:00:type:4:id:_dpppacee:parent:_dpppadna:backcolor:red:text:&#10008;:type:3:id:_dpppadhi:parent:_dpppadli:text:Thursday:type:5:id:_dpppadca:parent:_dpppadma:value:23\\:00:type:5:id:_dpppacla:parent:_dpppadmi:value:08\\:00:type:4:id:_dpppacfa:parent:_dpppadna:backcolor:green:text:&#10003;:type:3:id:_dpppadia:parent:_dpppadli:text:Friday:type:5:id:_dpppadda:parent:_dpppadma:value:23\\:00:type:5:id:_dpppacma:parent:_dpppadmi:value:08\\:00:type:4:id:_dpppacfm:parent:_dpppadna:backcolor:red:text:&#10008;:type:3:id:_dpppadii:parent:_dpppadli:text:Saturday:type:5:id:_dpppadea:parent:_dpppadma:value:23\\:00:type:5:id:_dpppacna:parent:_dpppadmi:value:08\\:00:type:4:id:_dpppacgi:parent:_dpppadna:backcolor:green:text:&#10003;:type:3:id:_dpppadja:parent:_dpppadli:text:Sunday:type:5:id:_dpppadfa:parent:_dpppadma:value:23\\:50:type:5:id:_dpppacoa:parent:_dpppadmi:value:23\\:04:type:4:id:_dpppache:parent:_dpppadna:backcolor:red:text:&#10008;:type:2:id:_dpppaede:parent:_dpppafee:fill:true:text:Status change log:type:3:id:_dpppaecm:parent:_dpppaede:wrap:true:text::type:2:id:_dpppaece:parent:_dpppafee:dir:h:text:Clear log:type:4:id:_dpppaebm:parent:_dpppaece:backcolor:orange:"
+
+	var messages = "T2:Imy:Pmain:tHello!:";
+	var messages =
+		"T1:I_1:Pmain:pnav:it:dh:wt:oHome:" +
+		"T1:I_2:Pmain:pnav:dh:wt:oOptions:";
+
+	parse_messages(messages);
+	//var messages = "type:0:id:_h4:parent:main:text:Electrobox UI:type:1:id:_t0:parent:main:panel:tabs:tab_dir:h:main:true:display:true:text:Головна:type:1:id:_t1:parent:main:panel:tabs:text:Настройки:type:1:id:_t2:parent:main:panel:tabs:dir:h:text:Таймер:type:1:id:_t3:parent:main:panel:tabs:tab_align:right:text:Куча:type:3:id:_hds5:parent:_t2:dir:h:text:Тижневий розклад:type:3:id:_c1:parent:_hds5:dir:v:type:3:id:_c2:parent:_hds5:dir:v:type:3:id:_c3:parent:_hds5:dir:v:type:3:id:_c4:parent:_hds5:dir:v:type:4:id:_c1t0:parent:_c1:text:Дні тижнів:type:4:id:_c1t1:parent:_c1:text:Понеділок:type:4:id:_c1t2:parent:_c1:text:Вівторок:type:4:id:_c1t3:parent:_c1:text:Середа:type:4:id:_c1t4:parent:_c1:text:Четверг:type:4:id:_c1t5:parent:_c1:text:П'ятниця:type:4:id:_c1t6:parent:_c1:text:Суботта:type:4:id:_c1t7:parent:_c1:text:Неділя:type:4:id:_c2t0:parent:_c2:text:Старт зарядки:type:7:id:_c2t1:parent:_c2:type:7:id:_c2t2:parent:_c2:type:7:id:_c2t3:parent:_c2:type:7:id:_c2t4:parent:_c2:type:7:id:_c2t5:parent:_c2:type:7:id:_c2t6:parent:_c2:type:7:id:_c2t7:parent:_c2:type:4:id:_c3t0:parent:_c3:text:Стоп зарядки:type:7:id:_c3t1:parent:_c3:type:7:id:_c3t2:parent:_c3:type:7:id:_c3t3:parent:_c3:type:7:id:_c3t4:parent:_c3:type:7:id:_c3t5:parent:_c3:type:7:id:_c3t6:parent:_c3:type:7:id:_c3t7:parent:_c3:type:5:id:_c4t0:parent:_c4:text:Увімкнути:type:6:id:_c4t1:parent:_c4:type:6:id:_c4t2:parent:_c4:type:6:id:_c4t3:parent:_c4:type:6:id:_c4t4:parent:_c4:type:6:id:_c4t5:parent:_c4:type:6:id:_c4t6:parent:_c4:type:6:id:_c4t7:parent:_c4:type:3:id:_hds:parent:_t1:text:noob:dir:h:type:3:id:_hds2:parent:_hds:dir:h:type:5:id:_g33:parent:_hds2:text:Hello button:type:5:id:_g34:parent:_hds2:text:Hello button:type:3:id:_hds3:parent:_hds:dir:v:type:4:id:_h:parent:_t0:text:Hello world:type:5:id:_g:parent:_t0:text:Hello button:type:8:id:_r1:parent:_t0:dir:v:type:3:id:678:parent:_t1:text:Настройки WIFI:type:3:id:648:parent:678:dir:h:type:4:id:6484:parent:648:text:4343:type:4:id:6484:parent:648:text:43433434344334:type:7:id:64854:parent:648";
+}
+
+	</script>
+
+<body onload="offline_test();">
+	<div id = "main"></div>
+	<div style = "visibility: hidden;">inv</div>
+	<div class = "connection_widget">
+		<div id = "connection_title" style = "background: none">connection:</div>
+		<div id = "connection_value" style = "color: orange;">not established</div></div>
+	</div>
+</body>
