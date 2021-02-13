@@ -1,15 +1,7 @@
 #ifndef UI_NETWORK_GUARD
 #define UI_NETWORK_GUARD
 
-#include "Arduino.h"
-#include <LittleFS.h>
-#include <ESP8266WiFi.h>
-
-#ifdef DEBUG_ESP_PORT
-#define DEBUG_MSG(...) DEBUG_ESP_PORT.printf( __VA_ARGS__ )
-#else
-#define DEBUG_MSG(...)
-#endif
+#include "tools.h"
 
 //#define SCAN_PERIOD 8000
 //extern long unsigned int last_scan_millis;
@@ -30,33 +22,42 @@ namespace ui {
 		extern int avail_networks;
 		extern bool scan;
 		
-		struct settings {
+		struct ap {
 			static bool need_commit;
-			settings &changed();
+			ap &changed();
 			void committed();
-		
-			bool dhcp_enabled;
 			
-			char ap_ssid[80];
-			char ap_pass[80];
-			uint32_t ap_ip;
-			uint32_t ap_gateway;
-			uint32_t ap_subnet;
-				
-			char sta_ssid[80];
-			char sta_pass[80];
-			uint32_t sta_ip;
-			uint32_t sta_gateway;
-			uint32_t sta_subnet;
+			char ssid[80];
+			char pass[80];
+			uint32_t ip;
+			uint32_t gateway;
+			uint32_t subnet;
 			
-			struct settings &defaults();
+			struct ap &defaults();
 			void save();		
 			void load();
 			
-			settings();
-		};
+			ap();
+		} extern ap;
 		
-		extern settings settings;
+		struct sta {
+			static bool need_commit;
+			sta &changed();
+			void committed();
+				
+			bool dhcp;
+			char ssid[80];
+			char pass[80];
+			uint32_t ip;
+			uint32_t gateway;
+			uint32_t subnet;
+			
+			struct sta &defaults();
+			void save();		
+			void load();
+			
+			sta();
+		} extern sta;
 		
 		extern bool passphrase_is_valid(String);
 		extern void connect_sta();

@@ -1,13 +1,7 @@
 #ifndef UI_INTERFACE_HEADER
 #define UI_INTERFACE_HEADER
 
-#ifdef DEBUG_ESP_PORT
-#define DEBUG_MSG(...) DEBUG_ESP_PORT.printf( __VA_ARGS__ )
-#else
-#define DEBUG_MSG(...)
-#endif
-
-#include "Arduino.h"
+#include "tools.h"
 #include "network.h"
 
 //#define private public
@@ -33,7 +27,6 @@ namespace ui {
 	extern hm_t convert_to_hm(int, int);
 	extern String hm_to_str(hm_t);
 
-	
 	//packet declaration
 	struct packet {
 		String buffer;

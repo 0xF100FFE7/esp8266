@@ -1,3 +1,4 @@
+#include "tools.h"
 #include "interface.h"
 
 enum language {
@@ -67,10 +68,11 @@ enum language_item {
 	SYNC_TIME_NOW = 76,
 	SYNC_TIME_ON_CONNECT = 77,
 	ARE_YOU_SURE_RESET = 78,
-	RESET_YES = 79,
-	RESET_NO = 80,
+	ARE_YOU_SURE_CHANGE_AP = 79,
+	YES = 80,
+	NO = 81,
 	
-	LANGUAGE_ITEMS = 81,
+	LANGUAGE_ITEMS = 82,
 	//LANGUAGE_ITEMS = 64,
 };
 
@@ -103,8 +105,8 @@ struct settings {
 	};
 
 	struct day_schedule {
-		int begin = 2300; //23:00
-		int end = 700; //07:00
+		size_t begin = 23 * SECS_PER_HOUR; //23:00
+		size_t end = 7 * SECS_PER_HOUR; //07:00
 		bool enabled = false;
 	};
 

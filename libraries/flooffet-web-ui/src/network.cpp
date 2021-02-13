@@ -8,72 +8,86 @@ namespace ui {
 		int avail_networks = 0;
 		bool scan = false;
 				
-		struct settings &settings::defaults() {
-			(String("ap_generic") /*+ millis()*/).toCharArray(ap_ssid, 80);
-			ap_pass[0] = '\0';
-			ap_ip = IPAddress(7, 7, 7, 7);
-			ap_gateway = IPAddress(7, 7, 7, 7);
-			ap_subnet = IPAddress(255, 255, 255, 0);
-			
-			dhcp_enabled = false;
-			(String("soni2") /*+ millis()*/).toCharArray(sta_ssid, 80);
-			sta_pass[0] = '\0';
-			sta_ip = IPAddress(192, 168, 1, 227);
-			sta_gateway = IPAddress(192, 168, 1, 1);
-			sta_subnet = IPAddress(255, 255, 255, 0);
+		struct ap &ap::defaults() {
+			(String("ap_") + ESP.getChipId() /*+ millis()*/).toCharArray(ssid, 80);
+			pass[0] = '\0';
+			ip = IPAddress(7, 7, 7, 7);
+			gateway = IPAddress(7, 7, 7, 7);
+			subnet = IPAddress(255, 255, 255, 0);
+		}
+		
+		struct sta &sta::defaults() {
+			dhcp = false;
+			ssid[0] = '\0';
+			pass[0] = '\0';
+			ip = IPAddress(192, 168, 1, 227);
+			gateway = IPAddress(192, 168, 1, 1);
+			subnet = IPAddress(255, 255, 255, 0);
 			
 			return *this;
 		}
-			
-		void settings::save()
+		
+		void ap::save()
 		{
-			DEBUG_MSG("Saving network settings...\n");
-			File f = LittleFS.open("/network.bin", "w");
-			if (f) {
-				f.write((uint8_t *)this, sizeof(settings));
-				f.close();
-				
+			if (save_settings("/ap.bin", "acess point", this, sizeof(struct ap)))
 				committed();
-				
-				DEBUG_MSG("\tSave succeed!\n");
-			} else {
-				DEBUG_MSG("\tSave failed!\n");
-			}
-		}
-			
-		void settings::load()
-		{
-			DEBUG_MSG("Loading network settings...\n");
-			File f = LittleFS.open("/network.bin", "r");
-			if (f) {
-				f.read((uint8_t *)this, sizeof(settings));
-				f.close();
-				
-				DEBUG_MSG("\tLoad succeed!\n");
-			} else {
-				DEBUG_MSG("\tLoad failed!\n");
-				defaults();
-			}
 		}
 		
-		struct settings &settings::changed()
+		void ap::load()
 		{
-			settings::need_commit = true;
+			if (!load_settings("/ap.bin", "acess point", this, sizeof(struct ap)))
+				defaults();
+		}
+		
+		struct ap &ap::changed()
+		{
+			ap::need_commit = true;
 			return *this;
 		}
 
-		void settings::committed()
+		void ap::committed()
 		{
-			settings::need_commit = false;
+			ap::need_commit = false;
 		}
 		
-		settings::settings()
+		ap::ap()
 		{
 			defaults();
 		}
 		
-		bool settings::need_commit = false;
-		struct settings settings;
+		bool ap::need_commit = false;
+		struct ap ap;
+		
+		void sta::save()
+		{
+			if (save_settings("/sta.bin", "station", this, sizeof(struct sta)))
+				committed();
+		}
+		
+		void sta::load()
+		{
+			if (!load_settings("/sta.bin", "station", this, sizeof(struct sta)))
+				defaults();
+		}
+		
+		struct sta &sta::changed()
+		{
+			sta::need_commit = true;
+			return *this;
+		}
+
+		void sta::committed()
+		{
+			sta::need_commit = false;
+		}
+		
+		sta::sta()
+		{
+			defaults();
+		}		
+		
+		bool sta::need_commit = false;
+		struct sta sta;
 		
 		bool passphrase_is_valid(String val)
 		{
@@ -88,27 +102,30 @@ namespace ui {
 			sta_status = STA_BEGIN_CONNECTION;
 			/*if (is_valid_mac(mac_addr))
 				wifi_set_macaddr(SOFTAP_IF, &mac_addr[0]);*/
-			if (!settings.dhcp_enabled)
-				WiFi.config(settings.sta_ip, settings.sta_gateway, settings.sta_subnet);
-			WiFi.begin(settings.sta_ssid, settings.sta_pass);
+			if (!sta.dhcp)
+				WiFi.config(sta.ip, sta.gateway, sta.subnet);
+			WiFi.begin(sta.ssid, sta.pass);
 		}
 		
 		void connect_ap()
 		{
-			WiFi.softAPConfig(settings.ap_ip, settings.ap_gateway, settings.ap_subnet);
-			WiFi.softAP(settings.ap_ssid, settings.ap_pass);
+			WiFi.persistent(true);
+			WiFi.softAPConfig(ap.ip, ap.gateway, ap.subnet);
+			WiFi.softAP(ap.ssid, ap.pass);
 			/*if (!is_valid_mac(mac_addr))
 				WiFi.softAPmacAddress(mac_addr);*/
 		}
 		
 		void begin() //bool sta_enabled
 		{
-			settings.load();
+			ap.load();
+			sta.load();
+			
 			//WiFi.persistent(false);
-			WiFi.mode(settings.sta_ssid[0] ? WIFI_AP_STA : WIFI_AP);
+			WiFi.mode(WIFI_AP_STA);
 			//WiFi.mode(WIFI_AP);
 			connect_ap();
-			if (settings.sta_ssid[0])
+			if (sta.ssid[0])
 				connect_sta();
 		};
 		
@@ -133,7 +150,7 @@ namespace ui {
 		
 		String get_station_name(int i)
 		{
-			String probably_incorrect_output = i > 0 ? WiFi.SSID(i) : String(settings.sta_ssid);
+			String probably_incorrect_output = i > 0 ? WiFi.SSID(i) : String(sta.ssid);
 			String correct_output;
 			for (int i = 0; i < probably_incorrect_output.length(); i++)
 			{
@@ -154,7 +171,7 @@ namespace ui {
 		/*String get_connected_station_name()
 		{
 			//return WiFi.SSID();
-			return String(settings.sta_ssid);
+			return String(sta.ssid);
 		}*/
 		
 		/*String get_connected_station_mac()
@@ -167,9 +184,9 @@ namespace ui {
 			if (avail_networks < i || i < 0)
 				return false; //invalid station
 				
-			WiFi.SSID(i).toCharArray(settings.changed().sta_ssid, 80);
-			(passphrase_is_valid(passwd) ? passwd : "").toCharArray(settings.changed().sta_pass, 80);
-			settings.save();
+			WiFi.SSID(i).toCharArray(sta.changed().ssid, 80);
+			(passphrase_is_valid(passwd) ? passwd : "").toCharArray(sta.changed().pass, 80);
+			sta.save();
 			end();
 			DEBUG_MSG("Network settings applied, switching...\n");
 			sta_status = STA_SWITCH;
@@ -177,6 +194,14 @@ namespace ui {
 			//ESP.restart();
 			return true;
 			//connect_sta();
+		}
+		
+		bool disconnect_sta()
+		{
+			sta_status = STA_DISCONNECTED;
+			WiFi.persistent(false);
+			WiFi.disconnect(); //quit ESP sta reconnect limbo
+			WiFi.persistent(true);
 		}
 		
 		/*void disconnect_sta()
@@ -212,7 +237,7 @@ namespace ui {
 				}
 
 				if (attempts > 0) {
-					DEBUG_MSG("Connecting to %s (%i)...\n", settings.sta_ssid, attempts);
+					DEBUG_MSG("Connecting to %s (%i)...\n", sta.ssid, attempts);
 					attempts--;
 				} else {
 					DEBUG_MSG("Can't connect to sta\n");
@@ -226,7 +251,7 @@ namespace ui {
 				static int wait = 5; //delay before switch
 				
 				if (wait > 0) {
-					DEBUG_MSG("Switching to %s in %i...\n", settings.sta_ssid, attempts);
+					DEBUG_MSG("Switching to %s in %i...\n", sta.ssid, wait);
 					wait--;
 					break;
 				} else {
@@ -234,9 +259,9 @@ namespace ui {
 					wait = 5;
 				}
 				
-				if (!settings.dhcp_enabled)
-					WiFi.config(settings.sta_ip, settings.sta_gateway, settings.sta_subnet);
-						WiFi.begin(settings.sta_ssid, settings.sta_pass);
+				if (!sta.dhcp)
+					WiFi.config(sta.ip, sta.gateway, sta.subnet);
+						WiFi.begin(sta.ssid, sta.pass);
 				break;
 				
 			case STA_CONNECTED:

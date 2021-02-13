@@ -10,7 +10,10 @@ extern struct sync_time sync_time;
 extern struct language_selector language_selector;
 extern struct factory_reset factory_reset;
 extern struct network_settings network_settings;
+extern struct ap_settings ap_settings;
 extern struct sta_settings sta_settings;
+extern struct weekly_schedule weekly_schedule;
+extern struct statistics statistics;
 void rebuild_electrobox_ui();
 
 
@@ -44,33 +47,14 @@ struct settings &settings::defaults() {
 
 void settings::save()
 {
-	DEBUG_MSG("Saving electrobox settings...\n");
-	File f = LittleFS.open("/electrobox.bin", "w");
-	if (f) {
-		f.write((uint8_t *)this, sizeof(struct settings));
-		f.close();
-		
+	if (save_settings("/electrobox.bin", "electrobox", this, sizeof(struct settings)))
 		committed();
-		DEBUG_MSG("\tSave succeed!\n");
-	} else {
-		DEBUG_MSG("\tSave failed!\n");
-	}
-	//maybe error here
 }
-			
+		
 void settings::load()
 {
-	DEBUG_MSG("Loading electrobox settings...\n");
-	File f = LittleFS.open("/electrobox.bin", "r");
-	if (f) {
-		f.read((uint8_t *)this, sizeof(struct settings));
-		f.close();
-		
-		DEBUG_MSG("\tLoad succeed!\n");
-	} else {
-		DEBUG_MSG("\tLoad failed!\n");
+	if (!load_settings("/electrobox.bin", "electrobox", this, sizeof(struct settings)))
 		defaults();
-	}
 }
 
 struct settings &settings::changed()
@@ -99,9 +83,9 @@ struct settings settings;
 /*				LANGUAGE SECTION				*/
 //////////////////////////////////////////////////////////////////////////////////
 const char* languages[NUMBER_OF_SUPPORTED_LANGUAGES][LANGUAGE_ITEMS] PROGMEM = {
-	{"Головна", "Налаштування", "Вибір мови", "Українська", "Встановити дату та час", "Рік", "Години", "Місяць", "Хвилини", "День", "Секунди", "Тижневий розклад", "Дні тижня", "Старт зарядки", "Стоп зарядки", "Увімкнути", "Понеділок", "Вівторок", "Середа", "Четвер", "П'ятниця", "Субота", "Неділя", "Статус зарядки", "Пістолет не вставлено", "Триває зарядка", "Автомобіль заряджено", "Перевірте заземлення", "Спрацював захист ПЗВ", "Спрацював захист по напрузі (більше 270V)", "Спрацював захист по току (більше 50А)", "Очікує зарядки по розкладу", "кВт", "Час та кВт за сесію", "Напруга, струм та потужність", "Регулювання струму", "Перевірка заземлення", "Заряджати по розкладу", "Адаптивний режим", "Обмежити кількість кВт за сесію", "Таймери", "Регулювання яскравості дисплею", "Обмежити тривалість заряду в годинах", "Час до вимкнення дисплею в хвилинах", "Статистика", "Лог змін статусу", "Ввімкнути зарядку", "Синхронізувати час з браузерним", "Очистка логу", "Скинути налаштування", "Налаштування мережі", "Зберегти зміни", "Точка доступу", "Станція", "SSID:", "Пароль:", "IP адрес:", "Cтанція ввімкнена:", "Статус підключення:", "Доступні мережі:", "Сканувати мережу", "Підключення відсутнє", "Підключено до: ", "Спроба підключення до: ", "Неможливо підключитися до: ", "Статистика за період", "За минулу(ий)", "За теперішню(ній)", "Годину:", "День:", "Тиждень:", "Місяць:", "Рік:", "За весь час:", "Рахувати з теперешнього моменту", "Споживано за сесію", "Зараз", "При підключенні:", "Ви дійсно хочете скинути налаштування?", "Так", "Ні"},
-	{"Главная", "Настройки", "Выбор языка", "Русский", "Установить дату и время", "Год", "Часы", "Месяц", "Минуты", "День", "Секунды", "Еженедельное расписание", "Дни недели", "Старт заряда", "Стоп зарада", "Включить", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье", "Статус зарядки", "Пистолет не вставлен", "Продолжается зарядка", "Автомобиль заряжен", "Проверьте заземление", "Сработала защита УЗО", "Сработала защита по напряжению (более 270V)", "Сработала защита по току (более 50A)", "Ожидание зарядки по расписанию", "кВт", "Время и кВт за сессию", "Напряжение ток и мощность", "Регулировка тока", "Проверка заземления", "Заряжать по расписанию", "Адаптивний режим", "Ограничить кол-во кВт за сессию", "Таймеры", "Регулировка яркости дисплея", "Ограничить время заряда в часах", "Время до отключения дисплея в минутах", "Статистика", "Лог смен статуса", "Включить зарядку", "Синхронизировать время с браузерным", "Очистить лог", "Сбросить настройки", "Настройки сети", "Сохраниить изменения", "Точка доступа", "Станция", "SSID:", "Пароль:", "IP адрес:", "Станция включена:", "Статус подключения:", "Доступные сети:", "Сканировать сети", "Подключение отсутствует", "Подключено к: ", "Попытка подключения к: ", "Невозможно подключиться к: ", "Статистика за период", "За предыдущий(ую))", "За Текущий(ую)", "Час:", "День:", "Неделю:", "Месяц:", "Год:", "За всё время:", "Считать с текущего момента", "Употреблено за сессию", "Сейчас", "При подключении:", "Вы действительно хотите сбросить настройки?", "Да", "Нет"},
-	{"Home", "Settings", "Select language", "English", "Setup date and time", "Year", "Hours", "Month", "Minutes", "Day", "Seconds", "Weekly sсhedule", "Days of the week", "Start charging", "Stop charging", "Enable", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "Charger status", "Pistol not inserted", "Charging continues", "Vehicle is charged", "Check ground", "RCD protection blocking", "Voltage protection blocking (above 270V)", "Current protection blocking (above 50A)", "Waiting for charging by chedule", "kWt", "Time and kWt for session", "Voltage, current and kWt", "Current regulator", "Ground check", "Charge by schedule", "Adaptive mode", "Limit kWt for session", "Timers", "Display brightness regulator", "Limit charge time by hours", "Time to turn off the display in minutes", "Statistics", "Status change log", "Enable charger", "Synchronize time with browser time", "Clear log", "Factory reset", "Network settings", "Save settings", "Access point", "Station", "SSID:", "Password:", "IP:", "Station enabled:", "Connection status:", "Available networks:", "Scan networks", "No connection", "Connected to: ", "Attempting to connect to: ", "Failed to connect to: ", "Statistics for a period", "Previous", "Current", "Hour:", "Day:", "Week:", "Month:", "Year:", "For all time:", "Count from current time", "Consumed for session", "Now", "On connect:", "Do you really want to reset?", "Yes", "No"},
+	{"Головна", "Налаштування", "Вибір мови", "Українська", "Встановити дату та час", "Рік", "Години", "Місяць", "Хвилини", "День", "Секунди", "Тижневий розклад", "Дні тижня", "Старт зарядки", "Стоп зарядки", "Увімкнути", "Понеділок", "Вівторок", "Середа", "Четвер", "П'ятниця", "Субота", "Неділя", "Статус зарядки", "Пістолет не вставлено", "Триває зарядка", "Автомобіль заряджено", "Перевірте заземлення", "Спрацював захист ПЗВ", "Спрацював захист по напрузі (більше 270V)", "Спрацював захист по току (більше 50А)", "Очікує зарядки по розкладу", "кВт", "Час та кВт за сесію", "Напруга, струм та потужність", "Регулювання струму", "Перевірка заземлення", "Заряджати по розкладу", "Адаптивний режим", "Обмежити кількість кВт за сесію", "Таймери", "Регулювання яскравості дисплею", "Обмежити тривалість заряду в годинах", "Час до вимкнення дисплею в хвилинах", "Статистика", "Лог змін статусу", "Ввімкнути зарядку", "Синхронізувати час з браузерним", "Очистка логу", "Скинути налаштування", "Налаштування мережі", "Зберегти зміни", "Точка доступу", "Станція", "SSID:", "Пароль:", "IP адрес:", "Cтанція ввімкнена:", "Статус підключення:", "Доступні мережі:", "Сканувати мережу", "Підключення відсутнє", "Підключено до: ", "Спроба підключення до: ", "Неможливо підключитися до: ", "Статистика за період", "За минулу(ий)", "За теперішню(ній)", "Годину:", "День:", "Тиждень:", "Місяць:", "Рік:", "За весь час:", "Рахувати з теперешнього моменту", "Споживано за сесію", "Зараз", "При підключенні:", "Ви дійсно хочете скинути налаштування?", "Зміна налаштувань точки доступу призведе до перезавантаження пристрою. Ви дійсно бажаєте продовжити?", "Так", "Ні"},
+	{"Главная", "Настройки", "Выбор языка", "Русский", "Установить дату и время", "Год", "Часы", "Месяц", "Минуты", "День", "Секунды", "Еженедельное расписание", "Дни недели", "Старт заряда", "Стоп зарада", "Включить", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье", "Статус зарядки", "Пистолет не вставлен", "Продолжается зарядка", "Автомобиль заряжен", "Проверьте заземление", "Сработала защита УЗО", "Сработала защита по напряжению (более 270V)", "Сработала защита по току (более 50A)", "Ожидание зарядки по расписанию", "кВт", "Время и кВт за сессию", "Напряжение ток и мощность", "Регулировка тока", "Проверка заземления", "Заряжать по расписанию", "Адаптивний режим", "Ограничить кол-во кВт за сессию", "Таймеры", "Регулировка яркости дисплея", "Ограничить время заряда в часах", "Время до отключения дисплея в минутах", "Статистика", "Лог смен статуса", "Включить зарядку", "Синхронизировать время с браузерным", "Очистить лог", "Сбросить настройки", "Настройки сети", "Сохраниить изменения", "Точка доступа", "Станция", "SSID:", "Пароль:", "IP адрес:", "Станция включена:", "Статус подключения:", "Доступные сети:", "Сканировать сети", "Подключение отсутствует", "Подключено к: ", "Попытка подключения к: ", "Невозможно подключиться к: ", "Статистика за период", "За предыдущий(ую))", "За Текущий(ую)", "Час:", "День:", "Неделю:", "Месяц:", "Год:", "За всё время:", "Считать с текущего момента", "Употреблено за сессию", "Сейчас", "При подключении:", "Вы действительно хотите сбросить настройки?", "Изменение настроек точки доступа приведет к перезагрузке устройства. Вы действительно хотите продолжить?", "Да", "Нет"},
+	{"Home", "Settings", "Select language", "English", "Setup date and time", "Year", "Hours", "Month", "Minutes", "Day", "Seconds", "Weekly sсhedule", "Days of the week", "Start charging", "Stop charging", "Enable", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "Charger status", "Pistol not inserted", "Charging continues", "Vehicle is charged", "Check ground", "RCD protection blocking", "Voltage protection blocking (above 270V)", "Current protection blocking (above 50A)", "Waiting for charging by chedule", "kWt", "Time and kWt for session", "Voltage, current and kWt", "Current regulator", "Ground check", "Charge by schedule", "Adaptive mode", "Limit kWt for session", "Timers", "Display brightness regulator", "Limit charge time by hours", "Time to turn off the display in minutes", "Statistics", "Status change log", "Enable charger", "Synchronize time with browser time", "Clear log", "Factory reset", "Network settings", "Save settings", "Access point", "Station", "SSID:", "Password:", "IP:", "Station enabled:", "Connection status:", "Available networks:", "Scan networks", "No connection", "Connected to: ", "Attempting to connect to: ", "Failed to connect to: ", "Statistics for a period", "Previous", "Current", "Hour:", "Day:", "Week:", "Month:", "Year:", "For all time:", "Count from current time", "Consumed for session", "Now", "On connect:", "Do you really want to reset?", "Changing the access point settings will reboot the device. Do you really want to continue?", "Yes", "No"},
 };
 
 //Localized string
@@ -403,7 +387,7 @@ struct language_selector {
 			struct radio &old_item = ::language_selector.item[settings.language];
 			
 			if (&id != &old_item) {
-				settings.changed().language = (enum language)(&id - static_cast<radio*>(&::language_selector.item[0]));
+				settings.changed().language = (enum language)class_index(::language_selector.item[0], id);
 				//tab_navigation::selected = &tab_navigation::settings;
 				rebuild_electrobox_ui();
 			}
@@ -427,13 +411,14 @@ struct factory_reset {
 	struct applier applier;
 	
 	struct dialog dialog;
-	struct box wrapper; //not very bright solution, may change in future because dialogs suck for now, really
+	struct box wrapper; //not very bright solution, may change in future because dialogs suck for now, really. TODO
 	struct button yes, no;
 	
 	static void yes_callback(struct button &id, uint32_t sender)
 	{
 		::factory_reset.dialog.pack(attr::display = false).send(sender);
-		network::settings.defaults().save();
+		network::ap.defaults().save();
+		network::sta.defaults().save();
 		settings.defaults().save();
 		
 		//tab_navigation::selected = &tab_navigation::settings;
@@ -458,7 +443,7 @@ struct factory_reset {
 		applier.pack(box, (attr::background = "orange", applier.get())) +
 		
 		dialog.pack(root, (attr::display = false)) + wrapper.pack(dialog, (attr::text = l_str(ARE_YOU_SURE_RESET), attr::direction = DIR_H)) +
-		yes.pack(wrapper, (attr::text = l_str(RESET_YES))) + no.pack(wrapper, (attr::text = l_str(RESET_NO)));
+		yes.pack(wrapper, (attr::text = l_str(YES))) + no.pack(wrapper, (attr::text = l_str(NO)));
 	}
 } factory_reset;
 
@@ -470,25 +455,12 @@ struct network_settings {
 	struct tab ap_tab;
 	struct tab sta_tab;
 	
-	struct applier apply_settings;
-	
-	static void applier_callback(struct applier &id, uint32_t sender)
-	{
-		network::end();
-		network::settings.save();
-		DEBUG_MSG("Network settings applied, restarting...\n");
-		delay(1000);
-		ESP.restart();
-	}
-	
-	network_settings() : apply_settings(applier_callback) {};
 	packet build()
 	{
 		return
 		box.pack(navigation_panel.settings, (attr::text = l_str(NETWORK_SETTINGS_TITLE), attr::fill = true)) +
 		ap_tab.pack(box, (attr::text = l_str(AP_TAB), attr::panel = "net", attr::direction = DIR_H, attr::selected = true, attr::wrap = true)) +
-		sta_tab.pack(box, (attr::text = l_str(STA_TAB), attr::panel = "net", attr::direction = DIR_V, attr::wrap = true)) +
-		apply_settings.pack(box, (attr::text = l_str(SAVE_NETWORK_SETTINGS), attr::background = "orange", apply_settings.get()));
+		sta_tab.pack(box, (attr::text = l_str(STA_TAB), attr::panel = "net", attr::direction = DIR_V, attr::wrap = true));
 	}
 } network_settings;
 
@@ -496,46 +468,72 @@ struct ap_settings {
 	struct box ap_text_col, ap_field_col;
 	struct text ap_ssid_text, ap_pass_text, ap_ip_text;
 	struct field ap_ssid_field, ap_pass_field, ap_ip_field;
+	struct applier apply_settings;
+	
+	struct dialog dialog;
+	struct box wrapper; //TODO
+	struct button yes, no;
 
 	static void ap_ssid_field_callback(struct field &id, String value, client_id_t sender)
 	{
-		value.toCharArray(network::settings.changed().ap_ssid, 80); //TODO check ssid maybeh?
-		id.pack(attr::value = String(network::settings.ap_ssid)).send_all();
+		value.toCharArray(network::ap.changed().ssid, 80); //TODO check ssid maybeh?
+		id.pack(attr::value = String(network::ap.ssid)).send_all();
 	}
 	
 	static void ap_pass_field_callback(struct field &id, String value, client_id_t sender)
 	{
 		if (network::passphrase_is_valid(value))
-			value.toCharArray(network::settings.changed().ap_pass, 80);
-		id.pack(attr::value = String(network::settings.ap_pass)).send_all();
+			value.toCharArray(network::ap.changed().pass, 80);
+		id.pack(attr::value = String(network::ap.pass)).send_all();
 	}
 	
 	static void ap_ip_field_callback(struct field &id, String value, client_id_t sender)
 	{
 		IPAddress ip;
 		ip.fromString(value);
-		network::settings.changed().ap_ip = network::settings.ap_gateway = (uint32_t)ip;
-		id.pack(attr::value = IPAddress(network::settings.ap_ip).toString()).send_all();
+		network::ap.changed().ip = network::ap.gateway = (uint32_t)ip;
+		id.pack(attr::value = IPAddress(network::ap.ip).toString()).send_all();
 	}
 
-	ap_settings() : ap_ssid_field(ap_ssid_field_callback), ap_pass_field(ap_pass_field_callback), ap_ip_field(ap_ip_field_callback) {}
+	static void applier_callback(struct applier &id, uint32_t sender)
+	{
+		::ap_settings.dialog.pack(attr::display = true).send(sender);
+	}
+
+	static void yes_callback(struct button &id, uint32_t sender)
+	{
+		::ap_settings.dialog.pack(attr::display = false).send(sender);
+		network::end();
+		network::ap.save();
+		DEBUG_MSG("Ap settings applied, restarting...\n");
+		delay(1000);
+		ESP.restart();
+	}
+	
+	static void no_callback(struct button &id, uint32_t sender)
+	{
+		::factory_reset.dialog.pack(attr::display = false).send(sender);
+	}
+
+	ap_settings() : ap_ssid_field(ap_ssid_field_callback), ap_pass_field(ap_pass_field_callback), ap_ip_field(ap_ip_field_callback), yes(yes_callback), no(no_callback), apply_settings(applier_callback) {}
 	packet build()
 	{
 		return
 		ap_text_col.pack(network_settings.ap_tab, (attr::direction = DIR_V, attr::width = "content")) +
 		ap_field_col.pack(network_settings.ap_tab, (attr::direction = DIR_V)) +
 		ap_ssid_text.pack(ap_text_col, (attr::text = l_str(AP_SSID))) + ap_pass_text.pack(ap_text_col, (attr::text = l_str(AP_PASS))) + ap_ip_text.pack(ap_text_col, (attr::text = l_str(AP_IP))) +
-		ap_ssid_field.pack(ap_field_col, (attr::value = String(network::settings.ap_ssid))) + ap_pass_field.pack(ap_field_col, (attr::value = String(network::settings.ap_pass))) + 
-			ap_ip_field.pack(ap_field_col, (attr::value = IPAddress(network::settings.ap_ip).toString()));
+		ap_ssid_field.pack(ap_field_col, (attr::value = String(network::ap.ssid))) + ap_pass_field.pack(ap_field_col, (attr::value = String(network::ap.pass))) + 
+			ap_ip_field.pack(ap_field_col, (attr::value = IPAddress(network::ap.ip).toString())) +
+		apply_settings.pack(network_settings.ap_tab, (attr::text = l_str(SAVE_NETWORK_SETTINGS), attr::background = "orange", apply_settings.get())) +
+		
+		dialog.pack(root, (attr::display = false)) + wrapper.pack(dialog, (attr::text = l_str(ARE_YOU_SURE_CHANGE_AP), attr::direction = DIR_H)) +
+		yes.pack(wrapper, (attr::text = l_str(YES))) + no.pack(wrapper, (attr::text = l_str(NO)));
 	}
 } ap_settings;
 
 struct sta_settings {
 	enum network::sta_status old_status;
-	
-	/*struct box sta_enabled_wrapper;
-	struct text sta_enabled_text;
-	struct switcher sta_enabled;*/
+
 	struct box connection_status_wrapper;
 	struct text connection_status;
 	struct box avail_stations_wrapper;
@@ -552,7 +550,7 @@ struct sta_settings {
 		}
 		 
 		 avail_stations() : radio(select_station_callback) {}
-	} avail_stations[MAX_STATIONS_SHOWN_AT_ONCE]/*, *selected_sta = &avail_stations[0]*/; //Not very dynamic way to do it, but OK yet. TODO
+	} avail_stations[MAX_STATIONS_SHOWN_AT_ONCE]; //Not very dynamic way to do it, but OK yet. TODO
 
 	/*String status_str()
 	{
@@ -576,12 +574,14 @@ struct sta_settings {
 	packet list_avail_stations()
 	{
 		packet buf;
+		DEBUG_MSG("Total AP's found: %i\n", network::avail_networks);
 		if (network::sta_status != STA_DISCONNECTED)
-			buf += avail_stations[0].pack(network_settings.sta_tab, (attr::text = network::get_station_name(-1), attr::display = true, attr::background = "green")); //zero slot is reserved for connected station
+			buf += avail_stations[0].pack(network_settings.sta_tab, (attr::text = network::get_station_name(-1), attr::display = true, attr::background = "green")); //zero slot is reserved for running station
 		else
 			buf += avail_stations[0].pack(network_settings.sta_tab, (attr::display = false));
 		
 		for (int i = 0; i < network::avail_networks; i++) {
+			DEBUG_MSG("\t%i: %s\n", network::avail_networks + 1, WiFi.SSID(i).c_str());
 			if ((network::sta_status != STA_DISCONNECTED) && (network::get_station_name(-1) == network::get_station_name(i)))
 				buf += avail_stations[i + 1].pack(network_settings.sta_tab, (attr::display = false)); //skip same station as from zero slot;
 			else
@@ -589,16 +589,11 @@ struct sta_settings {
 		}
 		
 		//do not display entries further
-		for (int i = network::avail_networks + 1; i < MAX_STATIONS_SHOWN_AT_ONCE; i++)
-			buf += avail_stations[i].pack(network_settings.sta_tab, (attr::display = false));
+		for (int i = network::avail_networks; i < MAX_STATIONS_SHOWN_AT_ONCE - 1; i++)
+			buf += avail_stations[i + 1].pack(network_settings.sta_tab, (attr::display = false));
 		
 		return buf;
 	}
-	
-	/*static void sta_enabled_callback(struct switcher &id, uint32_t sender)
-	{
-		id.turn(network::settings.changed().sta_enabled).send_all(); //TODO deferred changing
-	}*/
 	
 	static void scan_sta_callback(struct applier &id, uint32_t sender)
 	{
@@ -609,14 +604,10 @@ struct sta_settings {
 		network::begin_scan();
 	}
 	
-	sta_settings() : scan_sta(scan_sta_callback), /*sta_enabled(sta_enabled_callback),*/ old_status(network::STA_DISCONNECTED) {}
+	sta_settings() : scan_sta(scan_sta_callback), old_status(network::STA_DISCONNECTED) {}
 	packet build()
 	{
 		return
-		/*sta_enabled_wrapper.pack(network_settings.sta_tab, (attr::direction = DIR_H)) +
-		sta_enabled_text.pack(sta_enabled_wrapper, (attr::text = l_str(STA_ENABLED), attr::width = "content")) + sta_enabled.pack(sta_enabled_wrapper, (sta_enabled.get(network::settings.sta_enabled))) +*/
-		/*connection_status_wrapper.pack(network_settings.sta_tab) + connection_status_wrapper.pack((attr::text = l_str(STA_CONNECTION_STATUS), attr::height = 10)) + //lil hack, TODO (put something else here) //TODO margin attribute
-		connection_status.pack(connection_status_wrapper, (attr::text = status_str(), attr::wrap = true, attr::height = "content")) +*/
 		avail_stations_wrapper.pack(network_settings.sta_tab) + avail_stations_wrapper.pack(attr::text = l_str(STA_AVAIL_NETWORKS)) + //lil hack, TODO (put something else here)
 		list_avail_stations() +
 		scan_sta.pack(network_settings.sta_tab, (attr::text = l_str(STA_SCAN_NETWORK), attr::background = "cornflowerblue", attributes(scan_sta.turn(true).buffer))); //TODO better applier setter
@@ -625,6 +616,166 @@ struct sta_settings {
 
 
 
+
+//////////////////////////////////////////////////////////////////////////////////
+/*				TIMER WIDGETS					*/
+//////////////////////////////////////////////////////////////////////////////////
+
+struct weekly_schedule {
+	struct box wrapper;	
+	struct box box;
+	struct box cols[4];
+	struct text col_names[4];
+	struct switcher enabled;
+	bool blocking = false;
+	
+	struct day_schedule {
+		struct text name;
+		struct time_field begin;
+		struct time_field end;
+		struct switcher enabled;
+		
+		static void begin_callback(struct time_field &id, String value, client_id_t sender)
+		{
+			time_t t = id.parse(value);
+			settings.changed().weekly_schedule.days[class_index(::weekly_schedule.days[0], id)].begin = t;
+			id.pack(attr::value = id.formatted(t)).send_all();
+		}
+		
+		static void end_callback(struct time_field &id, String value, client_id_t sender)
+		{
+			time_t t = id.parse(value);
+			settings.changed().weekly_schedule.days[class_index(::weekly_schedule.days[0], id)].end = t;
+			id.pack(attr::value = id.formatted(t)).send_all();
+		}
+		
+		static void switcher_callback(struct switcher &id, client_id_t sender)
+		{
+			id.turn(settings.weekly_schedule.days[class_index(::weekly_schedule.days[0], id)].enabled).send_all();
+		}
+		
+		day_schedule() : begin(begin_callback), end(end_callback), enabled(switcher_callback) {}
+	} days[7];
+	
+	static void switcher_callback(switcher &id, client_id_t sender)
+	{
+		id.turn(settings.changed().weekly_schedule.enabled).send_all();
+	}
+	
+	void trigger()
+	{
+		time_t t = now();
+		time_t cur_time = elapsedSecsToday(t);	
+		int cur_day = ((weekday(t) - 2) + 7) % 7;
+	
+		if (!settings.weekly_schedule.enabled || !settings.weekly_schedule.days[cur_day].enabled) {
+			blocking = false;
+			return;
+		}
+		
+		int cur_day_begin_time = settings.weekly_schedule.days[cur_day].begin;
+		int cur_day_end_time = settings.weekly_schedule.days[cur_day].end;
+		
+		int prev_day = ((cur_day - 1) + 7) % 7;
+		int prev_day_begin_time = settings.weekly_schedule.days[prev_day].begin;
+		int prev_day_end_time = settings.weekly_schedule.days[prev_day].end;
+			
+		if (settings.weekly_schedule.days[prev_day].enabled && prev_day_begin_time >= prev_day_end_time && cur_time < prev_day_end_time)
+			blocking = false;
+		else if (cur_day_begin_time < cur_day_end_time)
+			blocking = (cur_time >= cur_day_begin_time && cur_time < cur_day_end_time) ? false : true;
+		else
+			blocking = (cur_time >= cur_day_begin_time) ? false : true;
+	}
+	
+	weekly_schedule() : enabled(switcher_callback) {}
+	packet build()
+	{
+		packet buf = box.pack(navigation_panel.timers, (attr::text = l_str(WEEKLY_SCHEDULE_TITLE), attr::direction = DIR_V)) + wrapper.pack(box, (attr::direction = DIR_H)) +
+		enabled.pack(box, (attr::text = l_str(SCHEDULE_ENABLER_TITLE), enabled.get(settings.weekly_schedule.enabled)));
+		for (int i = 0; i < 4; i++)
+			buf += cols[i].pack(wrapper) + col_names[i].pack(cols[i], (attr::text = l_str(WEEKLY_SCHEDULE_COL_NAMES + i)));
+			
+		for (int i = 0; i < 7; i++)
+			buf += days[i].name.pack(cols[0], (attr::text = l_str(WEEKLY_SCHEDULE_DAY_NAMES + i))) + days[i].begin.pack(cols[1], attr::value = days[i].begin.formatted(settings.weekly_schedule.days[i].begin)) +
+			days[i].end.pack(cols[2], attr::value = days[i].end.formatted(settings.weekly_schedule.days[i].end)) + days[i].enabled.pack(cols[3], days[i].enabled.get(settings.weekly_schedule.days[i].enabled));
+		return buf;
+	}
+} weekly_schedule;
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////
+/*				STATISTICS WIDGETS				*/
+//////////////////////////////////////////////////////////////////////////////////
+
+struct statistics {
+	struct box box;	
+	struct text total_kwt_text;
+	struct tab prev_stats_tab, cur_stats_tab;
+	struct text prev_text[5], cur_text[5];
+	struct button reset;
+
+	packet update_stat(int i)
+	{
+		return
+		prev_text[i].pack(attr::text = l_str(STATS_TEXT + i) + " " + settings.statistics.ranges[i].delta + l_str(KWT)) +
+		cur_text[i].pack(attr::text = l_str(STATS_TEXT + i) + " " + settings.statistics.ranges[i].kwt + l_str(KWT));
+	}
+	
+	//TODO make statistics carrier protection
+	void update(time_t now, double kwt)
+	{
+		packet buf;
+		settings.statistics.total_kwt += kwt;
+		
+		for (int i = 0; i < 5; i++) {
+			DEBUG_MSG("Statistics for %i: carry: %s, now: %lu, from: %lu, offset: %lu.\n", i, ((now > settings.statistics.ranges[i].from + settings.statistics.ranges[i].offset) ? "true" : "false"), now, settings.statistics.ranges[i].from, settings.statistics.ranges[i].offset);
+			if (now > settings.statistics.ranges[i].from + settings.statistics.ranges[i].offset) {
+				settings.statistics.ranges[i].from = now;
+				settings.statistics.ranges[i].delta = settings.statistics.ranges[i].kwt + kwt;
+				settings.statistics.ranges[i].kwt = 0;
+			} else {
+				settings.statistics.ranges[i].kwt += kwt;
+			}
+			buf += update_stat(i);
+		}
+		settings.changed();
+		
+		buf += total_kwt_text.pack(attr::text = l_str(STATS_ALL_TIME) + " " + settings.statistics.total_kwt + l_str(KWT));
+		buf.send_all();
+	}
+	
+	static void button_callback(struct button& id, client_id_t sender)
+	{
+		packet buf;
+		time_t t = now();
+		for (int i = 0; i < 5; i++) {
+			settings.statistics.ranges[i].from = t;
+			settings.statistics.ranges[i].kwt = settings.statistics.ranges[i].delta = 0;
+			buf += ::statistics.update_stat(i);
+		} //total kwt not changed
+		settings.changed();
+		
+		buf.send_all();
+	}
+
+	statistics() : reset(button_callback) {}
+	packet build()
+	{
+		packet buf = box.pack(navigation_panel.logs, (attr::text = l_str(STATS_TITLE), attr::fill = true)) + total_kwt_text.pack(box, (attr::text = l_str(STATS_ALL_TIME))) +
+			prev_stats_tab.pack(box, (attr::text = l_str(STATS_PREV_TITLE), attr::panel = "stats", attr::selected = true)) + cur_stats_tab.pack(box, (attr::text = l_str(STATS_CUR_TITLE), attr::panel = "stats"));
+			for (int i = 0; i < 5; i++) {
+				buf +=
+					prev_text[i].pack(prev_stats_tab, (attr::text = l_str(STATS_TEXT + i) + " " + settings.statistics.ranges[i].delta + l_str(KWT), attr::align = ALIGN_LEFT)) +
+					cur_text[i].pack(cur_stats_tab, (attr::text = l_str(STATS_TEXT + i) + " " + settings.statistics.ranges[i].kwt + l_str(KWT), attr::align = ALIGN_LEFT));
+			}
+			
+		buf += reset.pack(box, (attr::text = l_str(STATS_RESET)));
+		return buf;
+	}
+} statistics;
 
 //////////////////////////////////////////////////////////////////////////////////
 /*				INTERFACE BUILDER				*/
@@ -652,6 +803,8 @@ bool ui::interface(client &cl, int idx) //implementation of interface builder is
 		ADD_TO_INTERFACE(13, network_settings);
 		ADD_TO_INTERFACE(14, ap_settings);
 		ADD_TO_INTERFACE(15, sta_settings);
+		ADD_TO_INTERFACE(16, weekly_schedule);
+		ADD_TO_INTERFACE(17, statistics);
 		END_ADD_TO_INTERFACE;
 	}
 }
@@ -697,10 +850,9 @@ void electrobox_loop()
 			settings.save();
 		}
 		
-		//don't mess network_settings with network::settings - they are different
-		if (network::settings.need_commit) {
-			if (!network_settings.apply_settings.avail)
-				buf += network_settings.apply_settings.turn(true);
+		if (network::ap.need_commit) {
+			if (!ap_settings.apply_settings.avail)
+				buf += ap_settings.apply_settings.turn(true);
 			//do not save settings here, better do this inside applier.
 		}
 		
