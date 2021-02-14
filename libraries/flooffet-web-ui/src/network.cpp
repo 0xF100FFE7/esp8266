@@ -9,14 +9,20 @@ namespace ui {
 		bool scan = false;
 				
 		struct ap &ap::defaults() {
+			modified = false;
+			
 			(String("ap_") + ESP.getChipId() /*+ millis()*/).toCharArray(ssid, 80);
 			pass[0] = '\0';
 			ip = IPAddress(7, 7, 7, 7);
 			gateway = IPAddress(7, 7, 7, 7);
 			subnet = IPAddress(255, 255, 255, 0);
+			
+			return *this;
 		}
 		
 		struct sta &sta::defaults() {
+			modified = false;
+			
 			dhcp = false;
 			ssid[0] = '\0';
 			pass[0] = '\0';
@@ -29,25 +35,26 @@ namespace ui {
 		
 		void ap::save()
 		{
-			if (save_settings("/ap.bin", "acess point", this, sizeof(struct ap)))
+			modified = true;
+			if (save_settings("/ap.bin", "acсess point", this, sizeof(struct ap)))
 				committed();
 		}
 		
 		void ap::load()
 		{
-			if (!load_settings("/ap.bin", "acess point", this, sizeof(struct ap)))
+			if (!load_settings("/ap.bin", "acсess point", this, sizeof(struct ap)))
 				defaults();
 		}
 		
 		struct ap &ap::changed()
 		{
-			ap::need_commit = true;
+			modified = ap::need_commit = true;
 			return *this;
 		}
 
 		void ap::committed()
 		{
-			ap::need_commit = false;
+			need_commit = false;
 		}
 		
 		ap::ap()
@@ -60,6 +67,7 @@ namespace ui {
 		
 		void sta::save()
 		{
+			modified = true;
 			if (save_settings("/sta.bin", "station", this, sizeof(struct sta)))
 				committed();
 		}
@@ -72,13 +80,13 @@ namespace ui {
 		
 		struct sta &sta::changed()
 		{
-			sta::need_commit = true;
+			need_commit = true;
 			return *this;
 		}
 
 		void sta::committed()
 		{
-			sta::need_commit = false;
+			need_commit = false;
 		}
 		
 		sta::sta()
@@ -118,6 +126,8 @@ namespace ui {
 		
 		void begin() //bool sta_enabled
 		{
+			end();
+			
 			ap.load();
 			sta.load();
 			
@@ -131,7 +141,8 @@ namespace ui {
 		
 		void end()
 		{
-			//WiFi.softAPdisconnect();
+			sta_status = STA_DISCONNECTED;
+			WiFi.softAPdisconnect();
 			WiFi.disconnect();
 		}
 		
@@ -150,7 +161,7 @@ namespace ui {
 		
 		String get_station_name(int i)
 		{
-			String probably_incorrect_output = i > 0 ? WiFi.SSID(i) : String(sta.ssid);
+			String probably_incorrect_output = i >= 0 ? WiFi.SSID(i) : String(sta.ssid);
 			String correct_output;
 			for (int i = 0; i < probably_incorrect_output.length(); i++)
 			{
@@ -159,6 +170,19 @@ namespace ui {
 			}
 			return correct_output;
 			//return WiFi.SSID(i);
+		}
+		
+		IPAddress get_connected_station_ip()
+		{
+			return WiFi.localIP();
+		}
+		
+		bool connection_is_secure(int i)
+		{
+			if (i < 0)
+				return true;
+			else
+				return WiFi.encryptionType(i) != ENC_TYPE_NONE;
 		}
 		
 		//String correct_station_ssid
@@ -187,13 +211,19 @@ namespace ui {
 			WiFi.SSID(i).toCharArray(sta.changed().ssid, 80);
 			(passphrase_is_valid(passwd) ? passwd : "").toCharArray(sta.changed().pass, 80);
 			sta.save();
-			end();
+			WiFi.disconnect();
 			DEBUG_MSG("Network settings applied, switching...\n");
 			sta_status = STA_SWITCH;
-			//delay(1000);
-			//ESP.restart();
 			return true;
-			//connect_sta();
+		}
+		
+		bool refresh_sta()
+		{
+			sta.save();		
+			WiFi.disconnect();
+			DEBUG_MSG("Network settings applied, refreshing...\n");
+			sta_status = STA_SWITCH;
+			return true;
 		}
 		
 		bool disconnect_sta()

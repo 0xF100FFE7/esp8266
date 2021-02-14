@@ -1905,94 +1905,14 @@ current_regulator::value = current_regulator = current_regulator_in; //ѕри запус
 				<sixx.object sixx.name="comment" sixx.idref="209" />
 				<sixx.object sixx.name="id" sixx.idref="210" />
 			</sixx.object>
-		</sixx.object>
-		<sixx.object sixx.id="503" sixx.name="outputs" sixx.type="OrderedCollection" sixx.env="Core" >
-			<sixx.object sixx.id="504" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
-				<sixx.object sixx.id="505" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
-					<sixx.object sixx.name="block" sixx.idref="54" />
-					<sixx.object sixx.id="506" sixx.name="type" sixx.type="BooleanDataType" sixx.env="Arduino" >
-					</sixx.object>
-					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
-					<sixx.object sixx.name="name" sixx.idref="214" />
-					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
-					<sixx.object sixx.name="id" sixx.idref="100" />
-				</sixx.object>
-				<sixx.object sixx.name="comment" sixx.idref="215" />
-				<sixx.object sixx.name="id" sixx.idref="102" />
-			</sixx.object>
-			<sixx.object sixx.id="507" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
-				<sixx.object sixx.id="508" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
-					<sixx.object sixx.name="block" sixx.idref="54" />
-					<sixx.object sixx.id="509" sixx.name="type" sixx.type="IntegerDataType" sixx.env="Arduino" >
-					</sixx.object>
-					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
-					<sixx.object sixx.name="name" sixx.idref="107" />
-					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
-					<sixx.object sixx.name="id" sixx.idref="108" />
-				</sixx.object>
-				<sixx.object sixx.name="comment" sixx.idref="109" />
-				<sixx.object sixx.name="id" sixx.idref="110" />
-			</sixx.object>
-			<sixx.object sixx.id="510" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
-				<sixx.object sixx.id="511" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
-					<sixx.object sixx.name="block" sixx.idref="54" />
-					<sixx.object sixx.id="512" sixx.name="type" sixx.type="BooleanDataType" sixx.env="Arduino" >
-					</sixx.object>
-					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
-					<sixx.object sixx.name="name" sixx.idref="113" />
-					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
-					<sixx.object sixx.name="id" sixx.idref="114" />
-				</sixx.object>
-				<sixx.object sixx.name="comment" sixx.idref="115" />
-				<sixx.object sixx.name="id" sixx.idref="116" />
-			</sixx.object>
-			<sixx.object sixx.id="513" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
-				<sixx.object sixx.id="514" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
-					<sixx.object sixx.name="block" sixx.idref="54" />
-					<sixx.object sixx.id="515" sixx.name="type" sixx.type="BooleanDataType" sixx.env="Arduino" >
-					</sixx.object>
-					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
-					<sixx.object sixx.name="name" sixx.idref="119" />
-					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
-					<sixx.object sixx.name="id" sixx.idref="120" />
-				</sixx.object>
-				<sixx.object sixx.name="comment" sixx.idref="121" />
-				<sixx.object sixx.name="id" sixx.idref="122" />
-			</sixx.object>
-			<sixx.object sixx.id="516" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
-				<sixx.object sixx.id="517" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
-					<sixx.object sixx.name="block" sixx.idref="54" />
-					<sixx.object sixx.id="518" sixx.name="type" sixx.type="BooleanDataType" sixx.env="Arduino" >
-					</sixx.object>
-					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
-					<sixx.object sixx.name="name" sixx.idref="125" />
-					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
-					<sixx.object sixx.name="id" sixx.idref="126" />
-				</sixx.object>
-				<sixx.object sixx.name="comment" sixx.idref="127" />
-				<sixx.object sixx.name="id" sixx.idref="128" />
-			</sixx.object>
-			<sixx.object sixx.id="519" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
-				<sixx.object sixx.id="520" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
-					<sixx.object sixx.name="block" sixx.idref="54" />
-					<sixx.object sixx.id="521" sixx.name="type" sixx.type="IntegerDataType" sixx.env="Arduino" >
-					</sixx.object>
-					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
-					<sixx.object sixx.name="name" sixx.idref="131" />
-					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
-					<sixx.object sixx.name="id" sixx.idref="132" />
-				</sixx.object>
-				<sixx.object sixx.name="comment" sixx.idref="133" />
-				<sixx.object sixx.name="id" sixx.idref="134" />
-			</sixx.object>
-			<sixx.object sixx.id="522" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
-				<sixx.object sixx.id="523" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
-					<sixx.object sixx.id="524" sixx.name="block" sixx.type="CodeUserBlock" sixx.env="Arduino" >
-						<sixx.object sixx.id="525" sixx.name="blocks" sixx.type="OrderedCollection" sixx.env="Core" ></sixx.object>
+			<sixx.object sixx.id="503" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+				<sixx.object sixx.id="504" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+					<sixx.object sixx.id="505" sixx.name="block" sixx.type="CodeUserBlock" sixx.env="Arduino" >
+						<sixx.object sixx.id="506" sixx.name="blocks" sixx.type="OrderedCollection" sixx.env="Core" ></sixx.object>
 						<sixx.object sixx.name="label" sixx.idref="3" />
-						<sixx.object sixx.id="526" sixx.name="inputs" sixx.type="OrderedCollection" sixx.env="Core" >
-							<sixx.object sixx.id="527" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
-								<sixx.object sixx.id="528" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+						<sixx.object sixx.id="507" sixx.name="inputs" sixx.type="OrderedCollection" sixx.env="Core" >
+							<sixx.object sixx.id="508" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+								<sixx.object sixx.id="509" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
 									<sixx.object sixx.name="block" sixx.idref="7" />
 									<sixx.object sixx.name="type" sixx.idref="12" />
 									<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
@@ -2003,8 +1923,8 @@ current_regulator::value = current_regulator = current_regulator_in; //ѕри запус
 								<sixx.object sixx.name="comment" sixx.idref="15" />
 								<sixx.object sixx.name="id" sixx.idref="16" />
 							</sixx.object>
-							<sixx.object sixx.id="529" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
-								<sixx.object sixx.id="530" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+							<sixx.object sixx.id="510" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+								<sixx.object sixx.id="511" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
 									<sixx.object sixx.name="block" sixx.idref="54" />
 									<sixx.object sixx.name="type" sixx.idref="61" />
 									<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
@@ -2015,8 +1935,8 @@ current_regulator::value = current_regulator = current_regulator_in; //ѕри запус
 								<sixx.object sixx.name="comment" sixx.idref="64" />
 								<sixx.object sixx.name="id" sixx.idref="65" />
 							</sixx.object>
-							<sixx.object sixx.id="531" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
-								<sixx.object sixx.id="532" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+							<sixx.object sixx.id="512" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+								<sixx.object sixx.id="513" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
 									<sixx.object sixx.name="block" sixx.idref="54" />
 									<sixx.object sixx.name="type" sixx.idref="61" />
 									<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
@@ -2027,8 +1947,8 @@ current_regulator::value = current_regulator = current_regulator_in; //ѕри запус
 								<sixx.object sixx.name="comment" sixx.idref="70" />
 								<sixx.object sixx.name="id" sixx.idref="71" />
 							</sixx.object>
-							<sixx.object sixx.id="533" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
-								<sixx.object sixx.id="534" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+							<sixx.object sixx.id="514" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+								<sixx.object sixx.id="515" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
 									<sixx.object sixx.name="block" sixx.idref="54" />
 									<sixx.object sixx.name="type" sixx.idref="61" />
 									<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
@@ -2039,8 +1959,8 @@ current_regulator::value = current_regulator = current_regulator_in; //ѕри запус
 								<sixx.object sixx.name="comment" sixx.idref="76" />
 								<sixx.object sixx.name="id" sixx.idref="77" />
 							</sixx.object>
-							<sixx.object sixx.id="535" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
-								<sixx.object sixx.id="536" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+							<sixx.object sixx.id="516" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+								<sixx.object sixx.id="517" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
 									<sixx.object sixx.name="block" sixx.idref="54" />
 									<sixx.object sixx.name="type" sixx.idref="12" />
 									<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
@@ -2051,8 +1971,8 @@ current_regulator::value = current_regulator = current_regulator_in; //ѕри запус
 								<sixx.object sixx.name="comment" sixx.idref="82" />
 								<sixx.object sixx.name="id" sixx.idref="83" />
 							</sixx.object>
-							<sixx.object sixx.id="537" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
-								<sixx.object sixx.id="538" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+							<sixx.object sixx.id="518" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+								<sixx.object sixx.id="519" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
 									<sixx.object sixx.name="block" sixx.idref="54" />
 									<sixx.object sixx.name="type" sixx.idref="12" />
 									<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
@@ -2063,8 +1983,8 @@ current_regulator::value = current_regulator = current_regulator_in; //ѕри запус
 								<sixx.object sixx.name="comment" sixx.idref="88" />
 								<sixx.object sixx.name="id" sixx.idref="89" />
 							</sixx.object>
-							<sixx.object sixx.id="539" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
-								<sixx.object sixx.id="540" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+							<sixx.object sixx.id="520" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+								<sixx.object sixx.id="521" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
 									<sixx.object sixx.name="block" sixx.idref="54" />
 									<sixx.object sixx.name="type" sixx.idref="12" />
 									<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
@@ -2075,20 +1995,8 @@ current_regulator::value = current_regulator = current_regulator_in; //ѕри запус
 								<sixx.object sixx.name="comment" sixx.idref="94" />
 								<sixx.object sixx.name="id" sixx.idref="95" />
 							</sixx.object>
-							<sixx.object sixx.id="541" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
-								<sixx.object sixx.id="542" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
-									<sixx.object sixx.name="block" sixx.idref="188" />
-									<sixx.object sixx.name="type" sixx.idref="12" />
-									<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
-									<sixx.object sixx.name="name" sixx.idref="207" />
-									<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
-									<sixx.object sixx.name="id" sixx.idref="208" />
-								</sixx.object>
-								<sixx.object sixx.name="comment" sixx.idref="209" />
-								<sixx.object sixx.name="id" sixx.idref="210" />
-							</sixx.object>
-							<sixx.object sixx.id="543" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
-								<sixx.object sixx.id="544" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+							<sixx.object sixx.id="522" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+								<sixx.object sixx.id="523" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
 									<sixx.object sixx.name="block" sixx.idref="169" />
 									<sixx.object sixx.name="type" sixx.idref="20" />
 									<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
@@ -2099,10 +2007,1394 @@ current_regulator::value = current_regulator = current_regulator_in; //ѕри запус
 								<sixx.object sixx.name="comment" sixx.idref="251" />
 								<sixx.object sixx.name="id" sixx.idref="252" />
 							</sixx.object>
-						</sixx.object>
-						<sixx.object sixx.id="545" sixx.name="outputs" sixx.type="OrderedCollection" sixx.env="Core" >
+							<sixx.object sixx.id="524" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+								<sixx.object sixx.id="525" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+									<sixx.object sixx.name="block" sixx.idref="188" />
+									<sixx.object sixx.name="type" sixx.idref="12" />
+									<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
+									<sixx.object sixx.name="name" sixx.idref="207" />
+									<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+									<sixx.object sixx.name="id" sixx.idref="208" />
+								</sixx.object>
+								<sixx.object sixx.name="comment" sixx.idref="209" />
+								<sixx.object sixx.name="id" sixx.idref="210" />
+							</sixx.object>
+							<sixx.object sixx.id="526" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+								<sixx.object sixx.id="527" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+									<sixx.object sixx.name="block" sixx.idref="505" />
+									<sixx.object sixx.name="type" sixx.idref="12" />
+									<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
+									<sixx.object sixx.id="528" sixx.name="name" sixx.type="String" sixx.env="Core" >time_changed_in</sixx.object>
+									<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+									<sixx.object sixx.id="529" sixx.name="id" sixx.type="String" sixx.env="Core" >1b8721c4-7b30-4987-87e8-a3421dec5f6d</sixx.object>
+								</sixx.object>
+								<sixx.object sixx.name="comment" sixx.idref="308" />
+								<sixx.object sixx.id="530" sixx.name="id" sixx.type="String" sixx.env="Core" >5fdf3a22-3261-4b11-8f7b-cb00ab32653b</sixx.object>
+							</sixx.object>
+							<sixx.object sixx.id="531" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+								<sixx.object sixx.id="532" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+									<sixx.object sixx.name="block" sixx.idref="505" />
+									<sixx.object sixx.name="type" sixx.idref="12" />
+									<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
+									<sixx.object sixx.id="533" sixx.name="name" sixx.type="String" sixx.env="Core" >year_in</sixx.object>
+									<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+									<sixx.object sixx.id="534" sixx.name="id" sixx.type="String" sixx.env="Core" >fc306fcb-02df-46b2-a92e-fc51738e2dcf</sixx.object>
+								</sixx.object>
+								<sixx.object sixx.name="comment" sixx.idref="308" />
+								<sixx.object sixx.id="535" sixx.name="id" sixx.type="String" sixx.env="Core" >212af4e2-2ff8-43d0-b23d-bb79b2da3195</sixx.object>
+							</sixx.object>
+							<sixx.object sixx.id="536" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+								<sixx.object sixx.id="537" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+									<sixx.object sixx.name="block" sixx.idref="505" />
+									<sixx.object sixx.name="type" sixx.idref="12" />
+									<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
+									<sixx.object sixx.id="538" sixx.name="name" sixx.type="String" sixx.env="Core" >month_in</sixx.object>
+									<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+									<sixx.object sixx.id="539" sixx.name="id" sixx.type="String" sixx.env="Core" >9d028bfc-7114-4d94-a6d1-f85e25a5dcd4</sixx.object>
+								</sixx.object>
+								<sixx.object sixx.name="comment" sixx.idref="308" />
+								<sixx.object sixx.id="540" sixx.name="id" sixx.type="String" sixx.env="Core" >c9ce480d-6cb5-4af7-9770-a8f2e6a6b833</sixx.object>
+							</sixx.object>
+							<sixx.object sixx.id="541" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+								<sixx.object sixx.id="542" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+									<sixx.object sixx.name="block" sixx.idref="505" />
+									<sixx.object sixx.name="type" sixx.idref="12" />
+									<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
+									<sixx.object sixx.id="543" sixx.name="name" sixx.type="String" sixx.env="Core" >day_in</sixx.object>
+									<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+									<sixx.object sixx.id="544" sixx.name="id" sixx.type="String" sixx.env="Core" >1d7bf521-218d-4fea-a65f-463f85011161</sixx.object>
+								</sixx.object>
+								<sixx.object sixx.name="comment" sixx.idref="308" />
+								<sixx.object sixx.id="545" sixx.name="id" sixx.type="String" sixx.env="Core" >9d729588-ae36-409a-8362-c46ace2b9e5a</sixx.object>
+							</sixx.object>
 							<sixx.object sixx.id="546" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
 								<sixx.object sixx.id="547" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+									<sixx.object sixx.name="block" sixx.idref="505" />
+									<sixx.object sixx.name="type" sixx.idref="12" />
+									<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
+									<sixx.object sixx.id="548" sixx.name="name" sixx.type="String" sixx.env="Core" >hour_in</sixx.object>
+									<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+									<sixx.object sixx.id="549" sixx.name="id" sixx.type="String" sixx.env="Core" >9eb61f83-489d-4bc5-adc5-a100eb5d53a0</sixx.object>
+								</sixx.object>
+								<sixx.object sixx.name="comment" sixx.idref="308" />
+								<sixx.object sixx.id="550" sixx.name="id" sixx.type="String" sixx.env="Core" >f14125e4-6674-4d52-83f9-4eee9ff9d40c</sixx.object>
+							</sixx.object>
+							<sixx.object sixx.id="551" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+								<sixx.object sixx.id="552" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+									<sixx.object sixx.name="block" sixx.idref="505" />
+									<sixx.object sixx.name="type" sixx.idref="12" />
+									<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
+									<sixx.object sixx.id="553" sixx.name="name" sixx.type="String" sixx.env="Core" >minute_in</sixx.object>
+									<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+									<sixx.object sixx.id="554" sixx.name="id" sixx.type="String" sixx.env="Core" >c7173f73-efb8-4735-b9d5-1cbc4e66072a</sixx.object>
+								</sixx.object>
+								<sixx.object sixx.name="comment" sixx.idref="308" />
+								<sixx.object sixx.id="555" sixx.name="id" sixx.type="String" sixx.env="Core" >a90c34be-d55d-4f07-a232-ed19f5286095</sixx.object>
+							</sixx.object>
+							<sixx.object sixx.id="556" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+								<sixx.object sixx.id="557" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+									<sixx.object sixx.name="block" sixx.idref="505" />
+									<sixx.object sixx.name="type" sixx.idref="12" />
+									<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
+									<sixx.object sixx.id="558" sixx.name="name" sixx.type="String" sixx.env="Core" >second_in</sixx.object>
+									<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+									<sixx.object sixx.id="559" sixx.name="id" sixx.type="String" sixx.env="Core" >71c091dc-ffa4-4caf-8ecf-71531425a181</sixx.object>
+								</sixx.object>
+								<sixx.object sixx.name="comment" sixx.idref="308" />
+								<sixx.object sixx.id="560" sixx.name="id" sixx.type="String" sixx.env="Core" >2eb0491a-98dc-407f-8152-bd5dcef42797</sixx.object>
+							</sixx.object>
+						</sixx.object>
+						<sixx.object sixx.id="561" sixx.name="outputs" sixx.type="OrderedCollection" sixx.env="Core" >
+							<sixx.object sixx.id="562" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+								<sixx.object sixx.id="563" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+									<sixx.object sixx.id="564" sixx.name="block" sixx.type="CodeUserBlock" sixx.env="Arduino" >
+										<sixx.object sixx.id="565" sixx.name="blocks" sixx.type="OrderedCollection" sixx.env="Core" ></sixx.object>
+										<sixx.object sixx.name="label" sixx.idref="3" />
+										<sixx.object sixx.id="566" sixx.name="inputs" sixx.type="OrderedCollection" sixx.env="Core" >
+											<sixx.object sixx.id="567" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+												<sixx.object sixx.id="568" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+													<sixx.object sixx.name="block" sixx.idref="7" />
+													<sixx.object sixx.name="type" sixx.idref="12" />
+													<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
+													<sixx.object sixx.name="name" sixx.idref="13" />
+													<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="id" sixx.idref="14" />
+												</sixx.object>
+												<sixx.object sixx.name="comment" sixx.idref="15" />
+												<sixx.object sixx.name="id" sixx.idref="16" />
+											</sixx.object>
+											<sixx.object sixx.id="569" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+												<sixx.object sixx.id="570" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+													<sixx.object sixx.name="block" sixx.idref="54" />
+													<sixx.object sixx.name="type" sixx.idref="61" />
+													<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
+													<sixx.object sixx.name="name" sixx.idref="62" />
+													<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="id" sixx.idref="63" />
+												</sixx.object>
+												<sixx.object sixx.name="comment" sixx.idref="64" />
+												<sixx.object sixx.name="id" sixx.idref="65" />
+											</sixx.object>
+											<sixx.object sixx.id="571" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+												<sixx.object sixx.id="572" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+													<sixx.object sixx.name="block" sixx.idref="54" />
+													<sixx.object sixx.name="type" sixx.idref="61" />
+													<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
+													<sixx.object sixx.name="name" sixx.idref="68" />
+													<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="id" sixx.idref="69" />
+												</sixx.object>
+												<sixx.object sixx.name="comment" sixx.idref="70" />
+												<sixx.object sixx.name="id" sixx.idref="71" />
+											</sixx.object>
+											<sixx.object sixx.id="573" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+												<sixx.object sixx.id="574" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+													<sixx.object sixx.name="block" sixx.idref="54" />
+													<sixx.object sixx.name="type" sixx.idref="61" />
+													<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
+													<sixx.object sixx.name="name" sixx.idref="74" />
+													<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="id" sixx.idref="75" />
+												</sixx.object>
+												<sixx.object sixx.name="comment" sixx.idref="76" />
+												<sixx.object sixx.name="id" sixx.idref="77" />
+											</sixx.object>
+											<sixx.object sixx.id="575" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+												<sixx.object sixx.id="576" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+													<sixx.object sixx.name="block" sixx.idref="54" />
+													<sixx.object sixx.name="type" sixx.idref="12" />
+													<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
+													<sixx.object sixx.name="name" sixx.idref="80" />
+													<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="id" sixx.idref="81" />
+												</sixx.object>
+												<sixx.object sixx.name="comment" sixx.idref="82" />
+												<sixx.object sixx.name="id" sixx.idref="83" />
+											</sixx.object>
+											<sixx.object sixx.id="577" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+												<sixx.object sixx.id="578" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+													<sixx.object sixx.name="block" sixx.idref="54" />
+													<sixx.object sixx.name="type" sixx.idref="12" />
+													<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
+													<sixx.object sixx.name="name" sixx.idref="86" />
+													<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="id" sixx.idref="87" />
+												</sixx.object>
+												<sixx.object sixx.name="comment" sixx.idref="88" />
+												<sixx.object sixx.name="id" sixx.idref="89" />
+											</sixx.object>
+											<sixx.object sixx.id="579" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+												<sixx.object sixx.id="580" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+													<sixx.object sixx.name="block" sixx.idref="54" />
+													<sixx.object sixx.name="type" sixx.idref="12" />
+													<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
+													<sixx.object sixx.name="name" sixx.idref="92" />
+													<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="id" sixx.idref="93" />
+												</sixx.object>
+												<sixx.object sixx.name="comment" sixx.idref="94" />
+												<sixx.object sixx.name="id" sixx.idref="95" />
+											</sixx.object>
+											<sixx.object sixx.id="581" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+												<sixx.object sixx.id="582" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+													<sixx.object sixx.name="block" sixx.idref="169" />
+													<sixx.object sixx.name="type" sixx.idref="20" />
+													<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
+													<sixx.object sixx.name="name" sixx.idref="249" />
+													<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="id" sixx.idref="250" />
+												</sixx.object>
+												<sixx.object sixx.name="comment" sixx.idref="251" />
+												<sixx.object sixx.name="id" sixx.idref="252" />
+											</sixx.object>
+											<sixx.object sixx.id="583" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+												<sixx.object sixx.id="584" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+													<sixx.object sixx.name="block" sixx.idref="188" />
+													<sixx.object sixx.name="type" sixx.idref="12" />
+													<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
+													<sixx.object sixx.name="name" sixx.idref="207" />
+													<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="id" sixx.idref="208" />
+												</sixx.object>
+												<sixx.object sixx.name="comment" sixx.idref="209" />
+												<sixx.object sixx.name="id" sixx.idref="210" />
+											</sixx.object>
+										</sixx.object>
+										<sixx.object sixx.id="585" sixx.name="outputs" sixx.type="OrderedCollection" sixx.env="Core" >
+											<sixx.object sixx.id="586" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+												<sixx.object sixx.id="587" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+													<sixx.object sixx.name="block" sixx.idref="564" />
+													<sixx.object sixx.name="type" sixx.idref="20" />
+													<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.id="588" sixx.name="name" sixx.type="String" sixx.env="Core" >charge_switch</sixx.object>
+													<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.id="589" sixx.name="id" sixx.type="String" sixx.env="Core" >a0577160-de0e-489b-95ac-1171c1dc8c0b</sixx.object>
+												</sixx.object>
+												<sixx.object sixx.id="590" sixx.name="comment" sixx.type="String" sixx.env="Core" >// нопка авар≥йного вимкненн€&#44; або ручного включенн€</sixx.object>
+												<sixx.object sixx.id="591" sixx.name="id" sixx.type="String" sixx.env="Core" >1855abef-1cdb-48d4-8529-d7c073dc0304</sixx.object>
+											</sixx.object>
+											<sixx.object sixx.id="592" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+												<sixx.object sixx.id="593" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+													<sixx.object sixx.id="594" sixx.name="block" sixx.type="CodeUserBlock" sixx.env="Arduino" >
+														<sixx.object sixx.id="595" sixx.name="blocks" sixx.type="OrderedCollection" sixx.env="Core" ></sixx.object>
+														<sixx.object sixx.name="label" sixx.idref="3" />
+														<sixx.object sixx.id="596" sixx.name="inputs" sixx.type="OrderedCollection" sixx.env="Core" >
+															<sixx.object sixx.id="597" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																<sixx.object sixx.id="598" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																	<sixx.object sixx.name="block" sixx.idref="7" />
+																	<sixx.object sixx.name="type" sixx.idref="12" />
+																	<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
+																	<sixx.object sixx.name="name" sixx.idref="13" />
+																	<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="id" sixx.idref="14" />
+																</sixx.object>
+																<sixx.object sixx.name="comment" sixx.idref="15" />
+																<sixx.object sixx.name="id" sixx.idref="16" />
+															</sixx.object>
+															<sixx.object sixx.id="599" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																<sixx.object sixx.id="600" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																	<sixx.object sixx.name="block" sixx.idref="54" />
+																	<sixx.object sixx.name="type" sixx.idref="61" />
+																	<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
+																	<sixx.object sixx.name="name" sixx.idref="62" />
+																	<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="id" sixx.idref="63" />
+																</sixx.object>
+																<sixx.object sixx.name="comment" sixx.idref="64" />
+																<sixx.object sixx.name="id" sixx.idref="65" />
+															</sixx.object>
+															<sixx.object sixx.id="601" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																<sixx.object sixx.id="602" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																	<sixx.object sixx.name="block" sixx.idref="54" />
+																	<sixx.object sixx.name="type" sixx.idref="61" />
+																	<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
+																	<sixx.object sixx.name="name" sixx.idref="68" />
+																	<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="id" sixx.idref="69" />
+																</sixx.object>
+																<sixx.object sixx.name="comment" sixx.idref="70" />
+																<sixx.object sixx.name="id" sixx.idref="71" />
+															</sixx.object>
+															<sixx.object sixx.id="603" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																<sixx.object sixx.id="604" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																	<sixx.object sixx.name="block" sixx.idref="54" />
+																	<sixx.object sixx.name="type" sixx.idref="61" />
+																	<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
+																	<sixx.object sixx.name="name" sixx.idref="74" />
+																	<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="id" sixx.idref="75" />
+																</sixx.object>
+																<sixx.object sixx.name="comment" sixx.idref="76" />
+																<sixx.object sixx.name="id" sixx.idref="77" />
+															</sixx.object>
+															<sixx.object sixx.id="605" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																<sixx.object sixx.id="606" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																	<sixx.object sixx.name="block" sixx.idref="54" />
+																	<sixx.object sixx.name="type" sixx.idref="12" />
+																	<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
+																	<sixx.object sixx.name="name" sixx.idref="80" />
+																	<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="id" sixx.idref="81" />
+																</sixx.object>
+																<sixx.object sixx.name="comment" sixx.idref="82" />
+																<sixx.object sixx.name="id" sixx.idref="83" />
+															</sixx.object>
+															<sixx.object sixx.id="607" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																<sixx.object sixx.id="608" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																	<sixx.object sixx.name="block" sixx.idref="54" />
+																	<sixx.object sixx.name="type" sixx.idref="12" />
+																	<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
+																	<sixx.object sixx.name="name" sixx.idref="86" />
+																	<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="id" sixx.idref="87" />
+																</sixx.object>
+																<sixx.object sixx.name="comment" sixx.idref="88" />
+																<sixx.object sixx.name="id" sixx.idref="89" />
+															</sixx.object>
+															<sixx.object sixx.id="609" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																<sixx.object sixx.id="610" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																	<sixx.object sixx.name="block" sixx.idref="54" />
+																	<sixx.object sixx.name="type" sixx.idref="12" />
+																	<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
+																	<sixx.object sixx.name="name" sixx.idref="92" />
+																	<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="id" sixx.idref="93" />
+																</sixx.object>
+																<sixx.object sixx.name="comment" sixx.idref="94" />
+																<sixx.object sixx.name="id" sixx.idref="95" />
+															</sixx.object>
+															<sixx.object sixx.id="611" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																<sixx.object sixx.id="612" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																	<sixx.object sixx.name="block" sixx.idref="169" />
+																	<sixx.object sixx.name="type" sixx.idref="20" />
+																	<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
+																	<sixx.object sixx.name="name" sixx.idref="249" />
+																	<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="id" sixx.idref="250" />
+																</sixx.object>
+																<sixx.object sixx.name="comment" sixx.idref="251" />
+																<sixx.object sixx.name="id" sixx.idref="252" />
+															</sixx.object>
+															<sixx.object sixx.id="613" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																<sixx.object sixx.id="614" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																	<sixx.object sixx.name="block" sixx.idref="188" />
+																	<sixx.object sixx.name="type" sixx.idref="12" />
+																	<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
+																	<sixx.object sixx.name="name" sixx.idref="207" />
+																	<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="id" sixx.idref="208" />
+																</sixx.object>
+																<sixx.object sixx.name="comment" sixx.idref="209" />
+																<sixx.object sixx.name="id" sixx.idref="210" />
+															</sixx.object>
+														</sixx.object>
+														<sixx.object sixx.id="615" sixx.name="outputs" sixx.type="OrderedCollection" sixx.env="Core" >
+															<sixx.object sixx.id="616" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																<sixx.object sixx.id="617" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																	<sixx.object sixx.name="block" sixx.idref="594" />
+																	<sixx.object sixx.name="type" sixx.idref="348" />
+																	<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.id="618" sixx.name="name" sixx.type="String" sixx.env="Core" >status_str</sixx.object>
+																	<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.id="619" sixx.name="id" sixx.type="String" sixx.env="Core" >8e597661-d896-42fd-adbd-61b66b98bff4</sixx.object>
+																</sixx.object>
+																<sixx.object sixx.id="620" sixx.name="comment" sixx.type="String" sixx.env="Core" >//—трока статусу</sixx.object>
+																<sixx.object sixx.id="621" sixx.name="id" sixx.type="String" sixx.env="Core" >68d22ab0-3d9c-4d32-b485-1ce8d113bd77</sixx.object>
+															</sixx.object>
+															<sixx.object sixx.id="622" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																<sixx.object sixx.id="623" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																	<sixx.object sixx.name="block" sixx.idref="54" />
+																	<sixx.object sixx.name="type" sixx.idref="20" />
+																	<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="name" sixx.idref="214" />
+																	<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="id" sixx.idref="100" />
+																</sixx.object>
+																<sixx.object sixx.name="comment" sixx.idref="215" />
+																<sixx.object sixx.name="id" sixx.idref="102" />
+															</sixx.object>
+															<sixx.object sixx.id="624" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																<sixx.object sixx.id="625" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																	<sixx.object sixx.name="block" sixx.idref="54" />
+																	<sixx.object sixx.name="type" sixx.idref="12" />
+																	<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="name" sixx.idref="107" />
+																	<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="id" sixx.idref="108" />
+																</sixx.object>
+																<sixx.object sixx.name="comment" sixx.idref="109" />
+																<sixx.object sixx.name="id" sixx.idref="110" />
+															</sixx.object>
+															<sixx.object sixx.id="626" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																<sixx.object sixx.id="627" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																	<sixx.object sixx.name="block" sixx.idref="54" />
+																	<sixx.object sixx.name="type" sixx.idref="20" />
+																	<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="name" sixx.idref="113" />
+																	<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="id" sixx.idref="114" />
+																</sixx.object>
+																<sixx.object sixx.name="comment" sixx.idref="115" />
+																<sixx.object sixx.name="id" sixx.idref="116" />
+															</sixx.object>
+															<sixx.object sixx.id="628" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																<sixx.object sixx.id="629" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																	<sixx.object sixx.name="block" sixx.idref="54" />
+																	<sixx.object sixx.name="type" sixx.idref="20" />
+																	<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="name" sixx.idref="119" />
+																	<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="id" sixx.idref="120" />
+																</sixx.object>
+																<sixx.object sixx.name="comment" sixx.idref="121" />
+																<sixx.object sixx.name="id" sixx.idref="122" />
+															</sixx.object>
+															<sixx.object sixx.id="630" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																<sixx.object sixx.id="631" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																	<sixx.object sixx.name="block" sixx.idref="54" />
+																	<sixx.object sixx.name="type" sixx.idref="20" />
+																	<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="name" sixx.idref="125" />
+																	<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="id" sixx.idref="126" />
+																</sixx.object>
+																<sixx.object sixx.name="comment" sixx.idref="127" />
+																<sixx.object sixx.name="id" sixx.idref="128" />
+															</sixx.object>
+															<sixx.object sixx.id="632" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																<sixx.object sixx.id="633" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																	<sixx.object sixx.name="block" sixx.idref="54" />
+																	<sixx.object sixx.name="type" sixx.idref="12" />
+																	<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="name" sixx.idref="131" />
+																	<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="id" sixx.idref="132" />
+																</sixx.object>
+																<sixx.object sixx.name="comment" sixx.idref="133" />
+																<sixx.object sixx.name="id" sixx.idref="134" />
+															</sixx.object>
+															<sixx.object sixx.id="634" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																<sixx.object sixx.id="635" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																	<sixx.object sixx.id="636" sixx.name="block" sixx.type="CodeUserBlock" sixx.env="Arduino" >
+																		<sixx.object sixx.id="637" sixx.name="blocks" sixx.type="OrderedCollection" sixx.env="Core" ></sixx.object>
+																		<sixx.object sixx.name="label" sixx.idref="3" />
+																		<sixx.object sixx.id="638" sixx.name="inputs" sixx.type="OrderedCollection" sixx.env="Core" >
+																			<sixx.object sixx.id="639" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																				<sixx.object sixx.id="640" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																					<sixx.object sixx.name="block" sixx.idref="7" />
+																					<sixx.object sixx.name="type" sixx.idref="12" />
+																					<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
+																					<sixx.object sixx.name="name" sixx.idref="13" />
+																					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.name="id" sixx.idref="14" />
+																				</sixx.object>
+																				<sixx.object sixx.name="comment" sixx.idref="15" />
+																				<sixx.object sixx.name="id" sixx.idref="16" />
+																			</sixx.object>
+																			<sixx.object sixx.id="641" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																				<sixx.object sixx.id="642" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																					<sixx.object sixx.name="block" sixx.idref="54" />
+																					<sixx.object sixx.name="type" sixx.idref="61" />
+																					<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
+																					<sixx.object sixx.name="name" sixx.idref="62" />
+																					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.name="id" sixx.idref="63" />
+																				</sixx.object>
+																				<sixx.object sixx.name="comment" sixx.idref="64" />
+																				<sixx.object sixx.name="id" sixx.idref="65" />
+																			</sixx.object>
+																			<sixx.object sixx.id="643" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																				<sixx.object sixx.id="644" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																					<sixx.object sixx.name="block" sixx.idref="54" />
+																					<sixx.object sixx.name="type" sixx.idref="61" />
+																					<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
+																					<sixx.object sixx.name="name" sixx.idref="68" />
+																					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.name="id" sixx.idref="69" />
+																				</sixx.object>
+																				<sixx.object sixx.name="comment" sixx.idref="70" />
+																				<sixx.object sixx.name="id" sixx.idref="71" />
+																			</sixx.object>
+																			<sixx.object sixx.id="645" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																				<sixx.object sixx.id="646" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																					<sixx.object sixx.name="block" sixx.idref="54" />
+																					<sixx.object sixx.name="type" sixx.idref="61" />
+																					<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
+																					<sixx.object sixx.name="name" sixx.idref="74" />
+																					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.name="id" sixx.idref="75" />
+																				</sixx.object>
+																				<sixx.object sixx.name="comment" sixx.idref="76" />
+																				<sixx.object sixx.name="id" sixx.idref="77" />
+																			</sixx.object>
+																			<sixx.object sixx.id="647" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																				<sixx.object sixx.id="648" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																					<sixx.object sixx.name="block" sixx.idref="54" />
+																					<sixx.object sixx.name="type" sixx.idref="12" />
+																					<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
+																					<sixx.object sixx.name="name" sixx.idref="80" />
+																					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.name="id" sixx.idref="81" />
+																				</sixx.object>
+																				<sixx.object sixx.name="comment" sixx.idref="82" />
+																				<sixx.object sixx.name="id" sixx.idref="83" />
+																			</sixx.object>
+																			<sixx.object sixx.id="649" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																				<sixx.object sixx.id="650" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																					<sixx.object sixx.name="block" sixx.idref="54" />
+																					<sixx.object sixx.name="type" sixx.idref="12" />
+																					<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
+																					<sixx.object sixx.name="name" sixx.idref="86" />
+																					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.name="id" sixx.idref="87" />
+																				</sixx.object>
+																				<sixx.object sixx.name="comment" sixx.idref="88" />
+																				<sixx.object sixx.name="id" sixx.idref="89" />
+																			</sixx.object>
+																			<sixx.object sixx.id="651" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																				<sixx.object sixx.id="652" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																					<sixx.object sixx.name="block" sixx.idref="54" />
+																					<sixx.object sixx.name="type" sixx.idref="12" />
+																					<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
+																					<sixx.object sixx.name="name" sixx.idref="92" />
+																					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.name="id" sixx.idref="93" />
+																				</sixx.object>
+																				<sixx.object sixx.name="comment" sixx.idref="94" />
+																				<sixx.object sixx.name="id" sixx.idref="95" />
+																			</sixx.object>
+																			<sixx.object sixx.id="653" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																				<sixx.object sixx.id="654" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																					<sixx.object sixx.name="block" sixx.idref="188" />
+																					<sixx.object sixx.name="type" sixx.idref="12" />
+																					<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
+																					<sixx.object sixx.name="name" sixx.idref="207" />
+																					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.name="id" sixx.idref="208" />
+																				</sixx.object>
+																				<sixx.object sixx.name="comment" sixx.idref="209" />
+																				<sixx.object sixx.name="id" sixx.idref="210" />
+																			</sixx.object>
+																			<sixx.object sixx.id="655" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																				<sixx.object sixx.id="656" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																					<sixx.object sixx.name="block" sixx.idref="169" />
+																					<sixx.object sixx.name="type" sixx.idref="20" />
+																					<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
+																					<sixx.object sixx.name="name" sixx.idref="249" />
+																					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.name="id" sixx.idref="250" />
+																				</sixx.object>
+																				<sixx.object sixx.name="comment" sixx.idref="251" />
+																				<sixx.object sixx.name="id" sixx.idref="252" />
+																			</sixx.object>
+																		</sixx.object>
+																		<sixx.object sixx.id="657" sixx.name="outputs" sixx.type="OrderedCollection" sixx.env="Core" >
+																			<sixx.object sixx.id="658" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																				<sixx.object sixx.id="659" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																					<sixx.object sixx.name="block" sixx.idref="54" />
+																					<sixx.object sixx.name="type" sixx.idref="20" />
+																					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.name="name" sixx.idref="214" />
+																					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.name="id" sixx.idref="100" />
+																				</sixx.object>
+																				<sixx.object sixx.name="comment" sixx.idref="215" />
+																				<sixx.object sixx.name="id" sixx.idref="102" />
+																			</sixx.object>
+																			<sixx.object sixx.id="660" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																				<sixx.object sixx.id="661" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																					<sixx.object sixx.name="block" sixx.idref="54" />
+																					<sixx.object sixx.name="type" sixx.idref="12" />
+																					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.name="name" sixx.idref="107" />
+																					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.name="id" sixx.idref="108" />
+																				</sixx.object>
+																				<sixx.object sixx.name="comment" sixx.idref="109" />
+																				<sixx.object sixx.name="id" sixx.idref="110" />
+																			</sixx.object>
+																			<sixx.object sixx.id="662" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																				<sixx.object sixx.id="663" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																					<sixx.object sixx.name="block" sixx.idref="54" />
+																					<sixx.object sixx.name="type" sixx.idref="20" />
+																					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.name="name" sixx.idref="113" />
+																					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.name="id" sixx.idref="114" />
+																				</sixx.object>
+																				<sixx.object sixx.name="comment" sixx.idref="115" />
+																				<sixx.object sixx.name="id" sixx.idref="116" />
+																			</sixx.object>
+																			<sixx.object sixx.id="664" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																				<sixx.object sixx.id="665" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																					<sixx.object sixx.name="block" sixx.idref="54" />
+																					<sixx.object sixx.name="type" sixx.idref="20" />
+																					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.name="name" sixx.idref="119" />
+																					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.name="id" sixx.idref="120" />
+																				</sixx.object>
+																				<sixx.object sixx.name="comment" sixx.idref="121" />
+																				<sixx.object sixx.name="id" sixx.idref="122" />
+																			</sixx.object>
+																			<sixx.object sixx.id="666" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																				<sixx.object sixx.id="667" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																					<sixx.object sixx.name="block" sixx.idref="54" />
+																					<sixx.object sixx.name="type" sixx.idref="20" />
+																					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.name="name" sixx.idref="125" />
+																					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.name="id" sixx.idref="126" />
+																				</sixx.object>
+																				<sixx.object sixx.name="comment" sixx.idref="127" />
+																				<sixx.object sixx.name="id" sixx.idref="128" />
+																			</sixx.object>
+																			<sixx.object sixx.id="668" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																				<sixx.object sixx.id="669" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																					<sixx.object sixx.name="block" sixx.idref="54" />
+																					<sixx.object sixx.name="type" sixx.idref="12" />
+																					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.name="name" sixx.idref="131" />
+																					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.name="id" sixx.idref="132" />
+																				</sixx.object>
+																				<sixx.object sixx.name="comment" sixx.idref="133" />
+																				<sixx.object sixx.name="id" sixx.idref="134" />
+																			</sixx.object>
+																			<sixx.object sixx.id="670" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																				<sixx.object sixx.id="671" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																					<sixx.object sixx.name="block" sixx.idref="636" />
+																					<sixx.object sixx.name="type" sixx.idref="20" />
+																					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.id="672" sixx.name="name" sixx.type="String" sixx.env="Core" >limit_by_time</sixx.object>
+																					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.id="673" sixx.name="id" sixx.type="String" sixx.env="Core" >80adb9d6-0ef8-49b6-9311-de9521defb78</sixx.object>
+																				</sixx.object>
+																				<sixx.object sixx.id="674" sixx.name="comment" sixx.type="String" sixx.env="Core" >ќбмежити по часу чи н≥</sixx.object>
+																				<sixx.object sixx.id="675" sixx.name="id" sixx.type="String" sixx.env="Core" >b7795088-e0f6-4e3c-8ea0-0e254c1d69e3</sixx.object>
+																			</sixx.object>
+																			<sixx.object sixx.id="676" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																				<sixx.object sixx.id="677" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																					<sixx.object sixx.name="block" sixx.idref="636" />
+																					<sixx.object sixx.name="type" sixx.idref="12" />
+																					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.id="678" sixx.name="name" sixx.type="String" sixx.env="Core" >limit_by_time_regulator</sixx.object>
+																					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.id="679" sixx.name="id" sixx.type="String" sixx.env="Core" >4671e57e-6141-4602-b390-1a768a33eb04</sixx.object>
+																				</sixx.object>
+																				<sixx.object sixx.id="680" sixx.name="comment" sixx.type="String" sixx.env="Core" >–егул€тор обмеженн€ зар€дки по часу</sixx.object>
+																				<sixx.object sixx.id="681" sixx.name="id" sixx.type="String" sixx.env="Core" >2b83d8b2-9b01-4465-9aed-cf375d7f53f3</sixx.object>
+																			</sixx.object>
+																			<sixx.object sixx.id="682" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																				<sixx.object sixx.id="683" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																					<sixx.object sixx.name="block" sixx.idref="636" />
+																					<sixx.object sixx.name="type" sixx.idref="20" />
+																					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.id="684" sixx.name="name" sixx.type="String" sixx.env="Core" >display_off_time</sixx.object>
+																					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.id="685" sixx.name="id" sixx.type="String" sixx.env="Core" >ecafb0fd-ce61-4b41-b930-107a10805953</sixx.object>
+																				</sixx.object>
+																				<sixx.object sixx.id="686" sixx.name="comment" sixx.type="String" sixx.env="Core" >јктивувати регул€тор вимкненн€ дисплею по часу чи н≥</sixx.object>
+																				<sixx.object sixx.id="687" sixx.name="id" sixx.type="String" sixx.env="Core" >35eb9bf5-d5fc-4c99-8564-3670d91ded1e</sixx.object>
+																			</sixx.object>
+																			<sixx.object sixx.id="688" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																				<sixx.object sixx.id="689" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																					<sixx.object sixx.name="block" sixx.idref="636" />
+																					<sixx.object sixx.name="type" sixx.idref="12" />
+																					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.id="690" sixx.name="name" sixx.type="String" sixx.env="Core" >display_off_time_regulator</sixx.object>
+																					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.id="691" sixx.name="id" sixx.type="String" sixx.env="Core" >12edd2dd-8966-4d87-a0ec-d2c21a7701a6</sixx.object>
+																				</sixx.object>
+																				<sixx.object sixx.id="692" sixx.name="comment" sixx.type="String" sixx.env="Core" >–егул€тор вимкненн€ дисплею по часу</sixx.object>
+																				<sixx.object sixx.id="693" sixx.name="id" sixx.type="String" sixx.env="Core" >d8fe67d0-c4ed-4735-a68f-a91a7ad4a1a1</sixx.object>
+																			</sixx.object>
+																			<sixx.object sixx.id="694" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																				<sixx.object sixx.id="695" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																					<sixx.object sixx.name="block" sixx.idref="54" />
+																					<sixx.object sixx.name="type" sixx.idref="12" />
+																					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.name="name" sixx.idref="137" />
+																					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.name="id" sixx.idref="138" />
+																				</sixx.object>
+																				<sixx.object sixx.name="comment" sixx.idref="139" />
+																				<sixx.object sixx.name="id" sixx.idref="140" />
+																			</sixx.object>
+																			<sixx.object sixx.id="696" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																				<sixx.object sixx.id="697" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																					<sixx.object sixx.name="block" sixx.idref="270" />
+																					<sixx.object sixx.name="type" sixx.idref="20" />
+																					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.name="name" sixx.idref="462" />
+																					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.name="id" sixx.idref="307" />
+																				</sixx.object>
+																				<sixx.object sixx.name="comment" sixx.idref="463" />
+																				<sixx.object sixx.name="id" sixx.idref="309" />
+																			</sixx.object>
+																			<sixx.object sixx.id="698" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																				<sixx.object sixx.id="699" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																					<sixx.object sixx.name="block" sixx.idref="312" />
+																					<sixx.object sixx.name="type" sixx.idref="12" />
+																					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.name="name" sixx.idref="349" />
+																					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.name="id" sixx.idref="350" />
+																				</sixx.object>
+																				<sixx.object sixx.name="comment" sixx.idref="308" />
+																				<sixx.object sixx.name="id" sixx.idref="351" />
+																			</sixx.object>
+																			<sixx.object sixx.id="700" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																				<sixx.object sixx.id="701" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																					<sixx.object sixx.name="block" sixx.idref="365" />
+																					<sixx.object sixx.name="type" sixx.idref="12" />
+																					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.name="name" sixx.idref="403" />
+																					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.name="id" sixx.idref="404" />
+																				</sixx.object>
+																				<sixx.object sixx.name="comment" sixx.idref="308" />
+																				<sixx.object sixx.name="id" sixx.idref="405" />
+																			</sixx.object>
+																			<sixx.object sixx.id="702" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																				<sixx.object sixx.id="703" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																					<sixx.object sixx.name="block" sixx.idref="365" />
+																					<sixx.object sixx.name="type" sixx.idref="12" />
+																					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.name="name" sixx.idref="408" />
+																					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.name="id" sixx.idref="409" />
+																				</sixx.object>
+																				<sixx.object sixx.name="comment" sixx.idref="308" />
+																				<sixx.object sixx.name="id" sixx.idref="410" />
+																			</sixx.object>
+																			<sixx.object sixx.id="704" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																				<sixx.object sixx.id="705" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																					<sixx.object sixx.name="block" sixx.idref="365" />
+																					<sixx.object sixx.name="type" sixx.idref="12" />
+																					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.name="name" sixx.idref="413" />
+																					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.name="id" sixx.idref="414" />
+																				</sixx.object>
+																				<sixx.object sixx.name="comment" sixx.idref="308" />
+																				<sixx.object sixx.name="id" sixx.idref="415" />
+																			</sixx.object>
+																			<sixx.object sixx.id="706" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																				<sixx.object sixx.id="707" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																					<sixx.object sixx.name="block" sixx.idref="365" />
+																					<sixx.object sixx.name="type" sixx.idref="12" />
+																					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.name="name" sixx.idref="418" />
+																					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.name="id" sixx.idref="419" />
+																				</sixx.object>
+																				<sixx.object sixx.name="comment" sixx.idref="308" />
+																				<sixx.object sixx.name="id" sixx.idref="420" />
+																			</sixx.object>
+																			<sixx.object sixx.id="708" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																				<sixx.object sixx.id="709" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																					<sixx.object sixx.name="block" sixx.idref="365" />
+																					<sixx.object sixx.name="type" sixx.idref="12" />
+																					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.name="name" sixx.idref="423" />
+																					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																					<sixx.object sixx.name="id" sixx.idref="424" />
+																				</sixx.object>
+																				<sixx.object sixx.name="comment" sixx.idref="308" />
+																				<sixx.object sixx.name="id" sixx.idref="425" />
+																			</sixx.object>
+																		</sixx.object>
+																		<sixx.object sixx.id="710" sixx.name="variables" sixx.type="OrderedCollection" sixx.env="Core" ></sixx.object>
+																		<sixx.object sixx.id="711" sixx.name="id" sixx.type="String" sixx.env="Core" >2d45d7e8-38ca-496c-9d35-999d7d5b6db4</sixx.object>
+																		<sixx.object sixx.name="name" sixx.idref="27" />
+																		<sixx.object sixx.id="712" sixx.name="parametrs" sixx.type="OrderedCollection" sixx.env="Core" ></sixx.object>
+																		<sixx.object sixx.name="hasEnableInput" sixx.type="False" sixx.env="Core" />
+																		<sixx.object sixx.name="isAsStandart" sixx.type="False" sixx.env="Core" />
+																		<sixx.object sixx.id="713" sixx.name="loopCodePart" sixx.type="CodeUserBlockLoopCodePart" sixx.env="Arduino" >
+																			<sixx.object sixx.id="714" sixx.name="code" sixx.type="Text" sixx.env="Core" >
+																				<sixx.object sixx.id="715" sixx.name="string" sixx.type="String" sixx.env="Core" >electrobox_ui_update&#40;&#41;;
+
+
+//якщо статус зм≥нивс€
+if &#40;status &#33;= charge_status::value&#41;
+	charge_status::update&#40;status&#41;;
+
+
+//якщо вольтаж&#44; струм чи потужн≥сть в≥др≥зн€ютьс€:
+if &#40;voltage &#33;= consumption::voltage || current &#33;= consumption::current || kwt &#33;= consumption::kwt&#41;
+	consumption::update&#40;voltage&#44; current&#44; kwt&#41;;
+
+//якщо час&#44; хвилини&#44; чи потужн≥сть за сес≥ю в≥др≥зн€ютьс€:
+if &#40;
+	hours_for_session &#33;= time_and_kwt_for_session::hours ||
+	minutes_for_session &#33;= time_and_kwt_for_session::minutes ||
+	kwt_for_session &#33;= time_and_kwt_for_session::kwt
+&#41; 
+	time_and_kwt_for_session::update&#40;hours_for_session&#44; minutes_for_session&#44; kwt_for_session&#41;;
+
+//якщо потр≥бно обновити регул€тор струму:
+if &#40;current_regulator_need_update&#41;
+	current_regulator::update&#40;current_regulator_in&#41;;
+
+current_regulator = current_regulator::value;
+weekly_schedule_triggered = weekly_schedule::triggered;
+ground_check = ground_check::enabled;
+adaptive_mode = adaptive_mode::enabled;
+limit_kwt_for_session = limit_kwt_for_session::enabled;
+limit_kwt_for_session_regulator = limit_kwt_for_session::value;
+limit_by_time = limit_by_time::enabled;
+limit_by_time_regulator = limit_by_time::value;
+display_off_time = display_off_time::enabled;
+display_off_time_regulator = display_off_time::value;
+
+display_brightness_regulator = display_brightness_regulator::value;
+
+time_changed = date_time::changed;
+date_time::changed = false;
+year = date_time::date[0].val;
+month = date_time::date[1].val;
+day = date_time::date[2].val;
+
+hour = date_time::time[0].val;
+minute = date_time::time[1].val;
+second = date_time::time[2].val;</sixx.object>
+																				<sixx.object sixx.id="716" sixx.name="runs" sixx.type="RunArray" sixx.env="Core" >
+																					<sixx.object sixx.id="717" sixx.name="runs" sixx.type="Array" sixx.env="Core" >
+																						<sixx.object sixx.id="718" sixx.type="SmallInteger" sixx.env="Core" >1583</sixx.object>
+																					</sixx.object>
+																					<sixx.object sixx.id="719" sixx.name="values" sixx.type="Array" sixx.env="Core" >
+																						<sixx.object sixx.type="UndefinedObject" sixx.env="Core" />
+																					</sixx.object>
+																				</sixx.object>
+																			</sixx.object>
+																		</sixx.object>
+																		<sixx.object sixx.id="720" sixx.name="setupCodePart" sixx.type="CodeUserBlockSetupCodePart" sixx.env="Arduino" >
+																			<sixx.object sixx.name="code" sixx.idref="487" />
+																		</sixx.object>
+																		<sixx.object sixx.id="721" sixx.name="declareCodePart" sixx.type="CodeUserBlockDeclareCodePart" sixx.env="Arduino" >
+																			<sixx.object sixx.id="722" sixx.name="code" sixx.type="OrderedCollection" sixx.env="Core" >
+																				<sixx.object sixx.id="723" sixx.type="CodeUserBlockDeclareDefineBlock" sixx.env="Arduino" >
+																					<sixx.object sixx.name="define" sixx.idref="242" />
+																					<sixx.object sixx.name="name" sixx.idref="243" />
+																				</sixx.object>
+																				<sixx.object sixx.id="724" sixx.type="CodeUserBlockDeclareEmptyBlock" sixx.env="Arduino" >
+																				</sixx.object>
+																			</sixx.object>
+																		</sixx.object>
+																		<sixx.object sixx.id="725" sixx.name="functionCodePart" sixx.type="CodeUserBlockFunctuinCodePart" sixx.env="Arduino" >
+																			<sixx.object sixx.id="726" sixx.name="code" sixx.type="OrderedCollection" sixx.env="Core" ></sixx.object>
+																		</sixx.object>
+																		<sixx.object sixx.name="userLibraries" sixx.idref="50" />
+																		<sixx.object sixx.name="notCanManyUse" sixx.type="False" sixx.env="Core" />
+																	</sixx.object>
+																	<sixx.object sixx.name="type" sixx.idref="20" />
+																	<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="name" sixx.idref="672" />
+																	<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="id" sixx.idref="673" />
+																</sixx.object>
+																<sixx.object sixx.name="comment" sixx.idref="674" />
+																<sixx.object sixx.name="id" sixx.idref="675" />
+															</sixx.object>
+															<sixx.object sixx.id="727" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																<sixx.object sixx.id="728" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																	<sixx.object sixx.name="block" sixx.idref="636" />
+																	<sixx.object sixx.name="type" sixx.idref="12" />
+																	<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="name" sixx.idref="678" />
+																	<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="id" sixx.idref="679" />
+																</sixx.object>
+																<sixx.object sixx.name="comment" sixx.idref="680" />
+																<sixx.object sixx.name="id" sixx.idref="681" />
+															</sixx.object>
+															<sixx.object sixx.id="729" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																<sixx.object sixx.id="730" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																	<sixx.object sixx.name="block" sixx.idref="636" />
+																	<sixx.object sixx.name="type" sixx.idref="20" />
+																	<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="name" sixx.idref="684" />
+																	<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="id" sixx.idref="685" />
+																</sixx.object>
+																<sixx.object sixx.name="comment" sixx.idref="686" />
+																<sixx.object sixx.name="id" sixx.idref="687" />
+															</sixx.object>
+															<sixx.object sixx.id="731" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																<sixx.object sixx.id="732" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																	<sixx.object sixx.name="block" sixx.idref="636" />
+																	<sixx.object sixx.name="type" sixx.idref="12" />
+																	<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="name" sixx.idref="690" />
+																	<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="id" sixx.idref="691" />
+																</sixx.object>
+																<sixx.object sixx.name="comment" sixx.idref="692" />
+																<sixx.object sixx.name="id" sixx.idref="693" />
+															</sixx.object>
+															<sixx.object sixx.id="733" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																<sixx.object sixx.id="734" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																	<sixx.object sixx.name="block" sixx.idref="54" />
+																	<sixx.object sixx.name="type" sixx.idref="12" />
+																	<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="name" sixx.idref="137" />
+																	<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="id" sixx.idref="138" />
+																</sixx.object>
+																<sixx.object sixx.name="comment" sixx.idref="139" />
+																<sixx.object sixx.name="id" sixx.idref="140" />
+															</sixx.object>
+															<sixx.object sixx.id="735" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																<sixx.object sixx.id="736" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																	<sixx.object sixx.name="block" sixx.idref="270" />
+																	<sixx.object sixx.name="type" sixx.idref="20" />
+																	<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="name" sixx.idref="462" />
+																	<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="id" sixx.idref="307" />
+																</sixx.object>
+																<sixx.object sixx.name="comment" sixx.idref="463" />
+																<sixx.object sixx.name="id" sixx.idref="309" />
+															</sixx.object>
+															<sixx.object sixx.id="737" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																<sixx.object sixx.id="738" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																	<sixx.object sixx.name="block" sixx.idref="312" />
+																	<sixx.object sixx.name="type" sixx.idref="12" />
+																	<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="name" sixx.idref="349" />
+																	<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="id" sixx.idref="350" />
+																</sixx.object>
+																<sixx.object sixx.name="comment" sixx.idref="308" />
+																<sixx.object sixx.name="id" sixx.idref="351" />
+															</sixx.object>
+															<sixx.object sixx.id="739" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																<sixx.object sixx.id="740" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																	<sixx.object sixx.name="block" sixx.idref="365" />
+																	<sixx.object sixx.name="type" sixx.idref="12" />
+																	<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="name" sixx.idref="403" />
+																	<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="id" sixx.idref="404" />
+																</sixx.object>
+																<sixx.object sixx.name="comment" sixx.idref="308" />
+																<sixx.object sixx.name="id" sixx.idref="405" />
+															</sixx.object>
+															<sixx.object sixx.id="741" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																<sixx.object sixx.id="742" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																	<sixx.object sixx.name="block" sixx.idref="365" />
+																	<sixx.object sixx.name="type" sixx.idref="12" />
+																	<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="name" sixx.idref="408" />
+																	<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="id" sixx.idref="409" />
+																</sixx.object>
+																<sixx.object sixx.name="comment" sixx.idref="308" />
+																<sixx.object sixx.name="id" sixx.idref="410" />
+															</sixx.object>
+															<sixx.object sixx.id="743" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																<sixx.object sixx.id="744" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																	<sixx.object sixx.name="block" sixx.idref="365" />
+																	<sixx.object sixx.name="type" sixx.idref="12" />
+																	<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="name" sixx.idref="413" />
+																	<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="id" sixx.idref="414" />
+																</sixx.object>
+																<sixx.object sixx.name="comment" sixx.idref="308" />
+																<sixx.object sixx.name="id" sixx.idref="415" />
+															</sixx.object>
+															<sixx.object sixx.id="745" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																<sixx.object sixx.id="746" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																	<sixx.object sixx.name="block" sixx.idref="365" />
+																	<sixx.object sixx.name="type" sixx.idref="12" />
+																	<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="name" sixx.idref="418" />
+																	<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="id" sixx.idref="419" />
+																</sixx.object>
+																<sixx.object sixx.name="comment" sixx.idref="308" />
+																<sixx.object sixx.name="id" sixx.idref="420" />
+															</sixx.object>
+															<sixx.object sixx.id="747" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+																<sixx.object sixx.id="748" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+																	<sixx.object sixx.name="block" sixx.idref="365" />
+																	<sixx.object sixx.name="type" sixx.idref="12" />
+																	<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="name" sixx.idref="423" />
+																	<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+																	<sixx.object sixx.name="id" sixx.idref="424" />
+																</sixx.object>
+																<sixx.object sixx.name="comment" sixx.idref="308" />
+																<sixx.object sixx.name="id" sixx.idref="425" />
+															</sixx.object>
+														</sixx.object>
+														<sixx.object sixx.id="749" sixx.name="variables" sixx.type="OrderedCollection" sixx.env="Core" ></sixx.object>
+														<sixx.object sixx.id="750" sixx.name="id" sixx.type="String" sixx.env="Core" >ccef2778-e2f0-453f-898c-d010a420cd47</sixx.object>
+														<sixx.object sixx.name="name" sixx.idref="27" />
+														<sixx.object sixx.id="751" sixx.name="parametrs" sixx.type="OrderedCollection" sixx.env="Core" ></sixx.object>
+														<sixx.object sixx.name="hasEnableInput" sixx.type="False" sixx.env="Core" />
+														<sixx.object sixx.name="isAsStandart" sixx.type="False" sixx.env="Core" />
+														<sixx.object sixx.id="752" sixx.name="loopCodePart" sixx.type="CodeUserBlockLoopCodePart" sixx.env="Arduino" >
+															<sixx.object sixx.id="753" sixx.name="code" sixx.type="Text" sixx.env="Core" >
+																<sixx.object sixx.id="754" sixx.name="string" sixx.type="String" sixx.env="Core" >//якщо статус зм≥нивс€
+if &#40;status &#33;= charge_status::value&#41; {
+	charge_status::update&#40;status&#41;;
+	status_str = l_str&#40;CHARGER_STATUS + status&#41;;
+}
+
+//якщо вольтаж&#44; струм чи потужн≥сть в≥др≥зн€ютьс€:
+if &#40;voltage &#33;= consumption::voltage || current &#33;= consumption::current || kwt &#33;= consumption::kwt&#41;
+	consumption::update&#40;voltage&#44; current&#44; kwt&#41;;
+
+//якщо час&#44; хвилини&#44; чи потужн≥сть за сес≥ю в≥др≥зн€ютьс€:
+if &#40;
+	hours_for_session &#33;= time_and_kwt_for_session::hours ||
+	minutes_for_session &#33;= time_and_kwt_for_session::minutes ||
+	kwt_for_session &#33;= time_and_kwt_for_session::kwt
+&#41; 
+	time_and_kwt_for_session::update&#40;hours_for_session&#44; minutes_for_session&#44; kwt_for_session&#41;;
+
+//якщо потр≥бно обновити регул€тор струму:
+if &#40;current_regulator_need_update&#41;
+	current_regulator::update&#40;current_regulator_in&#41;;
+
+current_regulator = current_regulator::value;
+weekly_schedule_triggered = weekly_schedule::triggered;
+ground_check = ground_check::enabled;
+adaptive_mode = adaptive_mode::enabled;
+limit_kwt_for_session = limit_kwt_for_session::enabled;
+limit_kwt_for_session_regulator = limit_kwt_for_session::value;
+limit_by_time = limit_by_time::enabled;
+limit_by_time_regulator = limit_by_time::value;
+display_off_time = display_off_time::enabled;
+display_off_time_regulator = display_off_time::value;
+display_brightness_regulator = display_brightness_regulator::value;
+
+time_changed = date_time::changed;
+date_time::changed = false;
+
+year = date_time::date[0].val;
+month = date_time::date[1].val;
+day = date_time::date[2].val;
+
+hour = date_time::time[0].val;
+minute = date_time::time[1].val;
+second = date_time::time[2].val;</sixx.object>
+																<sixx.object sixx.id="755" sixx.name="runs" sixx.type="RunArray" sixx.env="Core" >
+																	<sixx.object sixx.id="756" sixx.name="runs" sixx.type="Array" sixx.env="Core" >
+																		<sixx.object sixx.id="757" sixx.type="SmallInteger" sixx.env="Core" >1606</sixx.object>
+																	</sixx.object>
+																	<sixx.object sixx.id="758" sixx.name="values" sixx.type="Array" sixx.env="Core" >
+																		<sixx.object sixx.type="UndefinedObject" sixx.env="Core" />
+																	</sixx.object>
+																</sixx.object>
+															</sixx.object>
+														</sixx.object>
+														<sixx.object sixx.id="759" sixx.name="setupCodePart" sixx.type="CodeUserBlockSetupCodePart" sixx.env="Arduino" >
+															<sixx.object sixx.id="760" sixx.name="code" sixx.type="Text" sixx.env="Core" >
+																<sixx.object sixx.name="string" sixx.idref="308" />
+																<sixx.object sixx.id="761" sixx.name="runs" sixx.type="RunArray" sixx.env="Core" >
+																	<sixx.object sixx.id="762" sixx.name="runs" sixx.type="Array" sixx.env="Core" ></sixx.object>
+																	<sixx.object sixx.id="763" sixx.name="values" sixx.type="Array" sixx.env="Core" ></sixx.object>
+																</sixx.object>
+															</sixx.object>
+														</sixx.object>
+														<sixx.object sixx.id="764" sixx.name="declareCodePart" sixx.type="CodeUserBlockDeclareCodePart" sixx.env="Arduino" >
+															<sixx.object sixx.id="765" sixx.name="code" sixx.type="OrderedCollection" sixx.env="Core" ></sixx.object>
+														</sixx.object>
+														<sixx.object sixx.id="766" sixx.name="functionCodePart" sixx.type="CodeUserBlockFunctuinCodePart" sixx.env="Arduino" >
+															<sixx.object sixx.id="767" sixx.name="code" sixx.type="OrderedCollection" sixx.env="Core" ></sixx.object>
+														</sixx.object>
+														<sixx.object sixx.name="userLibraries" sixx.idref="50" />
+														<sixx.object sixx.name="notCanManyUse" sixx.type="False" sixx.env="Core" />
+													</sixx.object>
+													<sixx.object sixx.name="type" sixx.idref="348" />
+													<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="name" sixx.idref="618" />
+													<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="id" sixx.idref="619" />
+												</sixx.object>
+												<sixx.object sixx.name="comment" sixx.idref="620" />
+												<sixx.object sixx.name="id" sixx.idref="621" />
+											</sixx.object>
+											<sixx.object sixx.id="768" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+												<sixx.object sixx.id="769" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+													<sixx.object sixx.name="block" sixx.idref="54" />
+													<sixx.object sixx.name="type" sixx.idref="20" />
+													<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="name" sixx.idref="214" />
+													<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="id" sixx.idref="100" />
+												</sixx.object>
+												<sixx.object sixx.name="comment" sixx.idref="215" />
+												<sixx.object sixx.name="id" sixx.idref="102" />
+											</sixx.object>
+											<sixx.object sixx.id="770" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+												<sixx.object sixx.id="771" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+													<sixx.object sixx.name="block" sixx.idref="54" />
+													<sixx.object sixx.name="type" sixx.idref="12" />
+													<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="name" sixx.idref="107" />
+													<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="id" sixx.idref="108" />
+												</sixx.object>
+												<sixx.object sixx.name="comment" sixx.idref="109" />
+												<sixx.object sixx.name="id" sixx.idref="110" />
+											</sixx.object>
+											<sixx.object sixx.id="772" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+												<sixx.object sixx.id="773" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+													<sixx.object sixx.name="block" sixx.idref="54" />
+													<sixx.object sixx.name="type" sixx.idref="20" />
+													<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="name" sixx.idref="113" />
+													<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="id" sixx.idref="114" />
+												</sixx.object>
+												<sixx.object sixx.name="comment" sixx.idref="115" />
+												<sixx.object sixx.name="id" sixx.idref="116" />
+											</sixx.object>
+											<sixx.object sixx.id="774" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+												<sixx.object sixx.id="775" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+													<sixx.object sixx.name="block" sixx.idref="54" />
+													<sixx.object sixx.name="type" sixx.idref="20" />
+													<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="name" sixx.idref="119" />
+													<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="id" sixx.idref="120" />
+												</sixx.object>
+												<sixx.object sixx.name="comment" sixx.idref="121" />
+												<sixx.object sixx.name="id" sixx.idref="122" />
+											</sixx.object>
+											<sixx.object sixx.id="776" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+												<sixx.object sixx.id="777" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+													<sixx.object sixx.name="block" sixx.idref="54" />
+													<sixx.object sixx.name="type" sixx.idref="20" />
+													<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="name" sixx.idref="125" />
+													<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="id" sixx.idref="126" />
+												</sixx.object>
+												<sixx.object sixx.name="comment" sixx.idref="127" />
+												<sixx.object sixx.name="id" sixx.idref="128" />
+											</sixx.object>
+											<sixx.object sixx.id="778" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+												<sixx.object sixx.id="779" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+													<sixx.object sixx.name="block" sixx.idref="54" />
+													<sixx.object sixx.name="type" sixx.idref="12" />
+													<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="name" sixx.idref="131" />
+													<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="id" sixx.idref="132" />
+												</sixx.object>
+												<sixx.object sixx.name="comment" sixx.idref="133" />
+												<sixx.object sixx.name="id" sixx.idref="134" />
+											</sixx.object>
+											<sixx.object sixx.id="780" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+												<sixx.object sixx.id="781" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+													<sixx.object sixx.name="block" sixx.idref="636" />
+													<sixx.object sixx.name="type" sixx.idref="20" />
+													<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="name" sixx.idref="672" />
+													<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="id" sixx.idref="673" />
+												</sixx.object>
+												<sixx.object sixx.name="comment" sixx.idref="674" />
+												<sixx.object sixx.name="id" sixx.idref="675" />
+											</sixx.object>
+											<sixx.object sixx.id="782" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+												<sixx.object sixx.id="783" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+													<sixx.object sixx.name="block" sixx.idref="636" />
+													<sixx.object sixx.name="type" sixx.idref="12" />
+													<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="name" sixx.idref="678" />
+													<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="id" sixx.idref="679" />
+												</sixx.object>
+												<sixx.object sixx.name="comment" sixx.idref="680" />
+												<sixx.object sixx.name="id" sixx.idref="681" />
+											</sixx.object>
+											<sixx.object sixx.id="784" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+												<sixx.object sixx.id="785" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+													<sixx.object sixx.name="block" sixx.idref="636" />
+													<sixx.object sixx.name="type" sixx.idref="20" />
+													<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="name" sixx.idref="684" />
+													<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="id" sixx.idref="685" />
+												</sixx.object>
+												<sixx.object sixx.name="comment" sixx.idref="686" />
+												<sixx.object sixx.name="id" sixx.idref="687" />
+											</sixx.object>
+											<sixx.object sixx.id="786" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+												<sixx.object sixx.id="787" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+													<sixx.object sixx.name="block" sixx.idref="636" />
+													<sixx.object sixx.name="type" sixx.idref="12" />
+													<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="name" sixx.idref="690" />
+													<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="id" sixx.idref="691" />
+												</sixx.object>
+												<sixx.object sixx.name="comment" sixx.idref="692" />
+												<sixx.object sixx.name="id" sixx.idref="693" />
+											</sixx.object>
+											<sixx.object sixx.id="788" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+												<sixx.object sixx.id="789" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+													<sixx.object sixx.name="block" sixx.idref="54" />
+													<sixx.object sixx.name="type" sixx.idref="12" />
+													<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="name" sixx.idref="137" />
+													<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="id" sixx.idref="138" />
+												</sixx.object>
+												<sixx.object sixx.name="comment" sixx.idref="139" />
+												<sixx.object sixx.name="id" sixx.idref="140" />
+											</sixx.object>
+											<sixx.object sixx.id="790" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+												<sixx.object sixx.id="791" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+													<sixx.object sixx.name="block" sixx.idref="270" />
+													<sixx.object sixx.name="type" sixx.idref="20" />
+													<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="name" sixx.idref="462" />
+													<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="id" sixx.idref="307" />
+												</sixx.object>
+												<sixx.object sixx.name="comment" sixx.idref="463" />
+												<sixx.object sixx.name="id" sixx.idref="309" />
+											</sixx.object>
+											<sixx.object sixx.id="792" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+												<sixx.object sixx.id="793" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+													<sixx.object sixx.name="block" sixx.idref="312" />
+													<sixx.object sixx.name="type" sixx.idref="12" />
+													<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="name" sixx.idref="349" />
+													<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="id" sixx.idref="350" />
+												</sixx.object>
+												<sixx.object sixx.name="comment" sixx.idref="308" />
+												<sixx.object sixx.name="id" sixx.idref="351" />
+											</sixx.object>
+											<sixx.object sixx.id="794" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+												<sixx.object sixx.id="795" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+													<sixx.object sixx.name="block" sixx.idref="365" />
+													<sixx.object sixx.name="type" sixx.idref="12" />
+													<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="name" sixx.idref="403" />
+													<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="id" sixx.idref="404" />
+												</sixx.object>
+												<sixx.object sixx.name="comment" sixx.idref="308" />
+												<sixx.object sixx.name="id" sixx.idref="405" />
+											</sixx.object>
+											<sixx.object sixx.id="796" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+												<sixx.object sixx.id="797" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+													<sixx.object sixx.name="block" sixx.idref="365" />
+													<sixx.object sixx.name="type" sixx.idref="12" />
+													<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="name" sixx.idref="408" />
+													<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="id" sixx.idref="409" />
+												</sixx.object>
+												<sixx.object sixx.name="comment" sixx.idref="308" />
+												<sixx.object sixx.name="id" sixx.idref="410" />
+											</sixx.object>
+											<sixx.object sixx.id="798" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+												<sixx.object sixx.id="799" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+													<sixx.object sixx.name="block" sixx.idref="365" />
+													<sixx.object sixx.name="type" sixx.idref="12" />
+													<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="name" sixx.idref="413" />
+													<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="id" sixx.idref="414" />
+												</sixx.object>
+												<sixx.object sixx.name="comment" sixx.idref="308" />
+												<sixx.object sixx.name="id" sixx.idref="415" />
+											</sixx.object>
+											<sixx.object sixx.id="800" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+												<sixx.object sixx.id="801" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+													<sixx.object sixx.name="block" sixx.idref="365" />
+													<sixx.object sixx.name="type" sixx.idref="12" />
+													<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="name" sixx.idref="418" />
+													<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="id" sixx.idref="419" />
+												</sixx.object>
+												<sixx.object sixx.name="comment" sixx.idref="308" />
+												<sixx.object sixx.name="id" sixx.idref="420" />
+											</sixx.object>
+											<sixx.object sixx.id="802" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+												<sixx.object sixx.id="803" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+													<sixx.object sixx.name="block" sixx.idref="365" />
+													<sixx.object sixx.name="type" sixx.idref="12" />
+													<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="name" sixx.idref="423" />
+													<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+													<sixx.object sixx.name="id" sixx.idref="424" />
+												</sixx.object>
+												<sixx.object sixx.name="comment" sixx.idref="308" />
+												<sixx.object sixx.name="id" sixx.idref="425" />
+											</sixx.object>
+										</sixx.object>
+										<sixx.object sixx.id="804" sixx.name="variables" sixx.type="OrderedCollection" sixx.env="Core" ></sixx.object>
+										<sixx.object sixx.id="805" sixx.name="id" sixx.type="String" sixx.env="Core" >593d1a36-ae8b-469c-bd34-1a73aaf68a60</sixx.object>
+										<sixx.object sixx.name="name" sixx.idref="27" />
+										<sixx.object sixx.id="806" sixx.name="parametrs" sixx.type="OrderedCollection" sixx.env="Core" ></sixx.object>
+										<sixx.object sixx.name="hasEnableInput" sixx.type="False" sixx.env="Core" />
+										<sixx.object sixx.name="isAsStandart" sixx.type="False" sixx.env="Core" />
+										<sixx.object sixx.id="807" sixx.name="loopCodePart" sixx.type="CodeUserBlockLoopCodePart" sixx.env="Arduino" >
+											<sixx.object sixx.id="808" sixx.name="code" sixx.type="Text" sixx.env="Core" >
+												<sixx.object sixx.id="809" sixx.name="string" sixx.type="String" sixx.env="Core" >//якщо статус зм≥нивс€
+if &#40;status &#33;= charge_status::value&#41; {
+	charge_status::update&#40;status&#41;;
+	status_str = l_str&#40;CHARGER_STATUS + status&#41;;
+}
+
+//якщо вольтаж&#44; струм чи потужн≥сть в≥др≥зн€ютьс€:
+if &#40;voltage &#33;= consumption::voltage || current &#33;= consumption::current || kwt &#33;= consumption::kwt&#41;
+	consumption::update&#40;voltage&#44; current&#44; kwt&#41;;
+
+//якщо час&#44; хвилини&#44; чи потужн≥сть за сес≥ю в≥др≥зн€ютьс€:
+if &#40;
+	hours_for_session &#33;= time_and_kwt_for_session::hours ||
+	minutes_for_session &#33;= time_and_kwt_for_session::minutes ||
+	kwt_for_session &#33;= time_and_kwt_for_session::kwt
+&#41; 
+	time_and_kwt_for_session::update&#40;hours_for_session&#44; minutes_for_session&#44; kwt_for_session&#41;;
+
+//якщо потр≥бно обновити регул€тор струму:
+if &#40;current_regulator_need_update&#41;
+	current_regulator::update&#40;current_regulator_in&#41;;
+
+charge_switch = charge_switch::enabled;
+current_regulator = current_regulator::value;
+weekly_schedule_triggered = weekly_schedule::triggered;
+ground_check = ground_check::enabled;
+adaptive_mode = adaptive_mode::enabled;
+limit_kwt_for_session = limit_kwt_for_session::enabled;
+limit_kwt_for_session_regulator = limit_kwt_for_session::value;
+limit_by_time = limit_by_time::enabled;
+limit_by_time_regulator = limit_by_time::value;
+display_off_time = display_off_time::enabled;
+display_off_time_regulator = display_off_time::value;
+display_brightness_regulator = display_brightness_regulator::value;
+
+time_changed = date_time::changed;
+date_time::changed = false;
+
+year = date_time::date[0].val;
+month = date_time::date[1].val;
+day = date_time::date[2].val;
+
+hour = date_time::time[0].val;
+minute = date_time::time[1].val;
+second = date_time::time[2].val;</sixx.object>
+												<sixx.object sixx.id="810" sixx.name="runs" sixx.type="RunArray" sixx.env="Core" >
+													<sixx.object sixx.id="811" sixx.name="runs" sixx.type="Array" sixx.env="Core" >
+														<sixx.object sixx.id="812" sixx.type="SmallInteger" sixx.env="Core" >1646</sixx.object>
+													</sixx.object>
+													<sixx.object sixx.id="813" sixx.name="values" sixx.type="Array" sixx.env="Core" >
+														<sixx.object sixx.type="UndefinedObject" sixx.env="Core" />
+													</sixx.object>
+												</sixx.object>
+											</sixx.object>
+										</sixx.object>
+										<sixx.object sixx.id="814" sixx.name="setupCodePart" sixx.type="CodeUserBlockSetupCodePart" sixx.env="Arduino" >
+											<sixx.object sixx.name="code" sixx.idref="760" />
+										</sixx.object>
+										<sixx.object sixx.id="815" sixx.name="declareCodePart" sixx.type="CodeUserBlockDeclareCodePart" sixx.env="Arduino" >
+											<sixx.object sixx.id="816" sixx.name="code" sixx.type="OrderedCollection" sixx.env="Core" ></sixx.object>
+										</sixx.object>
+										<sixx.object sixx.id="817" sixx.name="functionCodePart" sixx.type="CodeUserBlockFunctuinCodePart" sixx.env="Arduino" >
+											<sixx.object sixx.id="818" sixx.name="code" sixx.type="OrderedCollection" sixx.env="Core" ></sixx.object>
+										</sixx.object>
+										<sixx.object sixx.name="userLibraries" sixx.idref="50" />
+										<sixx.object sixx.name="notCanManyUse" sixx.type="False" sixx.env="Core" />
+									</sixx.object>
+									<sixx.object sixx.name="type" sixx.idref="20" />
+									<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+									<sixx.object sixx.name="name" sixx.idref="588" />
+									<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+									<sixx.object sixx.name="id" sixx.idref="589" />
+								</sixx.object>
+								<sixx.object sixx.name="comment" sixx.idref="590" />
+								<sixx.object sixx.name="id" sixx.idref="591" />
+							</sixx.object>
+							<sixx.object sixx.id="819" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+								<sixx.object sixx.id="820" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+									<sixx.object sixx.name="block" sixx.idref="594" />
+									<sixx.object sixx.name="type" sixx.idref="348" />
+									<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+									<sixx.object sixx.name="name" sixx.idref="618" />
+									<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+									<sixx.object sixx.name="id" sixx.idref="619" />
+								</sixx.object>
+								<sixx.object sixx.name="comment" sixx.idref="620" />
+								<sixx.object sixx.name="id" sixx.idref="621" />
+							</sixx.object>
+							<sixx.object sixx.id="821" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+								<sixx.object sixx.id="822" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
 									<sixx.object sixx.name="block" sixx.idref="54" />
 									<sixx.object sixx.name="type" sixx.idref="20" />
 									<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
@@ -2113,8 +3405,8 @@ current_regulator::value = current_regulator = current_regulator_in; //ѕри запус
 								<sixx.object sixx.name="comment" sixx.idref="215" />
 								<sixx.object sixx.name="id" sixx.idref="102" />
 							</sixx.object>
-							<sixx.object sixx.id="548" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
-								<sixx.object sixx.id="549" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+							<sixx.object sixx.id="823" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+								<sixx.object sixx.id="824" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
 									<sixx.object sixx.name="block" sixx.idref="54" />
 									<sixx.object sixx.name="type" sixx.idref="12" />
 									<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
@@ -2125,8 +3417,8 @@ current_regulator::value = current_regulator = current_regulator_in; //ѕри запус
 								<sixx.object sixx.name="comment" sixx.idref="109" />
 								<sixx.object sixx.name="id" sixx.idref="110" />
 							</sixx.object>
-							<sixx.object sixx.id="550" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
-								<sixx.object sixx.id="551" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+							<sixx.object sixx.id="825" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+								<sixx.object sixx.id="826" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
 									<sixx.object sixx.name="block" sixx.idref="54" />
 									<sixx.object sixx.name="type" sixx.idref="20" />
 									<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
@@ -2137,8 +3429,8 @@ current_regulator::value = current_regulator = current_regulator_in; //ѕри запус
 								<sixx.object sixx.name="comment" sixx.idref="115" />
 								<sixx.object sixx.name="id" sixx.idref="116" />
 							</sixx.object>
-							<sixx.object sixx.id="552" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
-								<sixx.object sixx.id="553" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+							<sixx.object sixx.id="827" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+								<sixx.object sixx.id="828" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
 									<sixx.object sixx.name="block" sixx.idref="54" />
 									<sixx.object sixx.name="type" sixx.idref="20" />
 									<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
@@ -2149,8 +3441,8 @@ current_regulator::value = current_regulator = current_regulator_in; //ѕри запус
 								<sixx.object sixx.name="comment" sixx.idref="121" />
 								<sixx.object sixx.name="id" sixx.idref="122" />
 							</sixx.object>
-							<sixx.object sixx.id="554" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
-								<sixx.object sixx.id="555" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+							<sixx.object sixx.id="829" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+								<sixx.object sixx.id="830" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
 									<sixx.object sixx.name="block" sixx.idref="54" />
 									<sixx.object sixx.name="type" sixx.idref="20" />
 									<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
@@ -2161,8 +3453,8 @@ current_regulator::value = current_regulator = current_regulator_in; //ѕри запус
 								<sixx.object sixx.name="comment" sixx.idref="127" />
 								<sixx.object sixx.name="id" sixx.idref="128" />
 							</sixx.object>
-							<sixx.object sixx.id="556" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
-								<sixx.object sixx.id="557" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+							<sixx.object sixx.id="831" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+								<sixx.object sixx.id="832" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
 									<sixx.object sixx.name="block" sixx.idref="54" />
 									<sixx.object sixx.name="type" sixx.idref="12" />
 									<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
@@ -2173,56 +3465,56 @@ current_regulator::value = current_regulator = current_regulator_in; //ѕри запус
 								<sixx.object sixx.name="comment" sixx.idref="133" />
 								<sixx.object sixx.name="id" sixx.idref="134" />
 							</sixx.object>
-							<sixx.object sixx.id="558" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
-								<sixx.object sixx.id="559" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
-									<sixx.object sixx.name="block" sixx.idref="524" />
+							<sixx.object sixx.id="833" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+								<sixx.object sixx.id="834" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+									<sixx.object sixx.name="block" sixx.idref="636" />
 									<sixx.object sixx.name="type" sixx.idref="20" />
 									<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
-									<sixx.object sixx.id="560" sixx.name="name" sixx.type="String" sixx.env="Core" >limit_by_time</sixx.object>
+									<sixx.object sixx.name="name" sixx.idref="672" />
 									<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
-									<sixx.object sixx.id="561" sixx.name="id" sixx.type="String" sixx.env="Core" >80adb9d6-0ef8-49b6-9311-de9521defb78</sixx.object>
+									<sixx.object sixx.name="id" sixx.idref="673" />
 								</sixx.object>
-								<sixx.object sixx.id="562" sixx.name="comment" sixx.type="String" sixx.env="Core" >ќбмежити по часу чи н≥</sixx.object>
-								<sixx.object sixx.id="563" sixx.name="id" sixx.type="String" sixx.env="Core" >b7795088-e0f6-4e3c-8ea0-0e254c1d69e3</sixx.object>
+								<sixx.object sixx.name="comment" sixx.idref="674" />
+								<sixx.object sixx.name="id" sixx.idref="675" />
 							</sixx.object>
-							<sixx.object sixx.id="564" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
-								<sixx.object sixx.id="565" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
-									<sixx.object sixx.name="block" sixx.idref="524" />
+							<sixx.object sixx.id="835" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+								<sixx.object sixx.id="836" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+									<sixx.object sixx.name="block" sixx.idref="636" />
 									<sixx.object sixx.name="type" sixx.idref="12" />
 									<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
-									<sixx.object sixx.id="566" sixx.name="name" sixx.type="String" sixx.env="Core" >limit_by_time_regulator</sixx.object>
+									<sixx.object sixx.name="name" sixx.idref="678" />
 									<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
-									<sixx.object sixx.id="567" sixx.name="id" sixx.type="String" sixx.env="Core" >4671e57e-6141-4602-b390-1a768a33eb04</sixx.object>
+									<sixx.object sixx.name="id" sixx.idref="679" />
 								</sixx.object>
-								<sixx.object sixx.id="568" sixx.name="comment" sixx.type="String" sixx.env="Core" >–егул€тор обмеженн€ зар€дки по часу</sixx.object>
-								<sixx.object sixx.id="569" sixx.name="id" sixx.type="String" sixx.env="Core" >2b83d8b2-9b01-4465-9aed-cf375d7f53f3</sixx.object>
+								<sixx.object sixx.name="comment" sixx.idref="680" />
+								<sixx.object sixx.name="id" sixx.idref="681" />
 							</sixx.object>
-							<sixx.object sixx.id="570" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
-								<sixx.object sixx.id="571" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
-									<sixx.object sixx.name="block" sixx.idref="524" />
+							<sixx.object sixx.id="837" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+								<sixx.object sixx.id="838" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+									<sixx.object sixx.name="block" sixx.idref="636" />
 									<sixx.object sixx.name="type" sixx.idref="20" />
 									<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
-									<sixx.object sixx.id="572" sixx.name="name" sixx.type="String" sixx.env="Core" >display_off_time</sixx.object>
+									<sixx.object sixx.name="name" sixx.idref="684" />
 									<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
-									<sixx.object sixx.id="573" sixx.name="id" sixx.type="String" sixx.env="Core" >ecafb0fd-ce61-4b41-b930-107a10805953</sixx.object>
+									<sixx.object sixx.name="id" sixx.idref="685" />
 								</sixx.object>
-								<sixx.object sixx.id="574" sixx.name="comment" sixx.type="String" sixx.env="Core" >јктивувати регул€тор вимкненн€ дисплею по часу чи н≥</sixx.object>
-								<sixx.object sixx.id="575" sixx.name="id" sixx.type="String" sixx.env="Core" >35eb9bf5-d5fc-4c99-8564-3670d91ded1e</sixx.object>
+								<sixx.object sixx.name="comment" sixx.idref="686" />
+								<sixx.object sixx.name="id" sixx.idref="687" />
 							</sixx.object>
-							<sixx.object sixx.id="576" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
-								<sixx.object sixx.id="577" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
-									<sixx.object sixx.name="block" sixx.idref="524" />
+							<sixx.object sixx.id="839" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+								<sixx.object sixx.id="840" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+									<sixx.object sixx.name="block" sixx.idref="636" />
 									<sixx.object sixx.name="type" sixx.idref="12" />
 									<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
-									<sixx.object sixx.id="578" sixx.name="name" sixx.type="String" sixx.env="Core" >display_off_time_regulator</sixx.object>
+									<sixx.object sixx.name="name" sixx.idref="690" />
 									<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
-									<sixx.object sixx.id="579" sixx.name="id" sixx.type="String" sixx.env="Core" >12edd2dd-8966-4d87-a0ec-d2c21a7701a6</sixx.object>
+									<sixx.object sixx.name="id" sixx.idref="691" />
 								</sixx.object>
-								<sixx.object sixx.id="580" sixx.name="comment" sixx.type="String" sixx.env="Core" >–егул€тор вимкненн€ дисплею по часу</sixx.object>
-								<sixx.object sixx.id="581" sixx.name="id" sixx.type="String" sixx.env="Core" >d8fe67d0-c4ed-4735-a68f-a91a7ad4a1a1</sixx.object>
+								<sixx.object sixx.name="comment" sixx.idref="692" />
+								<sixx.object sixx.name="id" sixx.idref="693" />
 							</sixx.object>
-							<sixx.object sixx.id="582" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
-								<sixx.object sixx.id="583" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+							<sixx.object sixx.id="841" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+								<sixx.object sixx.id="842" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
 									<sixx.object sixx.name="block" sixx.idref="54" />
 									<sixx.object sixx.name="type" sixx.idref="12" />
 									<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
@@ -2233,8 +3525,8 @@ current_regulator::value = current_regulator = current_regulator_in; //ѕри запус
 								<sixx.object sixx.name="comment" sixx.idref="139" />
 								<sixx.object sixx.name="id" sixx.idref="140" />
 							</sixx.object>
-							<sixx.object sixx.id="584" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
-								<sixx.object sixx.id="585" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+							<sixx.object sixx.id="843" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+								<sixx.object sixx.id="844" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
 									<sixx.object sixx.name="block" sixx.idref="270" />
 									<sixx.object sixx.name="type" sixx.idref="20" />
 									<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
@@ -2245,8 +3537,8 @@ current_regulator::value = current_regulator = current_regulator_in; //ѕри запус
 								<sixx.object sixx.name="comment" sixx.idref="463" />
 								<sixx.object sixx.name="id" sixx.idref="309" />
 							</sixx.object>
-							<sixx.object sixx.id="586" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
-								<sixx.object sixx.id="587" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+							<sixx.object sixx.id="845" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+								<sixx.object sixx.id="846" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
 									<sixx.object sixx.name="block" sixx.idref="312" />
 									<sixx.object sixx.name="type" sixx.idref="12" />
 									<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
@@ -2257,8 +3549,8 @@ current_regulator::value = current_regulator = current_regulator_in; //ѕри запус
 								<sixx.object sixx.name="comment" sixx.idref="308" />
 								<sixx.object sixx.name="id" sixx.idref="351" />
 							</sixx.object>
-							<sixx.object sixx.id="588" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
-								<sixx.object sixx.id="589" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+							<sixx.object sixx.id="847" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+								<sixx.object sixx.id="848" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
 									<sixx.object sixx.name="block" sixx.idref="365" />
 									<sixx.object sixx.name="type" sixx.idref="12" />
 									<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
@@ -2269,8 +3561,8 @@ current_regulator::value = current_regulator = current_regulator_in; //ѕри запус
 								<sixx.object sixx.name="comment" sixx.idref="308" />
 								<sixx.object sixx.name="id" sixx.idref="405" />
 							</sixx.object>
-							<sixx.object sixx.id="590" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
-								<sixx.object sixx.id="591" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+							<sixx.object sixx.id="849" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+								<sixx.object sixx.id="850" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
 									<sixx.object sixx.name="block" sixx.idref="365" />
 									<sixx.object sixx.name="type" sixx.idref="12" />
 									<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
@@ -2281,8 +3573,8 @@ current_regulator::value = current_regulator = current_regulator_in; //ѕри запус
 								<sixx.object sixx.name="comment" sixx.idref="308" />
 								<sixx.object sixx.name="id" sixx.idref="410" />
 							</sixx.object>
-							<sixx.object sixx.id="592" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
-								<sixx.object sixx.id="593" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+							<sixx.object sixx.id="851" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+								<sixx.object sixx.id="852" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
 									<sixx.object sixx.name="block" sixx.idref="365" />
 									<sixx.object sixx.name="type" sixx.idref="12" />
 									<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
@@ -2293,8 +3585,8 @@ current_regulator::value = current_regulator = current_regulator_in; //ѕри запус
 								<sixx.object sixx.name="comment" sixx.idref="308" />
 								<sixx.object sixx.name="id" sixx.idref="415" />
 							</sixx.object>
-							<sixx.object sixx.id="594" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
-								<sixx.object sixx.id="595" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+							<sixx.object sixx.id="853" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+								<sixx.object sixx.id="854" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
 									<sixx.object sixx.name="block" sixx.idref="365" />
 									<sixx.object sixx.name="type" sixx.idref="12" />
 									<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
@@ -2305,8 +3597,8 @@ current_regulator::value = current_regulator = current_regulator_in; //ѕри запус
 								<sixx.object sixx.name="comment" sixx.idref="308" />
 								<sixx.object sixx.name="id" sixx.idref="420" />
 							</sixx.object>
-							<sixx.object sixx.id="596" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
-								<sixx.object sixx.id="597" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+							<sixx.object sixx.id="855" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+								<sixx.object sixx.id="856" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
 									<sixx.object sixx.name="block" sixx.idref="365" />
 									<sixx.object sixx.name="type" sixx.idref="12" />
 									<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
@@ -2318,21 +3610,19 @@ current_regulator::value = current_regulator = current_regulator_in; //ѕри запус
 								<sixx.object sixx.name="id" sixx.idref="425" />
 							</sixx.object>
 						</sixx.object>
-						<sixx.object sixx.id="598" sixx.name="variables" sixx.type="OrderedCollection" sixx.env="Core" ></sixx.object>
-						<sixx.object sixx.id="599" sixx.name="id" sixx.type="String" sixx.env="Core" >2d45d7e8-38ca-496c-9d35-999d7d5b6db4</sixx.object>
+						<sixx.object sixx.id="857" sixx.name="variables" sixx.type="OrderedCollection" sixx.env="Core" ></sixx.object>
+						<sixx.object sixx.id="858" sixx.name="id" sixx.type="String" sixx.env="Core" >518caa35-1188-4646-bc7b-f2650f086208</sixx.object>
 						<sixx.object sixx.name="name" sixx.idref="27" />
-						<sixx.object sixx.id="600" sixx.name="parametrs" sixx.type="OrderedCollection" sixx.env="Core" ></sixx.object>
+						<sixx.object sixx.id="859" sixx.name="parametrs" sixx.type="OrderedCollection" sixx.env="Core" ></sixx.object>
 						<sixx.object sixx.name="hasEnableInput" sixx.type="False" sixx.env="Core" />
 						<sixx.object sixx.name="isAsStandart" sixx.type="False" sixx.env="Core" />
-						<sixx.object sixx.id="601" sixx.name="loopCodePart" sixx.type="CodeUserBlockLoopCodePart" sixx.env="Arduino" >
-							<sixx.object sixx.id="602" sixx.name="code" sixx.type="Text" sixx.env="Core" >
-								<sixx.object sixx.id="603" sixx.name="string" sixx.type="String" sixx.env="Core" >electrobox_ui_update&#40;&#41;;
-
-
-//якщо статус зм≥нивс€
-if &#40;status &#33;= charge_status::value&#41;
+						<sixx.object sixx.id="860" sixx.name="loopCodePart" sixx.type="CodeUserBlockLoopCodePart" sixx.env="Arduino" >
+							<sixx.object sixx.id="861" sixx.name="code" sixx.type="Text" sixx.env="Core" >
+								<sixx.object sixx.id="862" sixx.name="string" sixx.type="String" sixx.env="Core" >//якщо статус зм≥нивс€
+if &#40;status &#33;= charge_status::value&#41; {
 	charge_status::update&#40;status&#41;;
-
+	status_str = l_str&#40;CHARGER_STATUS + status&#41;;
+}
 
 //якщо вольтаж&#44; струм чи потужн≥сть в≥др≥зн€ютьс€:
 if &#40;voltage &#33;= consumption::voltage || current &#33;= consumption::current || kwt &#33;= consumption::kwt&#41;
@@ -2350,6 +3640,7 @@ if &#40;
 if &#40;current_regulator_need_update&#41;
 	current_regulator::update&#40;current_regulator_in&#41;;
 
+charge_switch = charge_switch::enabled;
 current_regulator = current_regulator::value;
 weekly_schedule_triggered = weekly_schedule::triggered;
 ground_check = ground_check::enabled;
@@ -2360,11 +3651,16 @@ limit_by_time = limit_by_time::enabled;
 limit_by_time_regulator = limit_by_time::value;
 display_off_time = display_off_time::enabled;
 display_off_time_regulator = display_off_time::value;
-
 display_brightness_regulator = display_brightness_regulator::value;
+
+if &#40;time_changed_in&#41;
+{
+	setTime&#40;hour_in&#44; minute_in&#44; second_in&#44; day_in&#44; month_in&#44; year_in&#41;;
+}
 
 time_changed = date_time::changed;
 date_time::changed = false;
+
 year = date_time::date[0].val;
 month = date_time::date[1].val;
 day = date_time::date[2].val;
@@ -2372,88 +3668,278 @@ day = date_time::date[2].val;
 hour = date_time::time[0].val;
 minute = date_time::time[1].val;
 second = date_time::time[2].val;</sixx.object>
-								<sixx.object sixx.id="604" sixx.name="runs" sixx.type="RunArray" sixx.env="Core" >
-									<sixx.object sixx.id="605" sixx.name="runs" sixx.type="Array" sixx.env="Core" >
-										<sixx.object sixx.id="606" sixx.type="SmallInteger" sixx.env="Core" >1583</sixx.object>
+								<sixx.object sixx.id="863" sixx.name="runs" sixx.type="RunArray" sixx.env="Core" >
+									<sixx.object sixx.id="864" sixx.name="runs" sixx.type="Array" sixx.env="Core" >
+										<sixx.object sixx.id="865" sixx.type="SmallInteger" sixx.env="Core" >1740</sixx.object>
 									</sixx.object>
-									<sixx.object sixx.id="607" sixx.name="values" sixx.type="Array" sixx.env="Core" >
+									<sixx.object sixx.id="866" sixx.name="values" sixx.type="Array" sixx.env="Core" >
 										<sixx.object sixx.type="UndefinedObject" sixx.env="Core" />
 									</sixx.object>
 								</sixx.object>
 							</sixx.object>
 						</sixx.object>
-						<sixx.object sixx.id="608" sixx.name="setupCodePart" sixx.type="CodeUserBlockSetupCodePart" sixx.env="Arduino" >
-							<sixx.object sixx.name="code" sixx.idref="487" />
+						<sixx.object sixx.id="867" sixx.name="setupCodePart" sixx.type="CodeUserBlockSetupCodePart" sixx.env="Arduino" >
+							<sixx.object sixx.name="code" sixx.idref="760" />
 						</sixx.object>
-						<sixx.object sixx.id="609" sixx.name="declareCodePart" sixx.type="CodeUserBlockDeclareCodePart" sixx.env="Arduino" >
-							<sixx.object sixx.id="610" sixx.name="code" sixx.type="OrderedCollection" sixx.env="Core" >
-								<sixx.object sixx.id="611" sixx.type="CodeUserBlockDeclareDefineBlock" sixx.env="Arduino" >
-									<sixx.object sixx.name="define" sixx.idref="242" />
-									<sixx.object sixx.name="name" sixx.idref="243" />
-								</sixx.object>
-								<sixx.object sixx.id="612" sixx.type="CodeUserBlockDeclareEmptyBlock" sixx.env="Arduino" >
-								</sixx.object>
-							</sixx.object>
+						<sixx.object sixx.id="868" sixx.name="declareCodePart" sixx.type="CodeUserBlockDeclareCodePart" sixx.env="Arduino" >
+							<sixx.object sixx.id="869" sixx.name="code" sixx.type="OrderedCollection" sixx.env="Core" ></sixx.object>
 						</sixx.object>
-						<sixx.object sixx.id="613" sixx.name="functionCodePart" sixx.type="CodeUserBlockFunctuinCodePart" sixx.env="Arduino" >
-							<sixx.object sixx.id="614" sixx.name="code" sixx.type="OrderedCollection" sixx.env="Core" ></sixx.object>
+						<sixx.object sixx.id="870" sixx.name="functionCodePart" sixx.type="CodeUserBlockFunctuinCodePart" sixx.env="Arduino" >
+							<sixx.object sixx.id="871" sixx.name="code" sixx.type="OrderedCollection" sixx.env="Core" ></sixx.object>
 						</sixx.object>
 						<sixx.object sixx.name="userLibraries" sixx.idref="50" />
 						<sixx.object sixx.name="notCanManyUse" sixx.type="False" sixx.env="Core" />
 					</sixx.object>
-					<sixx.object sixx.id="615" sixx.name="type" sixx.type="BooleanDataType" sixx.env="Arduino" >
+					<sixx.object sixx.id="872" sixx.name="type" sixx.type="BooleanDataType" sixx.env="Arduino" >
+					</sixx.object>
+					<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
+					<sixx.object sixx.name="name" sixx.idref="528" />
+					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+					<sixx.object sixx.name="id" sixx.idref="529" />
+				</sixx.object>
+				<sixx.object sixx.name="comment" sixx.idref="308" />
+				<sixx.object sixx.name="id" sixx.idref="530" />
+			</sixx.object>
+			<sixx.object sixx.id="873" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+				<sixx.object sixx.id="874" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+					<sixx.object sixx.name="block" sixx.idref="505" />
+					<sixx.object sixx.id="875" sixx.name="type" sixx.type="IntegerDataType" sixx.env="Arduino" >
+					</sixx.object>
+					<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
+					<sixx.object sixx.name="name" sixx.idref="533" />
+					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+					<sixx.object sixx.name="id" sixx.idref="534" />
+				</sixx.object>
+				<sixx.object sixx.name="comment" sixx.idref="308" />
+				<sixx.object sixx.name="id" sixx.idref="535" />
+			</sixx.object>
+			<sixx.object sixx.id="876" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+				<sixx.object sixx.id="877" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+					<sixx.object sixx.name="block" sixx.idref="505" />
+					<sixx.object sixx.id="878" sixx.name="type" sixx.type="IntegerDataType" sixx.env="Arduino" >
+					</sixx.object>
+					<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
+					<sixx.object sixx.name="name" sixx.idref="538" />
+					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+					<sixx.object sixx.name="id" sixx.idref="539" />
+				</sixx.object>
+				<sixx.object sixx.name="comment" sixx.idref="308" />
+				<sixx.object sixx.name="id" sixx.idref="540" />
+			</sixx.object>
+			<sixx.object sixx.id="879" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+				<sixx.object sixx.id="880" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+					<sixx.object sixx.name="block" sixx.idref="505" />
+					<sixx.object sixx.id="881" sixx.name="type" sixx.type="IntegerDataType" sixx.env="Arduino" >
+					</sixx.object>
+					<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
+					<sixx.object sixx.name="name" sixx.idref="543" />
+					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+					<sixx.object sixx.name="id" sixx.idref="544" />
+				</sixx.object>
+				<sixx.object sixx.name="comment" sixx.idref="308" />
+				<sixx.object sixx.name="id" sixx.idref="545" />
+			</sixx.object>
+			<sixx.object sixx.id="882" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+				<sixx.object sixx.id="883" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+					<sixx.object sixx.name="block" sixx.idref="505" />
+					<sixx.object sixx.id="884" sixx.name="type" sixx.type="IntegerDataType" sixx.env="Arduino" >
+					</sixx.object>
+					<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
+					<sixx.object sixx.name="name" sixx.idref="548" />
+					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+					<sixx.object sixx.name="id" sixx.idref="549" />
+				</sixx.object>
+				<sixx.object sixx.name="comment" sixx.idref="308" />
+				<sixx.object sixx.name="id" sixx.idref="550" />
+			</sixx.object>
+			<sixx.object sixx.id="885" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+				<sixx.object sixx.id="886" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+					<sixx.object sixx.name="block" sixx.idref="505" />
+					<sixx.object sixx.id="887" sixx.name="type" sixx.type="IntegerDataType" sixx.env="Arduino" >
+					</sixx.object>
+					<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
+					<sixx.object sixx.name="name" sixx.idref="553" />
+					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+					<sixx.object sixx.name="id" sixx.idref="554" />
+				</sixx.object>
+				<sixx.object sixx.name="comment" sixx.idref="308" />
+				<sixx.object sixx.name="id" sixx.idref="555" />
+			</sixx.object>
+			<sixx.object sixx.id="888" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+				<sixx.object sixx.id="889" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+					<sixx.object sixx.name="block" sixx.idref="505" />
+					<sixx.object sixx.id="890" sixx.name="type" sixx.type="IntegerDataType" sixx.env="Arduino" >
+					</sixx.object>
+					<sixx.object sixx.name="isInput" sixx.type="True" sixx.env="Core" />
+					<sixx.object sixx.name="name" sixx.idref="558" />
+					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+					<sixx.object sixx.name="id" sixx.idref="559" />
+				</sixx.object>
+				<sixx.object sixx.name="comment" sixx.idref="308" />
+				<sixx.object sixx.name="id" sixx.idref="560" />
+			</sixx.object>
+		</sixx.object>
+		<sixx.object sixx.id="891" sixx.name="outputs" sixx.type="OrderedCollection" sixx.env="Core" >
+			<sixx.object sixx.id="892" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+				<sixx.object sixx.id="893" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+					<sixx.object sixx.name="block" sixx.idref="564" />
+					<sixx.object sixx.id="894" sixx.name="type" sixx.type="BooleanDataType" sixx.env="Arduino" >
 					</sixx.object>
 					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
-					<sixx.object sixx.name="name" sixx.idref="560" />
+					<sixx.object sixx.name="name" sixx.idref="588" />
 					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
-					<sixx.object sixx.name="id" sixx.idref="561" />
+					<sixx.object sixx.name="id" sixx.idref="589" />
 				</sixx.object>
-				<sixx.object sixx.name="comment" sixx.idref="562" />
-				<sixx.object sixx.name="id" sixx.idref="563" />
+				<sixx.object sixx.name="comment" sixx.idref="590" />
+				<sixx.object sixx.name="id" sixx.idref="591" />
 			</sixx.object>
-			<sixx.object sixx.id="616" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
-				<sixx.object sixx.id="617" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
-					<sixx.object sixx.name="block" sixx.idref="524" />
-					<sixx.object sixx.id="618" sixx.name="type" sixx.type="IntegerDataType" sixx.env="Arduino" >
+			<sixx.object sixx.id="895" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+				<sixx.object sixx.id="896" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+					<sixx.object sixx.name="block" sixx.idref="594" />
+					<sixx.object sixx.id="897" sixx.name="type" sixx.type="StringDataType" sixx.env="Arduino" >
 					</sixx.object>
 					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
-					<sixx.object sixx.name="name" sixx.idref="566" />
+					<sixx.object sixx.name="name" sixx.idref="618" />
 					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
-					<sixx.object sixx.name="id" sixx.idref="567" />
+					<sixx.object sixx.name="id" sixx.idref="619" />
 				</sixx.object>
-				<sixx.object sixx.name="comment" sixx.idref="568" />
-				<sixx.object sixx.name="id" sixx.idref="569" />
+				<sixx.object sixx.name="comment" sixx.idref="620" />
+				<sixx.object sixx.name="id" sixx.idref="621" />
 			</sixx.object>
-			<sixx.object sixx.id="619" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
-				<sixx.object sixx.id="620" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
-					<sixx.object sixx.name="block" sixx.idref="524" />
-					<sixx.object sixx.id="621" sixx.name="type" sixx.type="BooleanDataType" sixx.env="Arduino" >
-					</sixx.object>
-					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
-					<sixx.object sixx.name="name" sixx.idref="572" />
-					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
-					<sixx.object sixx.name="id" sixx.idref="573" />
-				</sixx.object>
-				<sixx.object sixx.name="comment" sixx.idref="574" />
-				<sixx.object sixx.name="id" sixx.idref="575" />
-			</sixx.object>
-			<sixx.object sixx.id="622" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
-				<sixx.object sixx.id="623" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
-					<sixx.object sixx.name="block" sixx.idref="524" />
-					<sixx.object sixx.id="624" sixx.name="type" sixx.type="IntegerDataType" sixx.env="Arduino" >
-					</sixx.object>
-					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
-					<sixx.object sixx.name="name" sixx.idref="578" />
-					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
-					<sixx.object sixx.name="id" sixx.idref="579" />
-				</sixx.object>
-				<sixx.object sixx.name="comment" sixx.idref="580" />
-				<sixx.object sixx.name="id" sixx.idref="581" />
-			</sixx.object>
-			<sixx.object sixx.id="625" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
-				<sixx.object sixx.id="626" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+			<sixx.object sixx.id="898" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+				<sixx.object sixx.id="899" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
 					<sixx.object sixx.name="block" sixx.idref="54" />
-					<sixx.object sixx.id="627" sixx.name="type" sixx.type="IntegerDataType" sixx.env="Arduino" >
+					<sixx.object sixx.id="900" sixx.name="type" sixx.type="BooleanDataType" sixx.env="Arduino" >
+					</sixx.object>
+					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+					<sixx.object sixx.id="901" sixx.name="name" sixx.type="String" sixx.env="Core" >weekly_schedule_blocking</sixx.object>
+					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+					<sixx.object sixx.name="id" sixx.idref="100" />
+				</sixx.object>
+				<sixx.object sixx.name="comment" sixx.idref="215" />
+				<sixx.object sixx.name="id" sixx.idref="102" />
+			</sixx.object>
+			<sixx.object sixx.id="902" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+				<sixx.object sixx.id="903" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+					<sixx.object sixx.name="block" sixx.idref="54" />
+					<sixx.object sixx.id="904" sixx.name="type" sixx.type="IntegerDataType" sixx.env="Arduino" >
+					</sixx.object>
+					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+					<sixx.object sixx.id="905" sixx.name="name" sixx.type="String" sixx.env="Core" >current_regulator_out</sixx.object>
+					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+					<sixx.object sixx.name="id" sixx.idref="108" />
+				</sixx.object>
+				<sixx.object sixx.name="comment" sixx.idref="109" />
+				<sixx.object sixx.name="id" sixx.idref="110" />
+			</sixx.object>
+			<sixx.object sixx.id="906" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+				<sixx.object sixx.id="907" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+					<sixx.object sixx.name="block" sixx.idref="54" />
+					<sixx.object sixx.id="908" sixx.name="type" sixx.type="BooleanDataType" sixx.env="Arduino" >
+					</sixx.object>
+					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+					<sixx.object sixx.name="name" sixx.idref="113" />
+					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+					<sixx.object sixx.name="id" sixx.idref="114" />
+				</sixx.object>
+				<sixx.object sixx.name="comment" sixx.idref="115" />
+				<sixx.object sixx.name="id" sixx.idref="116" />
+			</sixx.object>
+			<sixx.object sixx.id="909" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+				<sixx.object sixx.id="910" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+					<sixx.object sixx.name="block" sixx.idref="54" />
+					<sixx.object sixx.id="911" sixx.name="type" sixx.type="BooleanDataType" sixx.env="Arduino" >
+					</sixx.object>
+					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+					<sixx.object sixx.name="name" sixx.idref="119" />
+					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+					<sixx.object sixx.name="id" sixx.idref="120" />
+				</sixx.object>
+				<sixx.object sixx.name="comment" sixx.idref="121" />
+				<sixx.object sixx.name="id" sixx.idref="122" />
+			</sixx.object>
+			<sixx.object sixx.id="912" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+				<sixx.object sixx.id="913" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+					<sixx.object sixx.name="block" sixx.idref="54" />
+					<sixx.object sixx.id="914" sixx.name="type" sixx.type="BooleanDataType" sixx.env="Arduino" >
+					</sixx.object>
+					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+					<sixx.object sixx.name="name" sixx.idref="125" />
+					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+					<sixx.object sixx.name="id" sixx.idref="126" />
+				</sixx.object>
+				<sixx.object sixx.name="comment" sixx.idref="127" />
+				<sixx.object sixx.name="id" sixx.idref="128" />
+			</sixx.object>
+			<sixx.object sixx.id="915" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+				<sixx.object sixx.id="916" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+					<sixx.object sixx.name="block" sixx.idref="54" />
+					<sixx.object sixx.id="917" sixx.name="type" sixx.type="IntegerDataType" sixx.env="Arduino" >
+					</sixx.object>
+					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+					<sixx.object sixx.name="name" sixx.idref="131" />
+					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+					<sixx.object sixx.name="id" sixx.idref="132" />
+				</sixx.object>
+				<sixx.object sixx.name="comment" sixx.idref="133" />
+				<sixx.object sixx.name="id" sixx.idref="134" />
+			</sixx.object>
+			<sixx.object sixx.id="918" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+				<sixx.object sixx.id="919" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+					<sixx.object sixx.name="block" sixx.idref="636" />
+					<sixx.object sixx.id="920" sixx.name="type" sixx.type="BooleanDataType" sixx.env="Arduino" >
+					</sixx.object>
+					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+					<sixx.object sixx.name="name" sixx.idref="672" />
+					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+					<sixx.object sixx.name="id" sixx.idref="673" />
+				</sixx.object>
+				<sixx.object sixx.name="comment" sixx.idref="674" />
+				<sixx.object sixx.name="id" sixx.idref="675" />
+			</sixx.object>
+			<sixx.object sixx.id="921" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+				<sixx.object sixx.id="922" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+					<sixx.object sixx.name="block" sixx.idref="636" />
+					<sixx.object sixx.id="923" sixx.name="type" sixx.type="IntegerDataType" sixx.env="Arduino" >
+					</sixx.object>
+					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+					<sixx.object sixx.name="name" sixx.idref="678" />
+					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+					<sixx.object sixx.name="id" sixx.idref="679" />
+				</sixx.object>
+				<sixx.object sixx.name="comment" sixx.idref="680" />
+				<sixx.object sixx.name="id" sixx.idref="681" />
+			</sixx.object>
+			<sixx.object sixx.id="924" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+				<sixx.object sixx.id="925" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+					<sixx.object sixx.name="block" sixx.idref="636" />
+					<sixx.object sixx.id="926" sixx.name="type" sixx.type="BooleanDataType" sixx.env="Arduino" >
+					</sixx.object>
+					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+					<sixx.object sixx.name="name" sixx.idref="684" />
+					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+					<sixx.object sixx.name="id" sixx.idref="685" />
+				</sixx.object>
+				<sixx.object sixx.name="comment" sixx.idref="686" />
+				<sixx.object sixx.name="id" sixx.idref="687" />
+			</sixx.object>
+			<sixx.object sixx.id="927" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+				<sixx.object sixx.id="928" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+					<sixx.object sixx.name="block" sixx.idref="636" />
+					<sixx.object sixx.id="929" sixx.name="type" sixx.type="IntegerDataType" sixx.env="Arduino" >
+					</sixx.object>
+					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+					<sixx.object sixx.name="name" sixx.idref="690" />
+					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+					<sixx.object sixx.name="id" sixx.idref="691" />
+				</sixx.object>
+				<sixx.object sixx.name="comment" sixx.idref="692" />
+				<sixx.object sixx.name="id" sixx.idref="693" />
+			</sixx.object>
+			<sixx.object sixx.id="930" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+				<sixx.object sixx.id="931" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+					<sixx.object sixx.name="block" sixx.idref="54" />
+					<sixx.object sixx.id="932" sixx.name="type" sixx.type="IntegerDataType" sixx.env="Arduino" >
 					</sixx.object>
 					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
 					<sixx.object sixx.name="name" sixx.idref="137" />
@@ -2463,91 +3949,91 @@ second = date_time::time[2].val;</sixx.object>
 				<sixx.object sixx.name="comment" sixx.idref="139" />
 				<sixx.object sixx.name="id" sixx.idref="140" />
 			</sixx.object>
-			<sixx.object sixx.id="628" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
-				<sixx.object sixx.id="629" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+			<sixx.object sixx.id="933" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+				<sixx.object sixx.id="934" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
 					<sixx.object sixx.name="block" sixx.idref="270" />
-					<sixx.object sixx.id="630" sixx.name="type" sixx.type="BooleanDataType" sixx.env="Arduino" >
+					<sixx.object sixx.id="935" sixx.name="type" sixx.type="BooleanDataType" sixx.env="Arduino" >
 					</sixx.object>
 					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
-					<sixx.object sixx.name="name" sixx.idref="462" />
+					<sixx.object sixx.id="936" sixx.name="name" sixx.type="String" sixx.env="Core" >time_changed_out</sixx.object>
 					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
 					<sixx.object sixx.name="id" sixx.idref="307" />
 				</sixx.object>
 				<sixx.object sixx.name="comment" sixx.idref="463" />
 				<sixx.object sixx.name="id" sixx.idref="309" />
 			</sixx.object>
-			<sixx.object sixx.id="631" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
-				<sixx.object sixx.id="632" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+			<sixx.object sixx.id="937" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+				<sixx.object sixx.id="938" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
 					<sixx.object sixx.name="block" sixx.idref="312" />
-					<sixx.object sixx.id="633" sixx.name="type" sixx.type="IntegerDataType" sixx.env="Arduino" >
+					<sixx.object sixx.id="939" sixx.name="type" sixx.type="IntegerDataType" sixx.env="Arduino" >
 					</sixx.object>
 					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
-					<sixx.object sixx.name="name" sixx.idref="349" />
+					<sixx.object sixx.id="940" sixx.name="name" sixx.type="String" sixx.env="Core" >year_out</sixx.object>
 					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
 					<sixx.object sixx.name="id" sixx.idref="350" />
 				</sixx.object>
 				<sixx.object sixx.name="comment" sixx.idref="308" />
 				<sixx.object sixx.name="id" sixx.idref="351" />
 			</sixx.object>
-			<sixx.object sixx.id="634" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
-				<sixx.object sixx.id="635" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+			<sixx.object sixx.id="941" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+				<sixx.object sixx.id="942" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
 					<sixx.object sixx.name="block" sixx.idref="365" />
-					<sixx.object sixx.id="636" sixx.name="type" sixx.type="IntegerDataType" sixx.env="Arduino" >
+					<sixx.object sixx.id="943" sixx.name="type" sixx.type="IntegerDataType" sixx.env="Arduino" >
 					</sixx.object>
 					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
-					<sixx.object sixx.name="name" sixx.idref="403" />
+					<sixx.object sixx.id="944" sixx.name="name" sixx.type="String" sixx.env="Core" >month_out</sixx.object>
 					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
 					<sixx.object sixx.name="id" sixx.idref="404" />
 				</sixx.object>
 				<sixx.object sixx.name="comment" sixx.idref="308" />
 				<sixx.object sixx.name="id" sixx.idref="405" />
 			</sixx.object>
-			<sixx.object sixx.id="637" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
-				<sixx.object sixx.id="638" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+			<sixx.object sixx.id="945" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+				<sixx.object sixx.id="946" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
 					<sixx.object sixx.name="block" sixx.idref="365" />
-					<sixx.object sixx.id="639" sixx.name="type" sixx.type="IntegerDataType" sixx.env="Arduino" >
+					<sixx.object sixx.id="947" sixx.name="type" sixx.type="IntegerDataType" sixx.env="Arduino" >
 					</sixx.object>
 					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
-					<sixx.object sixx.name="name" sixx.idref="408" />
+					<sixx.object sixx.id="948" sixx.name="name" sixx.type="String" sixx.env="Core" >day_out</sixx.object>
 					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
 					<sixx.object sixx.name="id" sixx.idref="409" />
 				</sixx.object>
 				<sixx.object sixx.name="comment" sixx.idref="308" />
 				<sixx.object sixx.name="id" sixx.idref="410" />
 			</sixx.object>
-			<sixx.object sixx.id="640" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
-				<sixx.object sixx.id="641" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+			<sixx.object sixx.id="949" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+				<sixx.object sixx.id="950" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
 					<sixx.object sixx.name="block" sixx.idref="365" />
-					<sixx.object sixx.id="642" sixx.name="type" sixx.type="IntegerDataType" sixx.env="Arduino" >
+					<sixx.object sixx.id="951" sixx.name="type" sixx.type="IntegerDataType" sixx.env="Arduino" >
 					</sixx.object>
 					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
-					<sixx.object sixx.name="name" sixx.idref="413" />
+					<sixx.object sixx.id="952" sixx.name="name" sixx.type="String" sixx.env="Core" >hour_out</sixx.object>
 					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
 					<sixx.object sixx.name="id" sixx.idref="414" />
 				</sixx.object>
 				<sixx.object sixx.name="comment" sixx.idref="308" />
 				<sixx.object sixx.name="id" sixx.idref="415" />
 			</sixx.object>
-			<sixx.object sixx.id="643" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
-				<sixx.object sixx.id="644" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+			<sixx.object sixx.id="953" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+				<sixx.object sixx.id="954" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
 					<sixx.object sixx.name="block" sixx.idref="365" />
-					<sixx.object sixx.id="645" sixx.name="type" sixx.type="IntegerDataType" sixx.env="Arduino" >
+					<sixx.object sixx.id="955" sixx.name="type" sixx.type="IntegerDataType" sixx.env="Arduino" >
 					</sixx.object>
 					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
-					<sixx.object sixx.name="name" sixx.idref="418" />
+					<sixx.object sixx.id="956" sixx.name="name" sixx.type="String" sixx.env="Core" >minute_out</sixx.object>
 					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
 					<sixx.object sixx.name="id" sixx.idref="419" />
 				</sixx.object>
 				<sixx.object sixx.name="comment" sixx.idref="308" />
 				<sixx.object sixx.name="id" sixx.idref="420" />
 			</sixx.object>
-			<sixx.object sixx.id="646" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
-				<sixx.object sixx.id="647" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+			<sixx.object sixx.id="957" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+				<sixx.object sixx.id="958" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
 					<sixx.object sixx.name="block" sixx.idref="365" />
-					<sixx.object sixx.id="648" sixx.name="type" sixx.type="IntegerDataType" sixx.env="Arduino" >
+					<sixx.object sixx.id="959" sixx.name="type" sixx.type="IntegerDataType" sixx.env="Arduino" >
 					</sixx.object>
 					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
-					<sixx.object sixx.name="name" sixx.idref="423" />
+					<sixx.object sixx.id="960" sixx.name="name" sixx.type="String" sixx.env="Core" >second_out</sixx.object>
 					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
 					<sixx.object sixx.name="id" sixx.idref="424" />
 				</sixx.object>
@@ -2555,93 +4041,85 @@ second = date_time::time[2].val;</sixx.object>
 				<sixx.object sixx.name="id" sixx.idref="425" />
 			</sixx.object>
 		</sixx.object>
-		<sixx.object sixx.id="649" sixx.name="variables" sixx.type="OrderedCollection" sixx.env="Core" ></sixx.object>
-		<sixx.object sixx.id="650" sixx.name="id" sixx.type="String" sixx.env="Core" >8124a68b-9f91-4def-9de8-c16cf5f16ec6</sixx.object>
+		<sixx.object sixx.id="961" sixx.name="variables" sixx.type="OrderedCollection" sixx.env="Core" ></sixx.object>
+		<sixx.object sixx.id="962" sixx.name="id" sixx.type="String" sixx.env="Core" >869d09da-1d69-4dc4-a9b0-0d1e07b938ba</sixx.object>
 		<sixx.object sixx.name="name" sixx.idref="27" />
-		<sixx.object sixx.id="651" sixx.name="parametrs" sixx.type="OrderedCollection" sixx.env="Core" ></sixx.object>
+		<sixx.object sixx.id="963" sixx.name="parametrs" sixx.type="OrderedCollection" sixx.env="Core" ></sixx.object>
 		<sixx.object sixx.name="hasEnableInput" sixx.type="False" sixx.env="Core" />
 		<sixx.object sixx.name="isAsStandart" sixx.type="False" sixx.env="Core" />
-		<sixx.object sixx.id="652" sixx.name="loopCodePart" sixx.type="CodeUserBlockLoopCodePart" sixx.env="Arduino" >
-			<sixx.object sixx.id="653" sixx.name="code" sixx.type="Text" sixx.env="Core" >
-				<sixx.object sixx.id="654" sixx.name="string" sixx.type="String" sixx.env="Core" >electrobox_ui_update&#40;&#41;;
-
-//якщо статус зм≥нивс€
-if &#40;status &#33;= charge_status::value&#41;
-	charge_status::update&#40;status&#41;;
+		<sixx.object sixx.id="964" sixx.name="loopCodePart" sixx.type="CodeUserBlockLoopCodePart" sixx.env="Arduino" >
+			<sixx.object sixx.id="965" sixx.name="code" sixx.type="Text" sixx.env="Core" >
+				<sixx.object sixx.id="966" sixx.name="string" sixx.type="String" sixx.env="Core" >//якщо статус зм≥нивс€
+if &#40;status &#33;= charge_status.value&#41; {
+	charge_status.update&#40;status&#41;;
+	status_str = l_str&#40;CHARGER_STATUS + status&#41;;
+}
 
 //якщо вольтаж&#44; струм чи потужн≥сть в≥др≥зн€ютьс€:
-if &#40;voltage &#33;= consumption::voltage || current &#33;= consumption::current || kwt &#33;= consumption::kwt&#41;
-	consumption::update&#40;voltage&#44; current&#44; kwt&#41;;
+if &#40;voltage &#33;= consumption.voltage || current &#33;= consumption.current || kwt &#33;= consumption.kwt&#41;
+	consumption.update&#40;voltage&#44; current&#44; kwt&#41;;
 
-//якщо час&#44; хвилини&#44; чи потужн≥сть за сес≥ю в≥др≥зн€ютьс€:
+//якщо потужн≥сть за сес≥ю в≥др≥зн€Їтьс€:
 if &#40;
-	hours_for_session &#33;= time_and_kwt_for_session::hours ||
-	minutes_for_session &#33;= time_and_kwt_for_session::minutes ||
-	kwt_for_session &#33;= time_and_kwt_for_session::kwt
+	//hours_for_session &#33;= time_and_kwt_for_session::hours ||
+	//minutes_for_session &#33;= time_and_kwt_for_session::minutes ||
+	kwt_for_session &#33;= settings.statistics.kwt_for_session
 &#41; 
-	time_and_kwt_for_session::update&#40;hours_for_session&#44; minutes_for_session&#44; kwt_for_session&#41;;
+	time_and_kwt_for_session.update&#40;hours_for_session&#44; minutes_for_session&#44; kwt_for_session&#41;;
 
 //якщо потр≥бно обновити регул€тор струму:
 if &#40;current_regulator_need_update&#41;
-	current_regulator::update&#40;current_regulator_in&#41;;
+	current_regulator.update&#40;current_regulator_in&#41;;
 
-current_regulator = current_regulator::value;
-weekly_schedule_triggered = weekly_schedule::triggered;
-ground_check = ground_check::enabled;
-adaptive_mode = adaptive_mode::enabled;
-limit_kwt_for_session = limit_kwt_for_session::enabled;
-limit_kwt_for_session_regulator = limit_kwt_for_session::value;
-limit_by_time = limit_by_time::enabled;
-limit_by_time_regulator = limit_by_time::value;
-display_off_time = display_off_time::enabled;
-display_off_time_regulator = display_off_time::value;
-display_brightness_regulator = display_brightness_regulator::value;
+//charge_switch = settings.charge_switch.enabled;
+current_regulator_out = settings.current_regulator;
+weekly_schedule_blocking = weekly_schedule.blocking;
+ground_check = settings.ground_check;
+adaptive_mode = settings.adaptive_mode;
+limit_kwt_for_session = settings.kwt_limit_enabled;
+limit_kwt_for_session_regulator = settings.kwt_limit;
+limit_by_time = settings.time_limit_enabled;
+limit_by_time_regulator = settings.time_limit;
+display_off_time = settings.display_off_enabled;
+display_off_time_regulator = settings.display_off_time;
+display_brightness_regulator = settings.display_brightness;
 
-time_changed = date_time::changed;
-date_time::changed = false;
+if &#40;time_changed_in&#41;
+{
+	setTime&#40;hour_in&#44; minute_in&#44; second_in&#44; day_in&#44; month_in&#44; year_in&#41;;
+}
 
-year = date_time::date[0].val;
-month = date_time::date[1].val;
-day = date_time::date[2].val;
+if &#40;time_changed_out = date_time.changed&#41; {
+	time_t t = now&#40;&#41;;
 
-hour = date_time::time[0].val;
-minute = date_time::time[1].val;
-second = date_time::time[2].val;</sixx.object>
-				<sixx.object sixx.id="655" sixx.name="runs" sixx.type="RunArray" sixx.env="Core" >
-					<sixx.object sixx.id="656" sixx.name="runs" sixx.type="Array" sixx.env="Core" >
-						<sixx.object sixx.id="657" sixx.type="SmallInteger" sixx.env="Core" >1581</sixx.object>
+	year_out = year&#40;t&#41;;
+	month_out = month&#40;t&#41;;
+	day_out = day&#40;t&#41;;
+
+	hour_out = hour&#40;t&#41;;
+	minute_out = minute&#40;t&#41;;
+	second_out = second&#40;t&#41;;
+
+	date_time.changed = false;
+}</sixx.object>
+				<sixx.object sixx.id="967" sixx.name="runs" sixx.type="RunArray" sixx.env="Core" >
+					<sixx.object sixx.id="968" sixx.name="runs" sixx.type="Array" sixx.env="Core" >
+						<sixx.object sixx.id="969" sixx.type="SmallInteger" sixx.env="Core" >1700</sixx.object>
 					</sixx.object>
-					<sixx.object sixx.id="658" sixx.name="values" sixx.type="Array" sixx.env="Core" >
+					<sixx.object sixx.id="970" sixx.name="values" sixx.type="Array" sixx.env="Core" >
 						<sixx.object sixx.type="UndefinedObject" sixx.env="Core" />
 					</sixx.object>
 				</sixx.object>
 			</sixx.object>
 		</sixx.object>
-		<sixx.object sixx.id="659" sixx.name="setupCodePart" sixx.type="CodeUserBlockSetupCodePart" sixx.env="Arduino" >
-			<sixx.object sixx.id="660" sixx.name="code" sixx.type="Text" sixx.env="Core" >
-				<sixx.object sixx.id="661" sixx.name="string" sixx.type="String" sixx.env="Core" >electrobox_ui_setup&#40;&#41;;</sixx.object>
-				<sixx.object sixx.id="662" sixx.name="runs" sixx.type="RunArray" sixx.env="Core" >
-					<sixx.object sixx.id="663" sixx.name="runs" sixx.type="Array" sixx.env="Core" >
-						<sixx.object sixx.idref="41" />
-					</sixx.object>
-					<sixx.object sixx.id="664" sixx.name="values" sixx.type="Array" sixx.env="Core" >
-						<sixx.object sixx.type="UndefinedObject" sixx.env="Core" />
-					</sixx.object>
-				</sixx.object>
-			</sixx.object>
+		<sixx.object sixx.id="971" sixx.name="setupCodePart" sixx.type="CodeUserBlockSetupCodePart" sixx.env="Arduino" >
+			<sixx.object sixx.name="code" sixx.idref="760" />
 		</sixx.object>
-		<sixx.object sixx.id="665" sixx.name="declareCodePart" sixx.type="CodeUserBlockDeclareCodePart" sixx.env="Arduino" >
-			<sixx.object sixx.id="666" sixx.name="code" sixx.type="OrderedCollection" sixx.env="Core" >
-				<sixx.object sixx.id="667" sixx.type="CodeUserBlockDeclareDefineBlock" sixx.env="Arduino" >
-					<sixx.object sixx.name="define" sixx.idref="242" />
-					<sixx.object sixx.name="name" sixx.idref="243" />
-				</sixx.object>
-				<sixx.object sixx.id="668" sixx.type="CodeUserBlockDeclareEmptyBlock" sixx.env="Arduino" >
-				</sixx.object>
-			</sixx.object>
+		<sixx.object sixx.id="972" sixx.name="declareCodePart" sixx.type="CodeUserBlockDeclareCodePart" sixx.env="Arduino" >
+			<sixx.object sixx.id="973" sixx.name="code" sixx.type="OrderedCollection" sixx.env="Core" ></sixx.object>
 		</sixx.object>
-		<sixx.object sixx.id="669" sixx.name="functionCodePart" sixx.type="CodeUserBlockFunctuinCodePart" sixx.env="Arduino" >
-			<sixx.object sixx.id="670" sixx.name="code" sixx.type="OrderedCollection" sixx.env="Core" ></sixx.object>
+		<sixx.object sixx.id="974" sixx.name="functionCodePart" sixx.type="CodeUserBlockFunctuinCodePart" sixx.env="Arduino" >
+			<sixx.object sixx.id="975" sixx.name="code" sixx.type="OrderedCollection" sixx.env="Core" ></sixx.object>
 		</sixx.object>
 		<sixx.object sixx.name="userLibraries" sixx.idref="50" />
 		<sixx.object sixx.name="notCanManyUse" sixx.type="False" sixx.env="Core" />

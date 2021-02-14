@@ -218,9 +218,9 @@ namespace ui {
 	};
 	
 	struct applier : interactive_element {
-		bool avail;
-		attributes get();
-		packet turn(bool);
+		//bool avail;
+		attributes get(bool);
+		packet turn(bool &);
 		applier(void (*callback)(struct applier &id, client_id_t sender));
 	};
 	

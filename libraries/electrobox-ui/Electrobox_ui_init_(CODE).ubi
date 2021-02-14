@@ -1,0 +1,138 @@
+<sixx.object sixx.id="0" sixx.type="BlocksLibraryElement" sixx.env="Arduino" >
+	<sixx.object sixx.id="1" sixx.name="typeClass" sixx.type="CodeUserBlock" sixx.env="Arduino" >
+		<sixx.object sixx.id="2" sixx.name="blocks" sixx.type="OrderedCollection" sixx.env="Core" ></sixx.object>
+		<sixx.object sixx.id="3" sixx.name="label" sixx.type="String" sixx.env="Core" >Electrobox_ui_init</sixx.object>
+		<sixx.object sixx.id="4" sixx.name="inputs" sixx.type="OrderedCollection" sixx.env="Core" ></sixx.object>
+		<sixx.object sixx.id="5" sixx.name="outputs" sixx.type="OrderedCollection" sixx.env="Core" >
+			<sixx.object sixx.id="6" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+				<sixx.object sixx.id="7" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+					<sixx.object sixx.id="8" sixx.name="block" sixx.type="CodeUserBlock" sixx.env="Arduino" >
+						<sixx.object sixx.id="9" sixx.name="blocks" sixx.type="OrderedCollection" sixx.env="Core" ></sixx.object>
+						<sixx.object sixx.name="label" sixx.idref="3" />
+						<sixx.object sixx.id="10" sixx.name="inputs" sixx.type="OrderedCollection" sixx.env="Core" ></sixx.object>
+						<sixx.object sixx.id="11" sixx.name="outputs" sixx.type="OrderedCollection" sixx.env="Core" >
+							<sixx.object sixx.id="12" sixx.type="InputsOutputsAdaptorForUserBlock" sixx.env="Arduino" >
+								<sixx.object sixx.id="13" sixx.name="object" sixx.type="UniversalBlockInputOutput" sixx.env="Arduino" >
+									<sixx.object sixx.name="block" sixx.idref="8" />
+									<sixx.object sixx.id="14" sixx.name="type" sixx.type="IntegerDataType" sixx.env="Arduino" >
+									</sixx.object>
+									<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+									<sixx.object sixx.id="15" sixx.name="name" sixx.type="String" sixx.env="Core" >current_regulator</sixx.object>
+									<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+									<sixx.object sixx.id="16" sixx.name="id" sixx.type="String" sixx.env="Core" >03f9520d-4020-41e3-a1ff-6fb520014b50</sixx.object>
+								</sixx.object>
+								<sixx.object sixx.id="17" sixx.name="comment" sixx.type="String" sixx.env="Core" ></sixx.object>
+								<sixx.object sixx.id="18" sixx.name="id" sixx.type="String" sixx.env="Core" >40c039ce-d142-4aec-a508-a39218ee4e73</sixx.object>
+							</sixx.object>
+						</sixx.object>
+						<sixx.object sixx.id="19" sixx.name="variables" sixx.type="OrderedCollection" sixx.env="Core" ></sixx.object>
+						<sixx.object sixx.id="20" sixx.name="id" sixx.type="String" sixx.env="Core" >ae902e41-37e7-4fea-b27f-d220af33f3f7</sixx.object>
+						<sixx.object sixx.id="21" sixx.name="name" sixx.type="String" sixx.env="Core" >Electrobox_ui_init</sixx.object>
+						<sixx.object sixx.id="22" sixx.name="parametrs" sixx.type="OrderedCollection" sixx.env="Core" ></sixx.object>
+						<sixx.object sixx.id="23" sixx.name="loopCodePart" sixx.type="CodeUserBlockLoopCodePart" sixx.env="Arduino" >
+							<sixx.object sixx.id="24" sixx.name="code" sixx.type="Text" sixx.env="Core" >
+								<sixx.object sixx.id="25" sixx.name="string" sixx.type="String" sixx.env="Core" >electrobox_ui_update&#40;&#41;;</sixx.object>
+								<sixx.object sixx.id="26" sixx.name="runs" sixx.type="RunArray" sixx.env="Core" >
+									<sixx.object sixx.id="27" sixx.name="runs" sixx.type="Array" sixx.env="Core" >
+										<sixx.object sixx.id="28" sixx.type="SmallInteger" sixx.env="Core" >23</sixx.object>
+									</sixx.object>
+									<sixx.object sixx.id="29" sixx.name="values" sixx.type="Array" sixx.env="Core" >
+										<sixx.object sixx.type="UndefinedObject" sixx.env="Core" />
+									</sixx.object>
+								</sixx.object>
+							</sixx.object>
+						</sixx.object>
+						<sixx.object sixx.id="30" sixx.name="setupCodePart" sixx.type="CodeUserBlockSetupCodePart" sixx.env="Arduino" >
+							<sixx.object sixx.id="31" sixx.name="code" sixx.type="Text" sixx.env="Core" >
+								<sixx.object sixx.id="32" sixx.name="string" sixx.type="String" sixx.env="Core" >electrobox_ui_setup&#40;&#41;;
+
+current_regulator = current_regulator::value;</sixx.object>
+								<sixx.object sixx.id="33" sixx.name="runs" sixx.type="RunArray" sixx.env="Core" >
+									<sixx.object sixx.id="34" sixx.name="runs" sixx.type="Array" sixx.env="Core" >
+										<sixx.object sixx.id="35" sixx.type="SmallInteger" sixx.env="Core" >69</sixx.object>
+									</sixx.object>
+									<sixx.object sixx.id="36" sixx.name="values" sixx.type="Array" sixx.env="Core" >
+										<sixx.object sixx.type="UndefinedObject" sixx.env="Core" />
+									</sixx.object>
+								</sixx.object>
+							</sixx.object>
+						</sixx.object>
+						<sixx.object sixx.id="37" sixx.name="declareCodePart" sixx.type="CodeUserBlockDeclareCodePart" sixx.env="Arduino" >
+							<sixx.object sixx.id="38" sixx.name="code" sixx.type="OrderedCollection" sixx.env="Core" >
+								<sixx.object sixx.id="39" sixx.type="CodeUserBlockDeclareDefineBlock" sixx.env="Arduino" >
+									<sixx.object sixx.id="40" sixx.name="define" sixx.type="String" sixx.env="Core" >&#35;include</sixx.object>
+									<sixx.object sixx.id="41" sixx.name="name" sixx.type="String" sixx.env="Core" >&lt;electrobox.h&gt;</sixx.object>
+								</sixx.object>
+							</sixx.object>
+						</sixx.object>
+						<sixx.object sixx.id="42" sixx.name="functionCodePart" sixx.type="CodeUserBlockFunctuinCodePart" sixx.env="Arduino" >
+							<sixx.object sixx.id="43" sixx.name="code" sixx.type="OrderedCollection" sixx.env="Core" ></sixx.object>
+						</sixx.object>
+						<sixx.object sixx.id="44" sixx.name="userLibraries" sixx.type="OrderedCollection" sixx.env="Core" ></sixx.object>
+						<sixx.object sixx.name="notCanManyUse" sixx.type="False" sixx.env="Core" />
+					</sixx.object>
+					<sixx.object sixx.id="45" sixx.name="type" sixx.type="IntegerDataType" sixx.env="Arduino" >
+					</sixx.object>
+					<sixx.object sixx.name="isInput" sixx.type="False" sixx.env="Core" />
+					<sixx.object sixx.id="46" sixx.name="name" sixx.type="String" sixx.env="Core" >current_regulator_out</sixx.object>
+					<sixx.object sixx.name="isNot" sixx.type="False" sixx.env="Core" />
+					<sixx.object sixx.name="id" sixx.idref="16" />
+				</sixx.object>
+				<sixx.object sixx.name="comment" sixx.idref="17" />
+				<sixx.object sixx.name="id" sixx.idref="18" />
+			</sixx.object>
+		</sixx.object>
+		<sixx.object sixx.id="47" sixx.name="variables" sixx.type="OrderedCollection" sixx.env="Core" ></sixx.object>
+		<sixx.object sixx.id="48" sixx.name="id" sixx.type="String" sixx.env="Core" >976e3331-47b2-4ff1-9082-4d81f1d33dce</sixx.object>
+		<sixx.object sixx.name="name" sixx.idref="21" />
+		<sixx.object sixx.id="49" sixx.name="parametrs" sixx.type="OrderedCollection" sixx.env="Core" ></sixx.object>
+		<sixx.object sixx.name="hasEnableInput" sixx.type="False" sixx.env="Core" />
+		<sixx.object sixx.name="isAsStandart" sixx.type="False" sixx.env="Core" />
+		<sixx.object sixx.id="50" sixx.name="loopCodePart" sixx.type="CodeUserBlockLoopCodePart" sixx.env="Arduino" >
+			<sixx.object sixx.id="51" sixx.name="code" sixx.type="Text" sixx.env="Core" >
+				<sixx.object sixx.id="52" sixx.name="string" sixx.type="String" sixx.env="Core" >electrobox_loop&#40;&#41;;</sixx.object>
+				<sixx.object sixx.id="53" sixx.name="runs" sixx.type="RunArray" sixx.env="Core" >
+					<sixx.object sixx.id="54" sixx.name="runs" sixx.type="Array" sixx.env="Core" >
+						<sixx.object sixx.id="55" sixx.type="SmallInteger" sixx.env="Core" >18</sixx.object>
+					</sixx.object>
+					<sixx.object sixx.id="56" sixx.name="values" sixx.type="Array" sixx.env="Core" >
+						<sixx.object sixx.type="UndefinedObject" sixx.env="Core" />
+					</sixx.object>
+				</sixx.object>
+			</sixx.object>
+		</sixx.object>
+		<sixx.object sixx.id="57" sixx.name="setupCodePart" sixx.type="CodeUserBlockSetupCodePart" sixx.env="Arduino" >
+			<sixx.object sixx.id="58" sixx.name="code" sixx.type="Text" sixx.env="Core" >
+				<sixx.object sixx.id="59" sixx.name="string" sixx.type="String" sixx.env="Core" >Serial.begin&#40;115200&#41;;
+
+electrobox_setup&#40;&#41;;
+
+current_regulator_out = settings.current_regulator;</sixx.object>
+				<sixx.object sixx.id="60" sixx.name="runs" sixx.type="RunArray" sixx.env="Core" >
+					<sixx.object sixx.id="61" sixx.name="runs" sixx.type="Array" sixx.env="Core" >
+						<sixx.object sixx.id="62" sixx.type="SmallInteger" sixx.env="Core" >95</sixx.object>
+					</sixx.object>
+					<sixx.object sixx.id="63" sixx.name="values" sixx.type="Array" sixx.env="Core" >
+						<sixx.object sixx.type="UndefinedObject" sixx.env="Core" />
+					</sixx.object>
+				</sixx.object>
+			</sixx.object>
+		</sixx.object>
+		<sixx.object sixx.id="64" sixx.name="declareCodePart" sixx.type="CodeUserBlockDeclareCodePart" sixx.env="Arduino" >
+			<sixx.object sixx.id="65" sixx.name="code" sixx.type="OrderedCollection" sixx.env="Core" >
+				<sixx.object sixx.id="66" sixx.type="CodeUserBlockDeclareDefineBlock" sixx.env="Arduino" >
+					<sixx.object sixx.id="67" sixx.name="define" sixx.type="String" sixx.env="Core" >&#35;include</sixx.object>
+					<sixx.object sixx.id="68" sixx.name="name" sixx.type="String" sixx.env="Core" >&lt;electrobox.h&gt;
+</sixx.object>
+				</sixx.object>
+				<sixx.object sixx.id="69" sixx.type="CodeUserBlockDeclareEmptyBlock" sixx.env="Arduino" >
+				</sixx.object>
+			</sixx.object>
+		</sixx.object>
+		<sixx.object sixx.id="70" sixx.name="functionCodePart" sixx.type="CodeUserBlockFunctuinCodePart" sixx.env="Arduino" >
+			<sixx.object sixx.id="71" sixx.name="code" sixx.type="OrderedCollection" sixx.env="Core" ></sixx.object>
+		</sixx.object>
+		<sixx.object sixx.name="userLibraries" sixx.idref="44" />
+		<sixx.object sixx.name="notCanManyUse" sixx.type="False" sixx.env="Core" />
+	</sixx.object>
+</sixx.object>

@@ -145,6 +145,11 @@ body * {
 	border: none;
 }
 
+.ui_field:disabled {
+	box-shadow: 0px 0px 400px 200px rgba(0,0,0,0.5) inset;
+	color: black;
+}
+
 .ui_range {
 	text-align: center;
 	background-color: #333;

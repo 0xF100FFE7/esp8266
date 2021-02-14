@@ -21,7 +21,7 @@ namespace ui
 	
 	String hm_to_str(hm_t t)
 	{
-		hm_t hours = t / 100, minutes = t % 60;
+		hm_t hours = t / 100, minutes = t % 100;
 		return (hours < 10 ? String("0") + hours : String(hours)) + ":" + (minutes < 10 ? String("0") + minutes : String(minutes));
 	}
 	
@@ -269,15 +269,15 @@ namespace ui
 		this->callback.switcher = callback;
 	}
 	
-	attributes applier::get()
+	attributes applier::get(bool value)
 	{
-		return attr::disabled = avail ? false : true;
+		return attr::disabled = value ? false : true;
 	}
 		
-	packet applier::turn(bool value)
+	packet applier::turn(bool &value)
 	{
-		avail = value;
-		return pack(get());
+		value = !value;
+		return pack(get(value));
 	}
 		
 	applier::applier(void (*callback)(struct applier &id, uint32_t sender))
