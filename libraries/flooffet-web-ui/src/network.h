@@ -47,6 +47,7 @@ namespace ui {
 			void committed();
 			bool modified;
 			
+			bool secure;
 			bool dhcp;
 			char ssid[80];
 			char pass[80];
@@ -73,6 +74,7 @@ namespace ui {
 		extern bool change_sta_to(int i, String passwd);
 		extern bool refresh_sta();
 		extern bool connection_is_secure(int i);
+		extern int get_station_rssi(int i);
 		extern bool disconnect_sta();
 		extern IPAddress get_connected_station_ip();
 		//extern String get_connected_station_name();

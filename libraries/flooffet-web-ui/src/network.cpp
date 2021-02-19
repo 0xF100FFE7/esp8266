@@ -23,6 +23,7 @@ namespace ui {
 		struct sta &sta::defaults() {
 			modified = false;
 			
+			secure = false;
 			dhcp = false;
 			ssid[0] = '\0';
 			pass[0] = '\0';
@@ -180,12 +181,18 @@ namespace ui {
 		bool connection_is_secure(int i)
 		{
 			if (i < 0)
-				return true;
+				return sta.secure;
 			else
 				return WiFi.encryptionType(i) != ENC_TYPE_NONE;
 		}
-		
-		//String correct_station_ssid
+
+		int get_station_rssi(int i)
+		{
+			if (i < 0)
+				return WiFi.RSSI();
+			else
+				return WiFi.RSSI(i);
+		}		//String correct_station_ssid
 		
 		/*String get_station_mac(int i)
 		{
@@ -205,11 +212,13 @@ namespace ui {
 		
 		bool change_sta_to(int i, String passwd)
 		{
+			sta.secure = connection_is_secure(i);
+			
 			if (avail_networks < i || i < 0)
 				return false; //invalid station
 				
-			WiFi.SSID(i).toCharArray(sta.changed().ssid, 80);
-			(passphrase_is_valid(passwd) ? passwd : "").toCharArray(sta.changed().pass, 80);
+			WiFi.SSID(i).toCharArray(sta.ssid, 80);
+			(passphrase_is_valid(passwd) ? passwd : "").toCharArray(sta.pass, 80);
 			sta.save();
 			WiFi.disconnect();
 			DEBUG_MSG("Network settings applied, switching...\n");
@@ -232,6 +241,9 @@ namespace ui {
 			WiFi.persistent(false);
 			WiFi.disconnect(); //quit ESP sta reconnect limbo
 			WiFi.persistent(true);
+			sta.ssid[0] = '\0';
+			sta.pass[0] = '\0';
+			sta.secure = false;
 		}
 		
 		/*void disconnect_sta()
