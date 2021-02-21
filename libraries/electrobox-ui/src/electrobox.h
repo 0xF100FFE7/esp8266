@@ -314,18 +314,19 @@ struct statistics {
 	void update(time_t now, double kwt)
 	{
 		packet buf;
-		if (kwt > prev_kwt)
-			settings.statistics.total_kwt += kwt - prev_kwt;
+		double delta = kwt - prev_kwt;
 		prev_kwt = kwt;
+		
+		settings.statistics.total_kwt += delta;
 		
 		for (int i = 0; i < 5; i++) {
 			DEBUG_MSG("Statistics for %i: carry: %s, now: %lu, from: %lu, offset: %lu.\n", i, ((now > settings.statistics.ranges[i].from + settings.statistics.ranges[i].offset) ? "true" : "false"), now, settings.statistics.ranges[i].from, settings.statistics.ranges[i].offset);
 			if (now > settings.statistics.ranges[i].from + settings.statistics.ranges[i].offset) {
 				settings.statistics.ranges[i].from = now;
-				settings.statistics.ranges[i].delta = settings.statistics.ranges[i].kwt + kwt;
+				settings.statistics.ranges[i].delta = settings.statistics.ranges[i].kwt + delta;
 				settings.statistics.ranges[i].kwt = 0;
 			} else {
-				settings.statistics.ranges[i].kwt += kwt;
+				settings.statistics.ranges[i].kwt += delta;
 			}
 			buf += update_stat(i);
 		}
@@ -476,7 +477,7 @@ struct consumption {
 	void update(float v, float c, float k)
 	{
 		voltage = v, current = c, kwt = k;
-		text.pack(get()).send_all();
+		text.pack(attr::text = get()).send_all();
 	}
 	
 	packet build()
@@ -865,7 +866,7 @@ struct sta_dialog {
 
 	void apply_sta(client_id_t sender)
 	{
-		dialog.pack(attr::display = false).send(sender);
+		//dialog.pack(attr::display = false).send(sender); //Do not close window
 		if (secure)
 			String(pass).toCharArray(network::sta.pass, 80);
 		else
