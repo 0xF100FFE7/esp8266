@@ -986,7 +986,7 @@ struct sta_settings {
 			if (network::get_station_name(-1) == network::get_station_name(i))
 				buf += avail_stations[i + 1].pack(network_settings.sta_tab, (attr::display = false)); //skip same station as from zero slot;
 			else
-				buf += avail_stations[i + 1].pack(network_settings.sta_tab, (attr::text = network::get_station_name(i), attr::display = true));
+				buf += avail_stations[i + 1].pack(network_settings.sta_tab, (attr::text = network::get_station_name(i) + (network::connection_is_secure(i) ? " &#128274;" : "&#128275;") + " (&#128246;" + network::get_station_rssi_in_percents(i) + "%)", attr::display = true));
 		}
 		
 		//do not display entries further
