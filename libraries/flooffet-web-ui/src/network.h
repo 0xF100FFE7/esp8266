@@ -75,6 +75,7 @@ namespace ui {
 		extern bool refresh_sta();
 		extern bool connection_is_secure(int i);
 		extern int get_station_rssi(int i);
+		extern int get_station_rssi_in_percents(int i);
 		extern bool disconnect_sta();
 		extern IPAddress get_connected_station_ip();
 		//extern String get_connected_station_name();

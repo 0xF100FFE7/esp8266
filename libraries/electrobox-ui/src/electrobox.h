@@ -839,7 +839,7 @@ struct sta_dialog {
 	struct field pass_field;
 	
 	struct box button_wrapper;
-	struct applier apply;
+	//struct applier apply;
 	struct button connect;
 	struct button disconnect;
 	struct button close;
@@ -877,10 +877,10 @@ struct sta_dialog {
 		network::refresh_sta();
 	}
 	
-	static void apply_callback(struct applier &id, client_id_t sender)
+	/*static void apply_callback(struct applier &id, client_id_t sender)
 	{
 		::sta_dialog.apply_sta(sender);
-	}
+	}*/
 
 	static void connect_callback(struct button &id, client_id_t sender)
 	{
@@ -925,18 +925,18 @@ struct sta_dialog {
 			secure = network::connection_is_secure(idx);
 			
 			return
-			(
 			status.pack(attr::text = 
 				l_str(AP_SSID) + " " + network::get_station_name(idx) + "\n" +
-				l_str(STA_RSSI) + " " + network::get_station_rssi(idx) + "dB\n" +
+				l_str(STA_RSSI) + " " + network::get_station_rssi_in_percents(idx) + "%\n" +
 				l_str(STA_STATUS) + " " + status_to_str()
 			) +
-			pass_field.pack(attr::disabled = !secure) +
+			ip_field.pack(attr::disabled = idx == -1) + //TODO better shit
+			pass_field.pack(attr::disabled = idx == -1/*!secure*/) +
 			disconnect.pack(attr::display = idx == -1) +
-			connect.pack(attr::display = idx >= 0) + apply.pack(attr::display = idx == -1));
+			connect.pack(attr::display = idx >= 0)/* + apply.pack(attr::display = idx == -1))*/;
 	}
 	
-	sta_dialog() : dhcp_enabler(switcher_callback), ip_field(ip_field_callback), pass_field(pass_field_callback), apply(apply_callback), connect(connect_callback), disconnect(disconnect_callback), close(close_callback) {}
+	sta_dialog() : dhcp_enabler(switcher_callback), ip_field(ip_field_callback), pass_field(pass_field_callback), /*apply(apply_callback),*/ connect(connect_callback), disconnect(disconnect_callback), close(close_callback) {}
 	packet build()
 	{
 		return
@@ -945,7 +945,7 @@ struct sta_dialog {
 		dhcp_wrapper.pack(box, (attr::direction = DIR_H)) + dhcp_text.pack(dhcp_wrapper, (attr::text = l_str(DHCP_ENABLED))) + dhcp_enabler.pack(dhcp_wrapper, dhcp_enabler.get(dhcp)) +
 		manual_wrapper.pack(box, (attr::direction = DIR_H)) + ip_text.pack(manual_wrapper, (attr::text = l_str(AP_IP))) + ip_field.pack(manual_wrapper, (attr::value = IPAddress(ip).toString(), attr::disabled = dhcp)) +
 		pass_wrapper.pack(box, (attr::direction = DIR_H)) + pass_text.pack(pass_wrapper, (attr::text = l_str(AP_PASS))) + pass_field.pack(pass_wrapper, (attr::value = String(pass))) +
-		button_wrapper.pack(box, (attr::direction = DIR_H)) + apply.pack(button_wrapper, (attr::text = l_str(APPLY))) + connect.pack(button_wrapper, (attr::text = l_str(CONNECT))) + disconnect.pack(button_wrapper, (attr::text = l_str(DISCONNECT))) + 
+		button_wrapper.pack(box, (attr::direction = DIR_H)) + /*apply.pack(button_wrapper, (attr::text = l_str(APPLY))) +*/ connect.pack(button_wrapper, (attr::text = l_str(CONNECT))) + disconnect.pack(button_wrapper, (attr::text = l_str(DISCONNECT))) + 
 		close.pack(button_wrapper, (attr::text = l_str(CLOSE)));
 	}
 } sta_dialog;

@@ -192,7 +192,18 @@ namespace ui {
 				return WiFi.RSSI();
 			else
 				return WiFi.RSSI(i);
-		}		//String correct_station_ssid
+		}
+		
+		int get_station_rssi_in_percents(int i)
+		{
+			int dBm = get_station_rssi(i);
+			if (dBm <= -100)
+				return 0;
+			else if (dBm >= -50)
+				return 100;
+			else
+				return 2 * (dBm + 100);
+		}
 		
 		/*String get_station_mac(int i)
 		{
