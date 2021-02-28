@@ -185,7 +185,7 @@ body * {
 	position: absolute;
 	width: 90%;
 	left: 5%;
-	top: 25%;
+	/*top: 25%;*/
 	/*min-height: 15em;*/
 }
 
