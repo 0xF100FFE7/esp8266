@@ -971,7 +971,7 @@ struct sta_dialog {
 			) +
 			dhcp_wrapper.pack(attr::display = idx != -1) +
 			manual_wrapper.pack(attr::display = (idx != -1 && !dhcp)) +
-			pass_wrapper.pack(attr::display = (idx != -1 && !secure)) +
+			pass_wrapper.pack(attr::display = (idx != -1 && secure)) +
 			disconnect.pack(attr::display = idx == -1) +
 			connect.pack(attr::display = idx != -1)/* + apply.pack(attr::display = idx == -1))*/;
 	}
@@ -983,7 +983,7 @@ struct sta_dialog {
 		dialog.pack(root, (attr::display = false)) + box.pack(dialog, (attr::text = l_str(NETWORK_SETTINGS))) + 
 		status.pack(box, (attr::wrap = true)) +
 		dhcp_wrapper.pack(box, (attr::direction = DIR_H)) + dhcp_text.pack(dhcp_wrapper, (attr::text = l_str(DHCP_ENABLED))) + dhcp_enabler.pack(dhcp_wrapper, dhcp_enabler.get(dhcp)) +
-		manual_wrapper.pack(box, (attr::direction = DIR_H, attr::disabled = dhcp)) + addr_text_wrapper.pack(manual_wrapper, (attr::direction = DIR_V)) + addr_field_wrapper.pack(manual_wrapper, (attr::direction = DIR_V)) + 
+		manual_wrapper.pack(box, (attr::direction = DIR_H, attr::disabled = dhcp)) + addr_text_wrapper.pack(manual_wrapper, (attr::direction = DIR_V, attr::width = "content")) + addr_field_wrapper.pack(manual_wrapper, (attr::direction = DIR_V)) + 
 			ip_text.pack(addr_text_wrapper, (attr::text = l_str(AP_IP))) + subnet_text.pack(addr_text_wrapper, (attr::text = l_str(STA_SUBNET))) + gateway_text.pack(addr_text_wrapper, (attr::text = l_str(STA_GATEWAY))) +
 			ip_field.pack(addr_field_wrapper, (attr::value = IPAddress(ip).toString())) + subnet_field.pack(addr_field_wrapper, (attr::value = IPAddress(subnet).toString())) + gateway_field.pack(addr_field_wrapper, (attr::value = IPAddress(gateway).toString())) +
 		pass_wrapper.pack(box, (attr::direction = DIR_H)) + pass_text.pack(pass_wrapper, (attr::text = l_str(AP_PASS))) + pass_field.pack(pass_wrapper, (attr::value = String(pass))) +
@@ -1023,8 +1023,24 @@ struct sta_settings {
 		DEBUG_MSG("Total AP's found: %i\n", network::avail_networks);
 		DEBUG_MSG("Network status: %i\n", network::sta_status);
 
+		String color;
+		switch (network::sta_status) {
+		case network::STA_CONNECTED:
+		case network::STA_DISCONNECTED:
+			color = "green";
+			break;
+		case network::STA_BEGIN_CONNECTION:
+		case network::STA_ATTEMPT_TO_CONNECT:
+		case network::STA_SWITCH:
+			color = "orange";
+			break;
+		default:
+			color = "red";
+			break;
+		}
+
 		if (network::sta_status != network::STA_DISCONNECTED)
-			buf += avail_stations[0].pack(network_settings.sta_tab, (attr::text = network::get_station_name(-1) + short_sta_info(-1), attr::display = true, attr::background = "green")); //zero slot is reserved for running station
+			buf += avail_stations[0].pack(network_settings.sta_tab, (attr::text = network::get_station_name(-1) + short_sta_info(-1), attr::display = true, attr::background = color)); //zero slot is reserved for running station
 		else
 			buf += avail_stations[0].pack(network_settings.sta_tab, (attr::display = false));
 		
@@ -1264,19 +1280,6 @@ void electrobox_loop()
 			
 			//buf += sta_settings.connection_status.pack(attr::text = sta_settings.status_str());
 			//buf += sta_settings.list_avail_stations();
-			/*switch (network::sta_status) {
-			case STA_CONNECTED:
-			case STA_DISCONNECTED:
-				buf += sta_settings.list_avail_stations();
-				break;
-			case STA_CONNECTING:
-				buf += sta_settings.avail_stations[0].pack(attr::background = "orange");
-				break;
-			default:
-				buf += sta_settings.avail_stations[0].pack(attr::background = "red");
-				break;
-			}*/
-					
 			buf += sta_settings.list_avail_stations() + sta_dialog.update(-1);
 		}
 		

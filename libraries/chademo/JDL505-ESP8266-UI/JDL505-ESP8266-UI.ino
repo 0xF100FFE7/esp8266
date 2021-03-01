@@ -56,6 +56,124 @@ struct regulator_widget {
 	}
 }*/
 
+enum language {
+	LANG_UA,
+	LANG_RU,
+	LANG_EN,
+	NUMBER_OF_SUPPORTED_LANGUAGES
+} extern current_language;
+
+enum language_item {
+	LANGUAGE_SELECTOR_TITLE,
+	LANGUAGE_NAME,
+	HOME_TAB,
+	ADDITIONAL_TAB,
+	SETTINGS_TAB,
+	HOME_STATUS,
+	SET_MAX_AMPERAGE,
+	EMERGENCY_STOP,
+	ARE_YOU_SURE_EMERGENCY_STOP,
+	EVSE_STATUS,
+	RESET_SOC,
+	ARE_YOU_SURE_RESET_SOC,
+	SET_TARGET_VOLTAGE,
+	CALIBRATE_AMPERS,
+	CALIBRATE_VOLTAGE,
+	SET_CAPACITY,
+	SET_MAX_VOLTAGE,
+	IGNORE_CURRENT_MISMATCH,
+	IGNORE_VOLTAGE_MISMATCH,
+	ACCESS_POINT_SETTINGS,
+	SAVE_NETWORK_SETTINGS,
+	ARE_YOU_SURE_SAVE_NETWORK_SETTINGS,
+	SSID,
+	PASS,
+	IP,
+	
+	YES,
+	NO,
+	LANGUAGE_ITEMS,
+};
+
+struct settings {
+	static bool need_commit;
+	settings &changed();
+	void committed();
+	bool modified;
+	
+	enum language language;
+	
+	struct settings &defaults();
+	void save();		
+	void load();
+	
+	settings();
+} extern settings;
+
+extern String l_str(unsigned i);
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////
+/*				SETTINGS SECTION				*/
+//////////////////////////////////////////////////////////////////////////////////
+struct settings &settings::defaults() {
+	modified = false;
+	language = LANG_UA;
+	return *this;
+}
+
+void settings::save()
+{
+	modified = true;
+	if (save_settings("/chademo.bin", "chademo", this, sizeof(struct settings)))
+		committed();
+}
+		
+void settings::load()
+{
+	if (!load_settings("/chademo.bin", "chademo", this, sizeof(struct settings)))
+		defaults();
+}
+
+struct settings &settings::changed()
+{
+	need_commit = true;
+	return *this;
+}
+
+void settings::committed()
+{
+	settings::need_commit = false;
+}
+
+settings::settings()
+{
+	defaults();
+}
+
+bool settings::need_commit = false;
+struct settings settings;
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////
+/*				LANGUAGE SECTION				*/
+//////////////////////////////////////////////////////////////////////////////////
+const char* languages[NUMBER_OF_SUPPORTED_LANGUAGES][LANGUAGE_ITEMS] PROGMEM = {
+	{"Вибір мови", "Українська", "Головна", "Додатково", "Налаштування", "Статус", "Встановити максимальний струм", "Екстрена зупинка", "Ви дійсно бажаєте зупинити роботу пристрою?", "Статус станції", "Обнулити SOC", "Ви дійсно хочете обнулити SOC?", "Встановити цільову напругу", "Калібрувати струм", "Калібрувати напругу", "Встановити ємність", "Встановити максимальну напругу", "Ігнорувати відхилення струму", "Ігнорувати відхилення напруги", "Налаштування точки доступу", "Зберегти налаштування", "Зміна налаштувань точки доступу призведе до перезавантаження пристрою. Ви дійсно бажаєте продовжити?", "SSID: ", "Пароль: ", "IP: ", "Так", "Ні"},
+	{"Выбор языка", "Русский", "Главная", "Дополнительно", "Настройки", "Статус", "Установить максимальный ток", "Экстренная остановка", "Вы действительно хотите остановить работу устройства?", "Статус станции", "Обнулить SOC", "Вы действительно хотите обнулить SOC?", "Установить целевоею напряжение", "Калибровка тока", "Калибровка напряжения", "Установить емкость", "Установить максимальное напряжение", "Игнорировать отклонения тока", "Игнорировать отклонения напряжения", "Настройка точки доступа", "Сохранить настройки", "Изменение настроек точки доступа приведет к перезагрузке устройства. Вы действительно хотите продолжить?", "SSID: ", "Пароль: ", "IP: ", "Да", "Нет"},
+	{"Select language", "English", "Home", "Additional", "Settings", "Status", "Set max amperage", "Emergency stop", "Do you really want to make an emergency stop?", "Evse status", "Reset SOC", "Are you sure you want to reset SOC?", "Set target voltage", "Calibrate ampers", "Calibrate voltage", "Set capacity", "Set max voltage", "Ignore current mismatch", "Ignore voltage mismatch", "Access point settings", "Save network settings", "Changing the access point settings will reboot the device. Do you really want to continue?", "SSID: ", "Password: ", "IP: ", "Yes", "No"},
+};
+
+//Localized string
+String l_str(unsigned i)
+{
+	return String(languages[settings.language][i]);
+}
+
 
 
 
@@ -72,15 +190,15 @@ struct tab_navigation_widget {
 	packet build()
 	{
 		return	
-			home.pack(root, (attr::panel = "nav", (attr::text = "Home", selected == &home ? attr::selected = true : none), attr::direction = DIR_H, attr::wrap = true)) +
-			additional.pack(root, (attr::panel = "nav", (attr::text = "Additional", selected == &additional ? attr::selected = true : none), attr::direction = DIR_H, attr::wrap = true)) +
-			settings.pack(root, (attr::panel = "nav", (attr::text = "Settings", selected == &settings ? attr::selected = true : none), attr::direction = DIR_H, attr::tab_align = ALIGN_RIGHT, attr::wrap = true));
+			home.pack(root, (attr::panel = "nav", (attr::text = l_str(HOME_TAB), selected == &home ? attr::selected = true : none), attr::direction = DIR_H, attr::wrap = true)) +
+			additional.pack(root, (attr::panel = "nav", (attr::text = l_str(ADDITIONAL_TAB), selected == &additional ? attr::selected = true : none), attr::direction = DIR_H, attr::wrap = true)) +
+			settings.pack(root, (attr::panel = "nav", (attr::text = l_str(SETTINGS_TAB), selected == &settings ? attr::selected = true : none), attr::direction = DIR_H, attr::tab_align = ALIGN_RIGHT, attr::wrap = true));
 	}
 } tab_navigation_widget;
 
 
 
-struct regulator_widget<int, CMD_SET_MAX_ASKING_AMPS, constMessage, tab_navigation_widget.home, 10, 0, 40, 5> widgy;
+
 //////////////////////////////////////////////////////////////////////////////////
 /*				HOME PANEL WIDGETS				*/
 //////////////////////////////////////////////////////////////////////////////////
@@ -118,7 +236,7 @@ struct home_status_widget {
 	packet build()
 	{
 		return
-		box.pack(root, (attr::text = "Status", attr::fill = true, attr::direction = DIR_H)) +
+		box.pack(root, (attr::text = l_str(HOME_STATUS), attr::fill = true, attr::direction = DIR_H)) +
 		l_text.pack(box, (l_attr(), attr::wrap = true)) + r_text.pack(box, (r_attr(), attr::wrap = true));
 	}
 	
@@ -160,26 +278,44 @@ struct set_max_asking_amps_widget {
 	packet build()
 	{
 		return
-		box.pack(tab_navigation_widget.home, (attr::text = "Set max amperage", attr::direction = DIR_H)) +
+		box.pack(tab_navigation_widget.home, (attr::text = l_str(SET_MAX_AMPERAGE), attr::direction = DIR_H)) +
 		l_button.pack(box, (attr::text = "-", attr::width = "fill")) + field.pack(box, (attr::value = max_asking_amps, attr::width = "fill")) + r_button.pack(box, (attr::text = "+", attr::width = "fill"));
 	}
 } set_max_asking_amps_widget;
 
+extern struct emergency_stop_widget emergency_stop_widget;
 struct emergency_stop_widget {
 	struct box box;
 	struct button button;
+
+	struct dialog dialog;
+	struct box wrapper;
+	struct button yes, no;
 	
-	static void button_callback(struct button &id, client_id_t sender)
+	static void yes_callback(struct button &id, client_id_t sender)
 	{
+		::emergency_stop_widget.dialog.pack(attr::display = false).send(sender);
 		cmd.send(CMD_END_CHARGE);
 	}
 	
-	emergency_stop_widget() : button(button_callback) {}
+	static void no_callback(struct button &id, client_id_t sender)
+	{
+		::emergency_stop_widget.dialog.pack(attr::display = false).send(sender);
+	}
 	
+	
+	static void button_callback(struct button &id, client_id_t sender)
+	{
+		::emergency_stop_widget.dialog.pack(attr::display = true).send(sender);
+	}
+	
+	emergency_stop_widget() : button(button_callback), yes(yes_callback), no(no_callback) {}
 	packet build()
 	{
 		return
-		box.pack(tab_navigation_widget.home, (attr::text = "Emergency stop", attr::background = "red", attr::fill = true)) +
+		box.pack(tab_navigation_widget.home, (attr::text = l_str(EMERGENCY_STOP), attr::background = "red", attr::fill = true)) +
+		dialog.pack(root, (attr::display = false)) + wrapper.pack(dialog, (attr::text = l_str(ARE_YOU_SURE_EMERGENCY_STOP), attr::direction = DIR_H)) +
+		yes.pack(wrapper, (attr::text = l_str(YES))) + no.pack(wrapper, (attr::text = l_str(NO))) +
 		button.pack(box);
 	}
 } emergency_stop_widget;
@@ -227,11 +363,11 @@ struct settings_status_widget {
 	packet build()
 	{
 		return
-		box.pack(tab_navigation_widget.additional, (attr::text = "Evse status", attr::fill = true)) +
+		box.pack(tab_navigation_widget.additional, (attr::text = l_str(EVSE_STATUS), attr::fill = true)) +
 		evse_status.pack(box, (attr::text = evse_status_str, attr::wrap = true)) +
-		reset.pack(box, (attr::text = "Reset soc")) +
-		dialog.pack(root, (attr::display = false)) + wrapper.pack(dialog, (attr::text = "Are you sure want to reset SOC?", attr::direction = DIR_H)) +
-		yes.pack(wrapper, (attr::text = "Yes")) + no.pack(wrapper, (attr::text = "No"));
+		reset.pack(box, (attr::text = l_str(RESET_SOC))) +
+		dialog.pack(root, (attr::display = false)) + wrapper.pack(dialog, (attr::text = l_str(ARE_YOU_SURE_RESET_SOC), attr::direction = DIR_H)) +
+		yes.pack(wrapper, (attr::text = l_str(YES))) + no.pack(wrapper, (attr::text = l_str(NO)));
 	}
 	
 } settings_status_widget;
@@ -272,7 +408,7 @@ struct set_target_voltage_widget {
 	packet build()
 	{
 		return
-		box.pack(tab_navigation_widget.additional, (attr::text = "Set target voltage", attr::direction = DIR_H)) +
+		box.pack(tab_navigation_widget.additional, (attr::text = l_str(SET_TARGET_VOLTAGE), attr::direction = DIR_H)) +
 		l_button.pack(box, (attr::text = "-", attr::width = "fill")) + field.pack(box, (attr::value = target_voltage, attr::width = "fill")) + r_button.pack(box, (attr::text = "+", attr::width = "fill"));
 	}
 } set_target_voltage_widget;
@@ -313,7 +449,7 @@ struct calibrate_amps_widget {
 	packet build()
 	{
 		return
-		box.pack(tab_navigation_widget.additional, (attr::text = "Calibrate ampers", attr::direction = DIR_H)) +
+		box.pack(tab_navigation_widget.additional, (attr::text = l_str(CALIBRATE_AMPERS), attr::direction = DIR_H)) +
 		l_button.pack(box, (attr::text = "-", attr::width = "fill")) + field.pack(box, (attr::value = String(current_calibration), attr::width = "fill")) + r_button.pack(box, (attr::text = "+", attr::width = "fill"));
 	}
 } calibrate_amps_widget;
@@ -354,7 +490,7 @@ struct calibrate_volt_widget {
 	packet build()
 	{
 		return
-		box.pack(tab_navigation_widget.additional, (attr::text = "Calibrate voltage", attr::direction = DIR_H)) +
+		box.pack(tab_navigation_widget.additional, (attr::text = l_str(CALIBRATE_VOLTAGE), attr::direction = DIR_H)) +
 		l_button.pack(box, (attr::text = "-", attr::width = "fill")) + field.pack(box, (attr::value = String(voltage_calibration), attr::width = "fill")) + r_button.pack(box, (attr::text = "+", attr::width = "fill"));
 	}
 } calibrate_volt_widget;
@@ -417,7 +553,7 @@ struct set_capacity_widget {
 	packet build()
 	{
 		return
-		box.pack(tab_navigation_widget.additional, (attr::text = "Set capacity", attr::direction = DIR_H, attr::fill = true)) +
+		box.pack(tab_navigation_widget.additional, (attr::text = l_str(SET_CAPACITY), attr::direction = DIR_H, attr::fill = true)) +
 		l_button.pack(box, (attr::text = "-", attr::width = "fill")) +
 		field.pack(box, (attr::value = capacity, attr::width = "fill")) + dimension.pack(box, (attr::text = kwh_dim ? "kWh" : "aH")) +
 		r_button.pack(box, (attr::text = "+", attr::width = "fill"));
@@ -460,7 +596,7 @@ struct set_max_volt_widget {
 	packet build()
 	{
 		return
-		box.pack(tab_navigation_widget.additional, (attr::text = "Set max voltage", attr::direction = DIR_H)) +
+		box.pack(tab_navigation_widget.additional, (attr::text = l_str(SET_MAX_VOLTAGE), attr::direction = DIR_H)) +
 		l_button.pack(box, (attr::text = "-", attr::width = "fill")) + field.pack(box, (attr::value = max_volt, attr::width = "fill")) + r_button.pack(box, (attr::text = "+", attr::width = "fill"));
 	}
 } set_max_volt_widget;
@@ -483,7 +619,7 @@ struct ignore_current_mismatch_widget {
 	packet build()
 	{
 		return
-			box.pack(tab_navigation_widget.additional, (attr::text = "Ignore current mismatch", attr::direction = DIR_H)) + 
+			box.pack(tab_navigation_widget.additional, (attr::text = l_str(IGNORE_CURRENT_MISMATCH), attr::direction = DIR_H)) + 
 			switcher.pack(box, (switcher.get(ignore)));
 	}
 } ignore_current_mismatch_widget;
@@ -506,7 +642,7 @@ struct ignore_voltage_mismatch_widget {
 	packet build()
 	{
 		return
-			box.pack(tab_navigation_widget.additional, (attr::text = "Ignore voltage mismatch", attr::direction = DIR_H)) + 
+			box.pack(tab_navigation_widget.additional, (attr::text = l_str(IGNORE_VOLTAGE_MISMATCH), attr::direction = DIR_H)) + 
 			switcher.pack(box, (switcher.get(ignore)));
 	}
 } ignore_voltage_mismatch_widget;
@@ -575,18 +711,48 @@ struct ap_settings_widget {
 	packet build()
 	{
 		return
-		box.pack(tab_navigation_widget.settings, (attr::text = "Access point settings", attr::direction = DIR_H, attr::wrap = true)) +
+		box.pack(tab_navigation_widget.settings, (attr::text = l_str(ACCESS_POINT_SETTINGS), attr::direction = DIR_H, attr::wrap = true)) +
 		ap_text_col.pack(box, (attr::direction = DIR_V, attr::width = "content")) +
 		ap_field_col.pack(box, (attr::direction = DIR_V)) +
-		ap_ssid_text.pack(ap_text_col, (attr::text = "SSID: ")) + ap_pass_text.pack(ap_text_col, (attr::text = "Password: ")) + ap_ip_text.pack(ap_text_col, (attr::text = "Ip: ")) +
+		ap_ssid_text.pack(ap_text_col, (attr::text = l_str(SSID))) + ap_pass_text.pack(ap_text_col, (attr::text = l_str(PASS))) + ap_ip_text.pack(ap_text_col, (attr::text = l_str(IP))) +
 		ap_ssid_field.pack(ap_field_col, (attr::value = String(network::ap.ssid))) + ap_pass_field.pack(ap_field_col, (attr::value = String(network::ap.pass))) + 
 			ap_ip_field.pack(ap_field_col, (attr::value = IPAddress(network::ap.ip).toString())) +
-		apply_settings.pack(box, (attr::text = "Save network settings", attr::background = "orange", apply_settings.get(applier_enabled))) +
+		apply_settings.pack(box, (attr::text = l_str(SAVE_NETWORK_SETTINGS), attr::background = "orange", apply_settings.get(applier_enabled))) +
 		
-		dialog.pack(root, (attr::display = false)) + wrapper.pack(dialog, (attr::text = "Changing the access point settings will reboot the device. Do you really want to continue?", attr::direction = DIR_H)) +
-		yes.pack(wrapper, (attr::text = "Yes")) + no.pack(wrapper, (attr::text = "No"));
+		dialog.pack(root, (attr::display = false)) + wrapper.pack(dialog, (attr::text = l_str(ARE_YOU_SURE_SAVE_NETWORK_SETTINGS), attr::direction = DIR_H)) +
+		yes.pack(wrapper, (attr::text = l_str(YES))) + no.pack(wrapper, (attr::text = l_str(NO)));
 	}
 } ap_settings_widget;
+
+extern struct language_selector_widget language_selector_widget;
+struct language_selector_widget {
+	struct box box;
+	struct language_radio_item : radio { //wrapper inheritance. Not sure if there is no overhead guaranteed (WARNING)
+		static void item_callback(radio &id, client_id_t sender) {
+			struct radio &old_item = ::language_selector_widget.item[settings.language];
+			
+			if (&id != &old_item) {
+				settings.changed().language = (enum language)class_index(::language_selector_widget.item[0], id);
+				//tab_navigation::selected = &tab_navigation::settings;
+				for (int i = 0; i < MAX_UI_CLIENTS; i++) {
+					number_of_interface_loaders++;
+					clients[i].cleanup();
+				}
+			}
+		}
+		
+		language_radio_item() : radio(item_callback) {};
+	} item[NUMBER_OF_SUPPORTED_LANGUAGES];
+	
+	packet build()
+	{		
+		packet buf;
+		buf = box.pack(tab_navigation_widget.settings, (attr::text = l_str(LANGUAGE_SELECTOR_TITLE), attr::height = "content"));
+		for (int i = 0; i < NUMBER_OF_SUPPORTED_LANGUAGES; i++)
+			buf += item[i].pack(box, (attr::text = languages[i][LANGUAGE_NAME], item[i].get(i == (int)settings.language ? true : false)));
+		return buf;
+	}
+} language_selector_widget;
 
 
 
@@ -614,6 +780,7 @@ bool ui::interface(client &cl, int idx) //implementation of interface builder is
 		ADD_TO_INTERFACE(10, ignore_current_mismatch_widget);
 		ADD_TO_INTERFACE(11, ignore_voltage_mismatch_widget);
 		ADD_TO_INTERFACE(12, ap_settings_widget);
+		ADD_TO_INTERFACE(13, language_selector_widget);
 		END_ADD_TO_INTERFACE;
 	}
 }
@@ -716,20 +883,28 @@ void setup()
 {
 	Serial.begin(115200);
 	interface_setup();
+	settings.load();
 }
 
 void loop()
 {
 	static unsigned long old_millis = 0;
 	if (millis() > old_millis + 1000) {
+		packet buf;
 		if (network::ap.need_commit) {
 			if (!ap_settings_widget.applier_enabled)
-				ap_settings_widget.apply_settings.pack(attr::disabled = false).send_all();
+				buf += ap_settings_widget.apply_settings.pack(attr::disabled = false);
 			//do not save settings here, better do this inside applier.
 		}
 		
+		if (settings.need_commit)
+			settings.save();
+		
 		if (status.charging)
 			home_status_widget.time_charging++;
+		
+		if (buf.buffer)
+			buf.send_all();
 		old_millis += 1000;
 	}
 	
