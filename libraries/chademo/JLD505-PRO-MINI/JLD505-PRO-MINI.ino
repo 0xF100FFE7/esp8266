@@ -138,6 +138,7 @@ EVSE_STATUS evse_status;
 typedef struct 
 {
 	int got_charging_info;
+	int temp;
 	float amperage;
 	float voltage;
 	float soc;
@@ -308,7 +309,7 @@ void setup()
 	if (settings.valid != EEPROM_VALID) //not proper version so reset to defaults
 	{
 		settings.valid = EEPROM_VALID;
-		settings.ampHours = 30.0;
+		settings.ampHours = 0;
 		settings.kiloWattHours = 0.0;
 		settings.currentCalibration = 200.0/0.075; //800A 75mv shunt
 		settings.voltageCalibration = (100000.0*830000.0/930000.0+1000000.0)/(100275.0*830000.0/930000.0); // (Voltage Divider with (100k in parallel with 830k) and 1M )
@@ -324,6 +325,8 @@ void setup()
 		settings.SOC = INITIAL_SOC;
 		EEPROM_writeAnything(0, settings);
 	}
+
+	settings.ampHours = settings.kiloWattHours = 0.0;
 
 	attachInterrupt(0, Save, FALLING);
 	FrequencyTimer2::setPeriod(25000); //interrupt every 25ms
@@ -382,11 +385,11 @@ void loop()
 		} else {
 			Voltage = ina.readBusVoltage() * (settings.voltageCalibration + settings.voltage_calibration_offset);
 			Current = ina.readShuntVoltage() * (settings.currentCalibration + settings.current_calibration_offset);
-			settings.SOC = (-settings.ampHours / settings.packSizeKWH) * 100;
+			settings.SOC = (-settings.kiloWattHours / settings.packSizeKWH) * 100;
 		}
 		
-		settings.ampHours += Current * (float)Time / 1000.0 / 3600.0;
 		Power = Voltage * Current / 1000.0;
+		settings.ampHours += Current * (float)Time / 1000.0 / 3600.0;
 		settings.kiloWattHours += Power * (float)Time / 1000.0 / 3600.0;
 		
 		if (chademoState == RUNNING && bDoMismatchChecks)
@@ -554,6 +557,10 @@ void loop()
 			bms_status.voltage = (canMsg[6] << 8 | canMsg[7]) / 2;
 			bms_status.soc = (float)canMsg[4] / 1.6 + ((float)canMsg[5] / 0xFF);
 		}
+		
+		if (canMsgID == 0x424) {
+			bms_status.temp = canMsg[4] - 40;
+		}
 	}
 	
 	if (bStartConversion == 1)
@@ -720,15 +727,14 @@ void Save()
 void USB()
 {
 	static struct cmd cmd;
+	cmd.send(CMD_CAN_MODE, bms_status.got_charging_info ? true : false);
 	cmd.send(CMD_VOLTAGE, Voltage);
 	cmd.send(CMD_CURRENT, Current);
-	cmd.send(CMD_AMPHOURS, settings.ampHours);
-	cmd.send(CMD_POWER, Power);
-	cmd.send(CMD_KWH, settings.kiloWattHours);
 	cmd.send(CMD_SOC, settings.SOC);
-	cmd.send(CMD_BMS_AMPERAGE, bms_status.amperage);
-	cmd.send(CMD_BMS_VOLTAGE, bms_status.voltage);
-	cmd.send(CMD_BMS_SOC, bms_status.soc);
+	cmd.send(CMD_POWER, Power);
+	cmd.send(CMD_AMPHOURS, settings.ampHours);
+	cmd.send(CMD_KWH, settings.kiloWattHours);
+	cmd.send(CMD_TEMP, bms_status.temp);
 	cmd.send(CMD_UPDATE_STATUS);
 	//cmd.send(90, "\n");
 	

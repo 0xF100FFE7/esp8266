@@ -4,21 +4,20 @@
 struct cmd cmd;
 
 struct chademo_status {
+	int temp = 0;
+	bool can_mode = false;
 	bool charging = false;
 	float voltage, current, amphours, power, kwh, soc;
 } status;
 
-struct bms_status {
-	float amperage, voltage, soc;
-} bms;
-
-
-int ah_to_kwh(int ah)
+template <typename T>
+T ah_to_kwh(T ah)
 {
 	return ah * 3.6 * 96 / 1000 + 1;
 }
 
-int kwh_to_ah(int kwh)
+template <typename T>
+T kwh_to_ah(T kwh)
 {
 	return kwh * 1000 / 96 / 3.6;
 }
@@ -102,6 +101,8 @@ struct settings {
 	bool modified;
 	
 	enum language language;
+	double last_kwh;
+	double total_kwh;
 	
 	struct settings &defaults();
 	void save();		
@@ -121,6 +122,8 @@ extern String l_str(unsigned i);
 struct settings &settings::defaults() {
 	modified = false;
 	language = LANG_UA;
+	last_kwh = 0.0;
+	total_kwh = 0.0;
 	return *this;
 }
 
@@ -163,9 +166,9 @@ struct settings settings;
 /*				LANGUAGE SECTION				*/
 //////////////////////////////////////////////////////////////////////////////////
 const char* languages[NUMBER_OF_SUPPORTED_LANGUAGES][LANGUAGE_ITEMS] PROGMEM = {
-	{"Вибір мови", "Українська", "Головна", "Додатково", "Налаштування", "Статус", "Встановити максимальний струм", "Екстрена зупинка", "Ви дійсно бажаєте зупинити роботу пристрою?", "Статус станції", "Обнулити SOC", "Ви дійсно хочете обнулити SOC?", "Встановити цільову напругу", "Калібрувати струм", "Калібрувати напругу", "Встановити ємність", "Встановити максимальну напругу", "Ігнорувати відхилення струму", "Ігнорувати відхилення напруги", "Налаштування точки доступу", "Зберегти налаштування", "Зміна налаштувань точки доступу призведе до перезавантаження пристрою. Ви дійсно бажаєте продовжити?", "SSID: ", "Пароль: ", "IP: ", "Так", "Ні"},
-	{"Выбор языка", "Русский", "Главная", "Дополнительно", "Настройки", "Статус", "Установить максимальный ток", "Экстренная остановка", "Вы действительно хотите остановить работу устройства?", "Статус станции", "Обнулить SOC", "Вы действительно хотите обнулить SOC?", "Установить целевоею напряжение", "Калибровка тока", "Калибровка напряжения", "Установить емкость", "Установить максимальное напряжение", "Игнорировать отклонения тока", "Игнорировать отклонения напряжения", "Настройка точки доступа", "Сохранить настройки", "Изменение настроек точки доступа приведет к перезагрузке устройства. Вы действительно хотите продолжить?", "SSID: ", "Пароль: ", "IP: ", "Да", "Нет"},
-	{"Select language", "English", "Home", "Additional", "Settings", "Status", "Set max amperage", "Emergency stop", "Do you really want to make an emergency stop?", "Evse status", "Reset SOC", "Are you sure you want to reset SOC?", "Set target voltage", "Calibrate ampers", "Calibrate voltage", "Set capacity", "Set max voltage", "Ignore current mismatch", "Ignore voltage mismatch", "Access point settings", "Save network settings", "Changing the access point settings will reboot the device. Do you really want to continue?", "SSID: ", "Password: ", "IP: ", "Yes", "No"},
+	{"Вибір мови", "Українська", "Головна", "Додатково", "Налаштування", "Статус", "Встановити максимальний струм", "Екстрена зупинка", "Ви дійсно бажаєте зупинити роботу пристрою?", "Статус станції", "Обнулити статистику", "Ви дійсно хочете обнулити статистику?", "Встановити цільову напругу", "Калібрувати струм", "Калібрувати напругу", "Встановити ємність", "Встановити максимальну напругу", "Ігнорувати відхилення струму", "Ігнорувати відхилення напруги", "Налаштування точки доступу", "Зберегти налаштування", "Зміна налаштувань точки доступу призведе до перезавантаження пристрою. Ви дійсно бажаєте продовжити?", "SSID: ", "Пароль: ", "IP: ", "Так", "Ні"},
+	{"Выбор языка", "Русский", "Главная", "Дополнительно", "Настройки", "Статус", "Установить максимальный ток", "Экстренная остановка", "Вы действительно хотите остановить работу устройства?", "Статус станции", "Обнулить статистику", "Вы действительно хотите обнулить статистику?", "Установить целевоею напряжение", "Калибровка тока", "Калибровка напряжения", "Установить емкость", "Установить максимальное напряжение", "Игнорировать отклонения тока", "Игнорировать отклонения напряжения", "Настройка точки доступа", "Сохранить настройки", "Изменение настроек точки доступа приведет к перезагрузке устройства. Вы действительно хотите продолжить?", "SSID: ", "Пароль: ", "IP: ", "Да", "Нет"},
+	{"Select language", "English", "Home", "Additional", "Settings", "Status", "Set max amperage", "Emergency stop", "Do you really want to make an emergency stop?", "Evse status", "Reset statistics", "Are you sure you want to reset statistics?", "Set target voltage", "Calibrate ampers", "Calibrate voltage", "Set capacity", "Set max voltage", "Ignore current mismatch", "Ignore voltage mismatch", "Access point settings", "Save network settings", "Changing the access point settings will reboot the device. Do you really want to continue?", "SSID: ", "Password: ", "IP: ", "Yes", "No"},
 };
 
 //Localized string
@@ -210,21 +213,23 @@ struct home_status_widget {
 		
 	attributes l_attr()
 	{
+		String prefix = status.can_mode ? "BMS " : "INA ";
 		return attr::text =
-			String("Voltage: ") + status.voltage + "\n" +
-			"Current: " + -status.current + "\n" +
-			"Power: " + -status.power + "KWt\n" +
-			"SOC: " + status.soc + "%\n" +
-			"BMS Current: " + bms.amperage + "\n" +
-			"BMS Voltage: " + bms.voltage + "\n" +
-			"BMS SOC: " + bms.soc;
+			prefix + "Voltage: " + status.voltage + "\n" +
+			prefix + "Current: " + -status.current + "\n" +
+			prefix + "Power: " + -status.power + "KWt\n" +
+			prefix + "SOC: " + status.soc + "%\n" +
+			"BATT TEMP: " + status.temp;
+			//"BMS Current: " + bms.amperage + "\n" +
+			//"BMS Voltage: " + bms.voltage + "\n" +
+			//"BMS SOC: " + bms.soc;
 	}
 
 	attributes r_attr()
 	{
 		return attr::text =
-			String("A/h: ") + -status.amphours + "\n" +
-			"KWt/h: " + -status.kwh + "\n" +
+			String("Kwt/h for session:") + -settings.last_kwh + "(" + kwh_to_ah(-settings.last_kwh) + " AH)\n" +
+			"KWt/h for all time: " + -settings.total_kwh + "(" + kwh_to_ah(-settings.total_kwh) + " AH)\n" +
 			"Charging time: " + (time_charging / 60 / 60) + ":" + ((time_charging / 60) % 60) + ":" + (time_charging % 60);
 	}
 	
@@ -346,6 +351,7 @@ struct settings_status_widget {
 	static void yes_callback(struct button &id, client_id_t sender)
 	{
 		::settings_status_widget.dialog.pack(attr::display = false).send(sender);
+		settings.total_kwh = settings.last_kwh = 0.0;
 		cmd.send(CMD_RESET);
 	}
 	
@@ -805,6 +811,7 @@ void parse(struct cmd &cmd) {
 			
 		case CMD_KWH:
 			status.kwh = cmd.buf.toFloat();
+			settings.last_kwh = status.kwh;
 			break;
 			
 		case CMD_SOC:
@@ -851,27 +858,28 @@ void parse(struct cmd &cmd) {
 			break;
 			
 		case CMD_BEGIN_CHARGE:
+			//settings.last_kwt =
+			cmd.send(CMD_RESET);
 			status.charging = true;
 			home_status_widget.time_charging = 0;	
 			break;
 		
 		case CMD_END_CHARGE:
+			settings.last_kwh = status.kwh;
+			settings.total_kwh += settings.last_kwh;
+			settings.changed();
 			status.charging = false;
 			
 		case CMD_EVSE_STATUS:
 			settings_status_widget.update_evse_status(cmd.buf);
 			break;
 		
-		case CMD_BMS_AMPERAGE:
-			bms.amperage = cmd.buf.toFloat();
+		case CMD_CAN_MODE:
+			status.can_mode = cmd.buf.toInt();
 			break;
 		
-		case CMD_BMS_VOLTAGE:
-			bms.voltage = cmd.buf.toFloat();
-			break;
-		
-		case CMD_BMS_SOC:
-			bms.soc = cmd.buf.toFloat();
+		case CMD_TEMP:
+			status.temp = cmd.buf.toInt();
 			break;
 		
 		default:

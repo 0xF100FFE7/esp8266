@@ -171,7 +171,8 @@ extern void electrobox_loop();
 //////////////////////////////////////////////////////////////////////////////////
 /*				PROTOTYPES					*/
 //////////////////////////////////////////////////////////////////////////////////
-extern struct sync_time sync_time;
+extern struct date_time date_time;
+//extern struct sync_time sync_time;
 extern struct language_selector language_selector;
 extern struct factory_reset factory_reset;
 extern struct network_settings network_settings;
@@ -253,9 +254,9 @@ struct settings settings;
 /*				LANGUAGE SECTION				*/
 //////////////////////////////////////////////////////////////////////////////////
 const char* languages[NUMBER_OF_SUPPORTED_LANGUAGES][LANGUAGE_ITEMS] PROGMEM = {
-	{"Головна", "Налаштування", "Вибір мови", "Українська", "Встановити дату та час", "Рік", "Години", "Місяць", "Хвилини", "День", "Секунди", "Тижневий розклад", "Дні тижня", "Старт зарядки", "Стоп зарядки", "Увімкнути", "Понеділок", "Вівторок", "Середа", "Четвер", "П'ятниця", "Субота", "Неділя", "Статус зарядки", "Пістолет не вставлено", "Триває зарядка", "Автомобіль заряджено", "Перевірте заземлення", "Спрацював захист ПЗВ", "Спрацював захист по напрузі (більше 270V)", "Спрацював захист по току (більше 50А)", "Очікує зарядки по розкладу", "Ручна зупинка", "кВт", "Час та кВт за сесію", "Напруга, струм та потужність", "Регулювання струму", "Перевірка заземлення", "Заряджати по розкладу", "Адаптивний режим", "Обмежити кількість кВт за сесію", "Таймери", "Регулювання яскравості дисплею", "Обмежити тривалість заряду в годинах", "Час до вимкнення дисплею в хвилинах", "Статистика", "Лог змін статусу", "Ввімкнути зарядку", "Синхронізувати час з браузерним", "Очистка логу", "Скинути налаштування", "Налаштування мережі", "Зберегти зміни", "Точка доступу", "Станція", "SSID:", "Пароль:", "IP адрес:", "Cтанція ввімкнена:", "Статус підключення:", "Доступні мережі:", "Сканувати мережу", "Підключення відсутнє", "Підключено", "Спроба підключення", "Неможливо підключитися", "Статистика за період", "За минулу(ий)", "За теперішню(ній)", "Годину:", "День:", "Тиждень:", "Місяць:", "Рік:", "За весь час:", "Рахувати з теперешнього моменту", "Споживано за сесію", "Зараз", "При підключенні:", "Ви дійсно хочете скинути налаштування?", "Зміна налаштувань точки доступу призведе до перезавантаження пристрою. Ви дійсно бажаєте продовжити?", "Так", "Ні", "DHCP: ", "Статичний ip: ", "Підключитися", "Відключитися", "Застосувати", "Закрити", "Ручна зупинка", "Ручний старт", "Статус:", "Рівень сигналу:", "Маска підмережі: ", "Шлюз: ", "IP зарядки:"},
-	{"Главная", "Настройки", "Выбор языка", "Русский", "Установить дату и время", "Год", "Часы", "Месяц", "Минуты", "День", "Секунды", "Еженедельное расписание", "Дни недели", "Старт заряда", "Стоп зарада", "Включить", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье", "Статус зарядки", "Пистолет не вставлен", "Продолжается зарядка", "Автомобиль заряжен", "Проверьте заземление", "Сработала защита УЗО", "Сработала защита по напряжению (более 270V)", "Сработала защита по току (более 50A)", "Ожидание зарядки по расписанию", "Ручная остановка", "кВт", "Время и кВт за сессию", "Напряжение ток и мощность", "Регулировка тока", "Проверка заземления", "Заряжать по расписанию", "Адаптивний режим", "Ограничить кол-во кВт за сессию", "Таймеры", "Регулировка яркости дисплея", "Ограничить время заряда в часах", "Время до отключения дисплея в минутах", "Статистика", "Лог смен статуса", "Включить зарядку", "Синхронизировать время с браузерным", "Очистить лог", "Сбросить настройки", "Настройки сети", "Сохраниить изменения", "Точка доступа", "Станция", "SSID:", "Пароль:", "IP адрес:", "Станция включена:", "Статус подключения:", "Доступные сети:", "Сканировать сети", "Подключение отсутствует", "Подключено к: ", "Попытка подключения к: ", "Невозможно подключиться к: ", "Статистика за период", "За предыдущий(ую))", "За Текущий(ую)", "Час:", "День:", "Неделю:", "Месяц:", "Год:", "За всё время:", "Считать с текущего момента", "Употреблено за сессию", "Сейчас", "При подключении:", "Вы действительно хотите сбросить настройки?", "Изменение настроек точки доступа приведет к перезагрузке устройства. Вы действительно хотите продолжить?", "Да", "Нет", "DHCP: ", "Статический ip: ", "Подключиться", "Отключиться", "Применить", "Закрыть", "Ручная остановка", "Ручной старт", "Статус:", "Уровень сигнала:", "Маска подсети: ", "Шлюз", "IP зарядки:"},
-	{"Home", "Settings", "Select language", "English", "Setup date and time", "Year", "Hours", "Month", "Minutes", "Day", "Seconds", "Weekly sсhedule", "Days of the week", "Start charging", "Stop charging", "Enable", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "Charger status", "Pistol not inserted", "Charging continues", "Vehicle is charged", "Check ground", "RCD protection blocking", "Voltage protection blocking (above 270V)", "Current protection blocking (above 50A)", "Waiting for charging by chedule", "Manual stop", "kWt", "Time and kWt for session", "Voltage, current and kWt", "Current regulator", "Ground check", "Charge by schedule", "Adaptive mode", "Limit kWt for session", "Timers", "Display brightness regulator", "Limit charge time by hours", "Time to turn off the display in minutes", "Statistics", "Status change log", "Enable charger", "Synchronize time with browser time", "Clear log", "Factory reset", "Network settings", "Save settings", "Access point", "Station", "SSID:", "Password:", "IP:", "Station enabled:", "Connection status:", "Available networks:", "Scan networks", "No connection", "Connected to: ", "Attempting to connect to: ", "Failed to connect to: ", "Statistics for a period", "Previous", "Current", "Hour:", "Day:", "Week:", "Month:", "Year:", "For all time:", "Count from current time", "Consumed for session", "Now", "On connect:", "Do you really want to reset?", "Changing the access point settings will reboot the device. Do you really want to continue?", "Yes", "No", "DHCP: ", "Static ip: ", "Connect", "Disconnect", "Apply", "Close", "Manual stop", "Manual start", "Status:", "Signal level:", "Subnetwork mask: ", "Gateway: ", "Charger IP:"},
+	{"Головна", "Налаштування", "Вибір мови", "Українська", "Встановити дату та час", "Рік", "Години", "Місяць", "Хвилини", "День", "Секунди", "Тижневий розклад", "Дні тижня", "Старт зарядки", "Стоп зарядки", "Увімкнути", "Понеділок", "Вівторок", "Середа", "Четвер", "П'ятниця", "Субота", "Неділя", "Статус зарядки", "Пістолет не вставлено", "Триває зарядка", "Автомобіль заряджено", "Перевірте заземлення", "Спрацював захист ПЗВ", "Спрацював захист по напрузі (більше 270V)", "Спрацював захист по току (більше 50А)", "Очікує зарядки по розкладу", "Ручна зупинка", "кВт", "Час та кВт за сесію", "Напруга, струм та потужність", "Регулювання струму", "Перевірка заземлення", "Заряджати по розкладу", "Адаптивний режим", "Обмежити кількість кВт за сесію", "Таймери", "Регулювання яскравості дисплею", "Обмежити тривалість заряду в годинах", "Час до вимкнення дисплею в хвилинах", "Статистика", "Лог змін статусу", "Ввімкнути зарядку", "Синхронізувати час з браузерним", "Очистка логу", "Скинути налаштування", "Налаштування мережі", "Зберегти зміни", "Точка доступу", "Станція", "SSID:", "Пароль:", "IP адрес:", "Cтанція ввімкнена:", "Статус підключення:", "Доступні мережі:", "Сканувати мережу", "Підключення відсутнє", "Підключено", "Спроба підключення", "Неможливо підключитися", "Статистика за період", "За минулу(ий)", "За теперішню(ній)", "Годину:", "День:", "Тиждень:", "Місяць:", "Рік:", "За весь час:", "Обнулити статистику", "Споживано за сесію", "Автоматично", "При підключенні:", "Ви дійсно хочете скинути налаштування?", "Зміна налаштувань точки доступу призведе до перезавантаження пристрою. Ви дійсно бажаєте продовжити?", "Так", "Ні", "DHCP: ", "Статичний ip: ", "Підключитися", "Відключитися", "Застосувати", "Закрити", "Ручна зупинка", "Ручний старт", "Статус:", "Рівень сигналу:", "Маска підмережі: ", "Шлюз: ", "IP зарядки:"},
+	{"Главная", "Настройки", "Выбор языка", "Русский", "Установить дату и время", "Год", "Часы", "Месяц", "Минуты", "День", "Секунды", "Еженедельное расписание", "Дни недели", "Старт заряда", "Стоп зарада", "Включить", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье", "Статус зарядки", "Пистолет не вставлен", "Продолжается зарядка", "Автомобиль заряжен", "Проверьте заземление", "Сработала защита УЗО", "Сработала защита по напряжению (более 270V)", "Сработала защита по току (более 50A)", "Ожидание зарядки по расписанию", "Ручная остановка", "кВт", "Время и кВт за сессию", "Напряжение ток и мощность", "Регулировка тока", "Проверка заземления", "Заряжать по расписанию", "Адаптивний режим", "Ограничить кол-во кВт за сессию", "Таймеры", "Регулировка яркости дисплея", "Ограничить время заряда в часах", "Время до отключения дисплея в минутах", "Статистика", "Лог смен статуса", "Включить зарядку", "Синхронизировать время с браузерным", "Очистить лог", "Сбросить настройки", "Настройки сети", "Сохраниить изменения", "Точка доступа", "Станция", "SSID:", "Пароль:", "IP адрес:", "Станция включена:", "Статус подключения:", "Доступные сети:", "Сканировать сети", "Подключение отсутствует", "Подключено к: ", "Попытка подключения к: ", "Невозможно подключиться к: ", "Статистика за период", "За предыдущий(ую))", "За Текущий(ую)", "Час:", "День:", "Неделю:", "Месяц:", "Год:", "За всё время:", "Обнулить статистику", "Употреблено за сессию", "Автоматически", "При подключении:", "Вы действительно хотите сбросить настройки?", "Изменение настроек точки доступа приведет к перезагрузке устройства. Вы действительно хотите продолжить?", "Да", "Нет", "DHCP: ", "Статический ip: ", "Подключиться", "Отключиться", "Применить", "Закрыть", "Ручная остановка", "Ручной старт", "Статус:", "Уровень сигнала:", "Маска подсети: ", "Шлюз", "IP зарядки:"},
+	{"Home", "Settings", "Select language", "English", "Setup date and time", "Year", "Hours", "Month", "Minutes", "Day", "Seconds", "Weekly sсhedule", "Days of the week", "Start charging", "Stop charging", "Enable", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "Charger status", "Pistol not inserted", "Charging continues", "Vehicle is charged", "Check ground", "RCD protection blocking", "Voltage protection blocking (above 270V)", "Current protection blocking (above 50A)", "Waiting for charging by chedule", "Manual stop", "kWt", "Time and kWt for session", "Voltage, current and kWt", "Current regulator", "Ground check", "Charge by schedule", "Adaptive mode", "Limit kWt for session", "Timers", "Display brightness regulator", "Limit charge time by hours", "Time to turn off the display in minutes", "Statistics", "Status change log", "Enable charger", "Synchronize time with browser time", "Clear log", "Factory reset", "Network settings", "Save settings", "Access point", "Station", "SSID:", "Password:", "IP:", "Station enabled:", "Connection status:", "Available networks:", "Scan networks", "No connection", "Connected to: ", "Attempting to connect to: ", "Failed to connect to: ", "Statistics for a period", "Previous", "Current", "Hour:", "Day:", "Week:", "Month:", "Year:", "For all time:", "Reset statistics", "Consumed for session", "Automatically", "On connect:", "Do you really want to reset?", "Changing the access point settings will reboot the device. Do you really want to continue?", "Yes", "No", "DHCP: ", "Static ip: ", "Connect", "Disconnect", "Apply", "Close", "Manual stop", "Manual start", "Status:", "Signal level:", "Subnetwork mask: ", "Gateway: ", "Charger IP:"},
 };
 
 //Localized string
@@ -594,8 +595,26 @@ struct date_time {
 	bool changed = false; //if it was changed manually
 
 	struct box box;
+	struct box wrapper;
 	struct date_field date;
 	struct time_field time;
+	struct time browser_time;
+	struct button button;
+		
+	static void browser_time_callback(struct time &id, time_t t) //get time
+	{
+		::date_time.changed = true;
+		setTime(t);
+		::date_time.update();
+		
+		//we have to check and update statistics if time changed;
+		statistics.update(t, 0.0); //we do not put kwt's here(just time update) //TODO
+	}
+
+	static void button_callback(struct button &id, client_id_t sender)
+	{
+		::date_time.browser_time.pack().send(sender);
+	}
 	
 	template <class T>
 	static void field_callback(T &id, String value, client_id_t sender)
@@ -614,15 +633,17 @@ struct date_time {
 		(date.pack(attr::value = date.formatted(t)) + time.pack(attr::value = time.formatted(t))).send_all();
 	}
 	
-	date_time() : date(field_callback<struct date_field>), time(field_callback<struct time_field>) {};
+	date_time() : date(field_callback<struct date_field>), time(field_callback<struct time_field>), browser_time(browser_time_callback), button(button_callback) {};
 	packet build()
 	{
 		time_t t = now();
-		return box.pack(navigation_panel.settings, (attr::text = l_str(DATE_TIME_TITLE))) + date.pack(box, attr::value = date.formatted(t)) + time.pack(box, attr::value = time.formatted(t));
+		return box.pack(navigation_panel.settings, (attr::text = l_str(DATE_TIME_TITLE))) +
+		wrapper.pack(box, (attr::direction = DIR_H)) + date.pack(wrapper, attr::value = date.formatted(t)) + time.pack(wrapper, attr::value = time.formatted(t)) +
+		button.pack(box, (attr::text = l_str(SYNC_TIME_NOW), attr::background = "orange"));
 	}
 } date_time;
 
-struct sync_time {	
+/*struct sync_time {	
 	struct time browser_time;
 	
 	struct box box;
@@ -655,7 +676,7 @@ struct sync_time {
 	sync_time() : browser_time(browser_time_callback), button(button_callback), switcher(switcher_callback) {};
 	packet build()
 	{		
-		return  box.pack(navigation_panel.settings, (attr::text = l_str(SYNC_TIME_TITLE), attr::direction = DIR_V)) +
+		return box.pack(navigation_panel.settings, (attr::text = l_str(SYNC_TIME_TITLE), attr::direction = DIR_V)) +
 			button.pack(box, (attr::text = l_str(SYNC_TIME_NOW), attr::background = "orange")) +
 			
 			wrapper.pack(box, (attr::direction = DIR_H)) +
@@ -663,7 +684,7 @@ struct sync_time {
 			
 			(settings.sync_time_on_connect ? browser_time.pack() : packet());
 	}
-} sync_time;
+} sync_time;*/
 
 struct language_selector {
 	struct box box;
@@ -724,8 +745,9 @@ struct factory_reset {
 	packet build()
 	{
 		return
-		box.pack(navigation_panel.settings, (attr::text = l_str(FACTORY_RESET_TITLE), attr::direction = DIR_H)) +
-		applier.pack(box, (attr::background = "orange", applier.get(settings.modified))) +
+		box.pack(navigation_panel.settings, (/*attr::text = l_str(FACTORY_RESET_TITLE), */attr::fill = true)) +
+		applier.pack(box, (attr::text = l_str(FACTORY_RESET_TITLE), attr::background = "orange", applier.get(settings.modified))) +
+		//sync_time.build();
 		
 		dialog.pack(root, (attr::display = false)) + wrapper.pack(dialog, (attr::text = l_str(ARE_YOU_SURE_RESET), attr::direction = DIR_H)) +
 		yes.pack(wrapper, (attr::text = l_str(YES))) + no.pack(wrapper, (attr::text = l_str(NO)));
@@ -744,13 +766,14 @@ struct network_settings {
 	{
 		return
 		box.pack(navigation_panel.settings, (attr::text = l_str(NETWORK_SETTINGS_TITLE), attr::fill = true)) +
-		ap_tab.pack(box, (attr::text = l_str(AP_TAB), attr::panel = "net", attr::direction = DIR_H, attr::selected = true, attr::wrap = true)) +
+		ap_tab.pack(box, (attr::text = l_str(AP_TAB), attr::panel = "net", attr::direction = DIR_V, attr::selected = true, attr::wrap = true)) +
 		sta_tab.pack(box, (attr::text = l_str(STA_TAB), attr::panel = "net", attr::direction = DIR_V, attr::wrap = true));
 	}
 } network_settings;
 
 struct ap_settings {
 	struct box ap_text_col, ap_field_col;
+	struct box tab_wrapper;
 	struct text ap_ssid_text, ap_pass_text, ap_ip_text;
 	struct field ap_ssid_field, ap_pass_field, ap_ip_field;
 	struct applier apply_settings;
@@ -805,8 +828,9 @@ struct ap_settings {
 	packet build()
 	{
 		return
-		ap_text_col.pack(network_settings.ap_tab, (attr::direction = DIR_V, attr::width = "content")) +
-		ap_field_col.pack(network_settings.ap_tab, (attr::direction = DIR_V)) +
+		tab_wrapper.pack(network_settings.ap_tab, (attr::direction = DIR_H)) +
+		ap_text_col.pack(tab_wrapper, (attr::direction = DIR_V, attr::width = "content")) +
+		ap_field_col.pack(tab_wrapper, (attr::direction = DIR_V)) +
 		ap_ssid_text.pack(ap_text_col, (attr::text = l_str(AP_SSID))) + ap_pass_text.pack(ap_text_col, (attr::text = l_str(AP_PASS))) + ap_ip_text.pack(ap_text_col, (attr::text = l_str(AP_IP))) +
 		ap_ssid_field.pack(ap_field_col, (attr::value = String(network::ap.ssid))) + ap_pass_field.pack(ap_field_col, (attr::value = String(network::ap.pass))) + 
 			ap_ip_field.pack(ap_field_col, (attr::value = IPAddress(network::ap.ip).toString())) +
@@ -1190,18 +1214,18 @@ bool ui::interface(client &cl, int idx) //implementation of interface builder is
 		ADD_TO_INTERFACE(5, current_regulator);
 		ADD_TO_INTERFACE(6, ground_check);
 		ADD_TO_INTERFACE(7, adaptive_mode);
-		ADD_TO_INTERFACE(8, display_brightness_regulator);
-		ADD_TO_INTERFACE(9, display_off_time);
-		ADD_TO_INTERFACE(10, date_time);
-		ADD_TO_INTERFACE(11, sync_time);
-		ADD_TO_INTERFACE(12, language_selector);
+		ADD_TO_INTERFACE(8, network_settings);
+		ADD_TO_INTERFACE(9, date_time);
+		//ADD_TO_INTERFACE(12, sync_time);
+		ADD_TO_INTERFACE(10, language_selector);
+		ADD_TO_INTERFACE(11, display_brightness_regulator);
+		ADD_TO_INTERFACE(12, display_off_time);
 		ADD_TO_INTERFACE(13, factory_reset);
-		ADD_TO_INTERFACE(14, network_settings);
-		ADD_TO_INTERFACE(15, ap_settings);
-		ADD_TO_INTERFACE(16, sta_dialog);
-		ADD_TO_INTERFACE(17, sta_settings);
-		ADD_TO_INTERFACE(18, weekly_schedule);
-		ADD_TO_INTERFACE(19, statistics);
+		ADD_TO_INTERFACE(14, ap_settings);
+		ADD_TO_INTERFACE(15, sta_dialog);
+		ADD_TO_INTERFACE(16, sta_settings);
+		ADD_TO_INTERFACE(17, weekly_schedule);
+		ADD_TO_INTERFACE(18, statistics);
 		END_ADD_TO_INTERFACE;
 	}
 }
@@ -1226,6 +1250,7 @@ void electrobox_setup()
 	sta_dialog.init();
 	
 	settings.load();
+	settings.ground_check = true;
 }
 
 void electrobox_loop()
