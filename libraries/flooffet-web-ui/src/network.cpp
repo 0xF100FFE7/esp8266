@@ -252,9 +252,10 @@ namespace ui {
 			WiFi.persistent(false);
 			WiFi.disconnect(); //quit ESP sta reconnect limbo
 			WiFi.persistent(true);
-			sta.ssid[0] = '\0';
+			/*sta.ssid[0] = '\0';
 			sta.pass[0] = '\0';
-			sta.secure = false;
+			sta.secure = false;*/
+			sta.defaults().save();
 		}
 		
 		/*void disconnect_sta()

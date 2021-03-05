@@ -91,6 +91,8 @@ enum language_item {
 	
 	YES,
 	NO,
+	
+	EMULATE_CHARGER,
 	LANGUAGE_ITEMS,
 };
 
@@ -166,9 +168,9 @@ struct settings settings;
 /*				LANGUAGE SECTION				*/
 //////////////////////////////////////////////////////////////////////////////////
 const char* languages[NUMBER_OF_SUPPORTED_LANGUAGES][LANGUAGE_ITEMS] PROGMEM = {
-	{"Вибір мови", "Українська", "Головна", "Додатково", "Налаштування", "Статус", "Встановити максимальний струм", "Екстрена зупинка", "Ви дійсно бажаєте зупинити роботу пристрою?", "Статус станції", "Обнулити статистику", "Ви дійсно хочете обнулити статистику?", "Встановити цільову напругу", "Калібрувати струм", "Калібрувати напругу", "Встановити ємність", "Встановити максимальну напругу", "Ігнорувати відхилення струму", "Ігнорувати відхилення напруги", "Налаштування точки доступу", "Зберегти налаштування", "Зміна налаштувань точки доступу призведе до перезавантаження пристрою. Ви дійсно бажаєте продовжити?", "SSID: ", "Пароль: ", "IP: ", "Так", "Ні"},
-	{"Выбор языка", "Русский", "Главная", "Дополнительно", "Настройки", "Статус", "Установить максимальный ток", "Экстренная остановка", "Вы действительно хотите остановить работу устройства?", "Статус станции", "Обнулить статистику", "Вы действительно хотите обнулить статистику?", "Установить целевоею напряжение", "Калибровка тока", "Калибровка напряжения", "Установить емкость", "Установить максимальное напряжение", "Игнорировать отклонения тока", "Игнорировать отклонения напряжения", "Настройка точки доступа", "Сохранить настройки", "Изменение настроек точки доступа приведет к перезагрузке устройства. Вы действительно хотите продолжить?", "SSID: ", "Пароль: ", "IP: ", "Да", "Нет"},
-	{"Select language", "English", "Home", "Additional", "Settings", "Status", "Set max amperage", "Emergency stop", "Do you really want to make an emergency stop?", "Evse status", "Reset statistics", "Are you sure you want to reset statistics?", "Set target voltage", "Calibrate ampers", "Calibrate voltage", "Set capacity", "Set max voltage", "Ignore current mismatch", "Ignore voltage mismatch", "Access point settings", "Save network settings", "Changing the access point settings will reboot the device. Do you really want to continue?", "SSID: ", "Password: ", "IP: ", "Yes", "No"},
+	{"Вибір мови", "Українська", "Головна", "Додатково", "Налаштування", "Статус", "Встановити максимальний струм", "Екстрена зупинка", "Ви дійсно бажаєте зупинити роботу пристрою?", "Статус станції", "Обнулити статистику", "Ви дійсно хочете обнулити статистику?", "Встановити цільову напругу", "Калібрувати струм", "Калібрувати напругу", "Встановити ємність", "Встановити максимальну напругу", "Ігнорувати відхилення струму", "Ігнорувати відхилення напруги", "Налаштування точки доступу", "Зберегти налаштування", "Зміна налаштувань точки доступу призведе до перезавантаження пристрою. Ви дійсно бажаєте продовжити?", "SSID: ", "Пароль: ", "IP: ", "Так", "Ні", "Емулювати CAN"},
+	{"Выбор языка", "Русский", "Главная", "Дополнительно", "Настройки", "Статус", "Установить максимальный ток", "Экстренная остановка", "Вы действительно хотите остановить работу устройства?", "Статус станции", "Обнулить статистику", "Вы действительно хотите обнулить статистику?", "Установить целевоею напряжение", "Калибровка тока", "Калибровка напряжения", "Установить емкость", "Установить максимальное напряжение", "Игнорировать отклонения тока", "Игнорировать отклонения напряжения", "Настройка точки доступа", "Сохранить настройки", "Изменение настроек точки доступа приведет к перезагрузке устройства. Вы действительно хотите продолжить?", "SSID: ", "Пароль: ", "IP: ", "Да", "Нет", "Эмулировать CAN"},
+	{"Select language", "English", "Home", "Additional", "Settings", "Status", "Set max amperage", "Emergency stop", "Do you really want to make an emergency stop?", "Evse status", "Reset statistics", "Are you sure you want to reset statistics?", "Set target voltage", "Calibrate ampers", "Calibrate voltage", "Set capacity", "Set max voltage", "Ignore current mismatch", "Ignore voltage mismatch", "Access point settings", "Save network settings", "Changing the access point settings will reboot the device. Do you really want to continue?", "SSID: ", "Password: ", "IP: ", "Yes", "No", "Emulate CAN"},
 };
 
 //Localized string
@@ -210,7 +212,8 @@ struct home_status_widget {
 	struct text l_text;
 	struct text r_text;
 	int time_charging = 0;
-		
+	int time_remaining = 0;
+	
 	attributes l_attr()
 	{
 		String prefix = status.can_mode ? "BMS " : "INA ";
@@ -230,7 +233,8 @@ struct home_status_widget {
 		return attr::text =
 			String("Kwt/h for session:") + -settings.last_kwh + "(" + kwh_to_ah(-settings.last_kwh) + " AH)\n" +
 			"KWt/h for all time: " + -settings.total_kwh + "(" + kwh_to_ah(-settings.total_kwh) + " AH)\n" +
-			"Charging time: " + (time_charging / 60 / 60) + ":" + ((time_charging / 60) % 60) + ":" + (time_charging % 60);
+			"Charging time: " + (time_charging / 60 / 60) + ":" + ((time_charging / 60) % 60) + ":" + (time_charging % 60) +
+			"Time remaining: " + (time_remaining / 60 / 60) + ":" + ((time_remaining / 60) % 60) + ":" + (time_remaining % 60);
 	}
 	
 	void update_status()
@@ -653,6 +657,29 @@ struct ignore_voltage_mismatch_widget {
 	}
 } ignore_voltage_mismatch_widget;
 
+extern struct emulate_charger_widget emulate_charger_widget;
+struct emulate_charger_widget {
+	struct box box;
+	struct switcher switcher;
+	
+	bool emulate = true;
+	
+	static void switcher_callback(struct switcher &id, client_id_t sender)
+	{
+		bool &val = ::emulate_charger_widget.emulate;
+		id.turn(val).send_all();
+		cmd.send(CMD_EMULATE_CHARGER, val);
+	}
+	
+	emulate_charger_widget() : switcher(switcher_callback) {};
+	packet build()
+	{
+		return
+			box.pack(tab_navigation_widget.additional, (attr::text = l_str(EMULATE_CHARGER), attr::direction = DIR_H)) + 
+			switcher.pack(box, (switcher.get(emulate)));
+	}
+} emulate_charger_widget;
+
 
 
 
@@ -785,8 +812,9 @@ bool ui::interface(client &cl, int idx) //implementation of interface builder is
 		ADD_TO_INTERFACE(9, set_capacity_widget);
 		ADD_TO_INTERFACE(10, ignore_current_mismatch_widget);
 		ADD_TO_INTERFACE(11, ignore_voltage_mismatch_widget);
-		ADD_TO_INTERFACE(12, ap_settings_widget);
-		ADD_TO_INTERFACE(13, language_selector_widget);
+		ADD_TO_INTERFACE(12, emulate_charger_widget);
+		ADD_TO_INTERFACE(13, ap_settings_widget);
+		ADD_TO_INTERFACE(14, language_selector_widget);
 		END_ADD_TO_INTERFACE;
 	}
 }
@@ -880,6 +908,14 @@ void parse(struct cmd &cmd) {
 		
 		case CMD_TEMP:
 			status.temp = cmd.buf.toInt();
+			break;
+		
+		case CMD_TIME_REMAINING:
+			home_status_widget.time_remaining = cmd.buf.toInt();
+			break;
+		
+		case CMD_EMULATE_CHARGER:
+			emulate_charger_widget.switcher.pack(emulate_charger_widget.switcher.get(emulate_charger_widget.emulate = cmd.buf.toInt()));
 			break;
 		
 		default:

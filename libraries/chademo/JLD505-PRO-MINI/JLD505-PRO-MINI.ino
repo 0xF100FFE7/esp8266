@@ -11,6 +11,10 @@
 #include <FrequencyTimer2.h>
 
 #include "shared.h"
+int kangoo_charge_state = 8; //END state (not running)
+void kangoo_charge_start();
+void kangoo_charge_stop();
+void kangoo_charge_cycle();
 
 /*
 Notes on what needs to be done:
@@ -50,6 +54,7 @@ float Current = 0;
 float Power = 0;
 int Count = 0;
 byte Command = 0; // "z" will reset the AmpHours and KiloWattHours counters
+volatile bool can_tick = false;
 volatile uint8_t bStartConversion = 0;
 volatile uint8_t bGetTemperature = 0;
 volatile uint8_t timerIntCounter = 0;
@@ -79,6 +84,7 @@ typedef struct
 	uint8_t minChargeAmperage;
 	bool ignore_current_mismatch;
 	bool ignore_voltage_mismatch;
+	bool emulate_charger;
 
 	uint8_t SOC;
 } EESettings;
@@ -198,24 +204,25 @@ void MCP2515_ISR()
 
 void timer2Int()
 {
+	can_tick = true;
 	timerFastCounter++;
-	if (timerFastCounter == 8)
+	if (timerFastCounter == 10)
 	{
 		debugTick = 1;
 		if (bChademoMode  && bChademoSendRequests) bChademoRequest = 1;
 		timerFastCounter = 0;
 		timerIntCounter++;
-		if (timerIntCounter < 10)
+		if (timerIntCounter < 12)
 		{
 			bGetTemperature = 1;
 			sensorReadPosition++;
 		}
-		if (timerIntCounter == 10)
+		if (timerIntCounter == 12)
 		{
 			bStartConversion = 1;
 			sensorReadPosition = 255;
 		}
-		if (timerIntCounter == 18)
+		if (timerIntCounter == 22)
 		{
 			timerIntCounter = 0;
 		}
@@ -272,6 +279,13 @@ void parse(struct cmd &cmd) {
 		chademoState = CEASE_CURRENT;
 		break;
 		
+	case CMD_EMULATE_CHARGER:
+		if (settings.emulate_charger = cmd.buf.toInt())
+			kangoo_charge_start();
+		else
+			kangoo_charge_stop();
+		break;
+		
 	default:
 		break;
 	}
@@ -322,6 +336,7 @@ void setup()
 		settings.minChargeAmperage = MIN_CHARGE_A;
 		settings.ignore_current_mismatch = true;
 		settings.ignore_voltage_mismatch = true;
+		settings.emulate_charger = true;
 		settings.SOC = INITIAL_SOC;
 		EEPROM_writeAnything(0, settings);
 	}
@@ -329,7 +344,7 @@ void setup()
 	settings.ampHours = settings.kiloWattHours = 0.0;
 
 	attachInterrupt(0, Save, FALLING);
-	FrequencyTimer2::setPeriod(25000); //interrupt every 25ms
+	FrequencyTimer2::setPeriod(20000); //interrupt every 20ms
 	FrequencyTimer2::setOnOverflow(timer2Int);
 	
 	Serial.print(F("Found "));
@@ -340,6 +355,9 @@ void setup()
 	carStatus.targetCurrent = settings.maxChargeAmperage;
 	carStatus.targetVoltage = settings.targetChargeVoltage;
 	carStatus.contactorOpen = 1;
+	
+	if (settings.emulate_charger)
+		kangoo_charge_start();
 }
 
 void loop()
@@ -467,6 +485,7 @@ void loop()
 						cmd.send(CMD_SET_MAX_ASKING_AMPS, settings.maxChargeAmperage);
 						cmd.send(CMD_IGNORE_CURRENT_MISMATCH, settings.ignore_current_mismatch);
 						cmd.send(CMD_IGNORE_VOLTAGE_MISMATCH, settings.ignore_voltage_mismatch);
+						cmd.send(CMD_EMULATE_CHARGER, settings.emulate_charger);
 						send_initial_settings_over_serial = false;
 					}
 					CANBUS();
@@ -717,6 +736,8 @@ void loop()
 			break;
 		}
 	}
+	
+	kangoo_charge_cycle();
 }
 
 void Save()
@@ -735,13 +756,14 @@ void USB()
 	cmd.send(CMD_AMPHOURS, settings.ampHours);
 	cmd.send(CMD_KWH, settings.kiloWattHours);
 	cmd.send(CMD_TEMP, bms_status.temp);
+	cmd.send(CMD_TIME_REMAINING, bms_status.got_charging_info ? evse_status.remainingChargeSeconds : 0);
 	cmd.send(CMD_UPDATE_STATUS);
 	//cmd.send(90, "\n");
 	
 	String evs_stat =
 	String("Evse current: ") + evse_status.presentCurrent + "\n" +
-	"Evse voltage: " + evse_status.presentVoltage + "\n" +
-	"Evse time remaining: " + (evse_status.remainingChargeSeconds / 60 / 60) + ":" + ((evse_status.remainingChargeSeconds / 60) % 60) + ":" + (evse_status.remainingChargeSeconds % 60);
+	"Evse voltage: " + evse_status.presentVoltage + "\n";
+	//"Evse time remaining: " + (evse_status.remainingChargeSeconds / 60 / 60) + ":" + ((evse_status.remainingChargeSeconds / 60) % 60) + ":" + (evse_status.remainingChargeSeconds % 60);
 	
 	cmd.send(CMD_EVSE_STATUS, evs_stat);
 	/*Serial.print (Voltage, 3);   
@@ -847,6 +869,112 @@ void BT()
 		}
 		while(BTSerial.available()>0) BTSerial.read();
 	}
+}
+
+void kangoo_charge_start()
+{
+	kangoo_charge_state = 0;
+}
+
+void kangoo_charge_stop()
+{
+	kangoo_charge_state = 5;
+}
+
+void kangoo_charge_cycle()
+{
+	if (can_tick)
+		can_tick = false;
+	else
+		return;
+		
+	static unsigned char msg1[4] = {0xAA, 0x20, 0x00, 0x00};
+	static unsigned char msg2[7] = {0x00, 0x00, 0x00, 0x00, 0x20, 0x00, 0x80};
+	static unsigned char msg3[8] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x3F, 0x3F, 0xFF};
+	static unsigned char msg4[8] = {0x00, 0x00, 0x28, 0x00, 0x90, 0x00, 0x00, 0x00};
+
+	static unsigned long counter = 0;
+	static unsigned long counter_prev = 0;
+	enum {BEGIN, WAIT_TO_RELAY_ON, WAIT_TO_TURNERS_ON, WAIT_TO_START, NORMAL_CYCLE, INTERRUPT, WAIT_TO_RELAY_OFF, WAIT_TO_END, END};// state;
+	int &state = kangoo_charge_state;
+	
+	CAN.sendMsgBuf(0x1C7, 0, 4, msg1);
+	
+	if (counter - counter_prev >= 10) //100ms
+	{
+		counter_prev = counter;
+	
+		switch (state) {
+		case BEGIN:
+			counter = counter_prev = 0;
+			msg2[0] = 0x00;
+			msg2[6] = 0x00;
+			msg4[2] = 0x28;
+			msg4[4] = 0x90;
+			
+			state = WAIT_TO_RELAY_ON;
+			break;
+		
+		case WAIT_TO_RELAY_ON:
+			if (counter >= 64) {
+				msg4[2] = 0x2C;
+				state = WAIT_TO_TURNERS_ON;
+			}
+			break;
+
+		case WAIT_TO_TURNERS_ON:
+			if (counter >= 164) {
+				msg4[4] = 0x29;
+				state = WAIT_TO_TURNERS_ON;
+			}
+			break;
+
+		case WAIT_TO_START:
+			if (counter >= 400) { //4 sec
+				msg2[0] = 0x20;
+				state = NORMAL_CYCLE;
+			}
+			break;
+
+		case NORMAL_CYCLE:
+			//interrupt here if we need to end charging
+			break;
+			
+		case INTERRUPT:
+			counter = counter_prev = 0;
+			msg2[0] = 0x00;
+			msg2[6] = 0x00;
+			msg4[2] = 0x28;
+			msg4[4] = 0x90;
+			
+			state = WAIT_TO_RELAY_OFF;
+			break;
+			
+		case WAIT_TO_RELAY_OFF:
+			if (counter >= 3) { //3 cycles
+				msg4[4] = 0xB0;
+				state = WAIT_TO_END;
+			}
+			break;
+		
+		case WAIT_TO_END:
+			if (counter >= 67) {
+				state = END;
+			}
+			break;
+			
+		case END:
+			break;
+		}
+		
+		if (state != END) {
+			CAN.sendMsgBuf(0x428, 0, 7, msg2);
+			CAN.sendMsgBuf(0x429, 0, 8, msg3);
+			CAN.sendMsgBuf(0x4F7, 0, 8, msg4);
+		}
+	}
+	
+	counter++;
 }
 
 void CANBUS()
