@@ -93,6 +93,7 @@ enum language_item {
 	NO,
 	
 	EMULATE_CHARGER,
+	SET_CHARGE_TIME,
 	LANGUAGE_ITEMS,
 };
 
@@ -168,9 +169,9 @@ struct settings settings;
 /*				LANGUAGE SECTION				*/
 //////////////////////////////////////////////////////////////////////////////////
 const char* languages[NUMBER_OF_SUPPORTED_LANGUAGES][LANGUAGE_ITEMS] PROGMEM = {
-	{"Вибір мови", "Українська", "Головна", "Додатково", "Налаштування", "Статус", "Встановити максимальний струм", "Екстрена зупинка", "Ви дійсно бажаєте зупинити роботу пристрою?", "Статус станції", "Обнулити статистику", "Ви дійсно хочете обнулити статистику?", "Встановити цільову напругу", "Калібрувати струм", "Калібрувати напругу", "Встановити ємність", "Встановити максимальну напругу", "Ігнорувати відхилення струму", "Ігнорувати відхилення напруги", "Налаштування точки доступу", "Зберегти налаштування", "Зміна налаштувань точки доступу призведе до перезавантаження пристрою. Ви дійсно бажаєте продовжити?", "SSID: ", "Пароль: ", "IP: ", "Так", "Ні", "Емулювати CAN"},
-	{"Выбор языка", "Русский", "Главная", "Дополнительно", "Настройки", "Статус", "Установить максимальный ток", "Экстренная остановка", "Вы действительно хотите остановить работу устройства?", "Статус станции", "Обнулить статистику", "Вы действительно хотите обнулить статистику?", "Установить целевоею напряжение", "Калибровка тока", "Калибровка напряжения", "Установить емкость", "Установить максимальное напряжение", "Игнорировать отклонения тока", "Игнорировать отклонения напряжения", "Настройка точки доступа", "Сохранить настройки", "Изменение настроек точки доступа приведет к перезагрузке устройства. Вы действительно хотите продолжить?", "SSID: ", "Пароль: ", "IP: ", "Да", "Нет", "Эмулировать CAN"},
-	{"Select language", "English", "Home", "Additional", "Settings", "Status", "Set max amperage", "Emergency stop", "Do you really want to make an emergency stop?", "Evse status", "Reset statistics", "Are you sure you want to reset statistics?", "Set target voltage", "Calibrate ampers", "Calibrate voltage", "Set capacity", "Set max voltage", "Ignore current mismatch", "Ignore voltage mismatch", "Access point settings", "Save network settings", "Changing the access point settings will reboot the device. Do you really want to continue?", "SSID: ", "Password: ", "IP: ", "Yes", "No", "Emulate CAN"},
+	{"Вибір мови", "Українська", "Головна", "Додатково", "Налаштування", "Статус", "Встановити максимальний струм", "Екстрена зупинка", "Ви дійсно бажаєте зупинити роботу пристрою?", "Статус станції", "Обнулити статистику", "Ви дійсно хочете обнулити статистику?", "Встановити цільову напругу", "Калібрувати струм", "Калібрувати напругу", "Встановити ємність", "Встановити максимальну напругу", "Ігнорувати відхилення струму", "Ігнорувати відхилення напруги", "Налаштування точки доступу", "Зберегти налаштування", "Зміна налаштувань точки доступу призведе до перезавантаження пристрою. Ви дійсно бажаєте продовжити?", "SSID: ", "Пароль: ", "IP: ", "Так", "Ні", "Емулювати CAN", "Встановити час зарядки"},
+	{"Выбор языка", "Русский", "Главная", "Дополнительно", "Настройки", "Статус", "Установить максимальный ток", "Экстренная остановка", "Вы действительно хотите остановить работу устройства?", "Статус станции", "Обнулить статистику", "Вы действительно хотите обнулить статистику?", "Установить целевоею напряжение", "Калибровка тока", "Калибровка напряжения", "Установить емкость", "Установить максимальное напряжение", "Игнорировать отклонения тока", "Игнорировать отклонения напряжения", "Настройка точки доступа", "Сохранить настройки", "Изменение настроек точки доступа приведет к перезагрузке устройства. Вы действительно хотите продолжить?", "SSID: ", "Пароль: ", "IP: ", "Да", "Нет", "Эмулировать CAN", "Установить время зарядки"},
+	{"Select language", "English", "Home", "Additional", "Settings", "Status", "Set max amperage", "Emergency stop", "Do you really want to make an emergency stop?", "Evse status", "Reset statistics", "Are you sure you want to reset statistics?", "Set target voltage", "Calibrate ampers", "Calibrate voltage", "Set capacity", "Set max voltage", "Ignore current mismatch", "Ignore voltage mismatch", "Access point settings", "Save network settings", "Changing the access point settings will reboot the device. Do you really want to continue?", "SSID: ", "Password: ", "IP: ", "Yes", "No", "Emulate CAN", "Set charge time"},
 };
 
 //Localized string
@@ -233,7 +234,7 @@ struct home_status_widget {
 		return attr::text =
 			String("Kwt/h for session:") + -settings.last_kwh + "(" + kwh_to_ah(-settings.last_kwh) + " AH)\n" +
 			"KWt/h for all time: " + -settings.total_kwh + "(" + kwh_to_ah(-settings.total_kwh) + " AH)\n" +
-			"Charging time: " + (time_charging / 60 / 60) + ":" + ((time_charging / 60) % 60) + ":" + (time_charging % 60) +
+			"Charging time: " + (time_charging / 60 / 60) + ":" + ((time_charging / 60) % 60) + ":" + (time_charging % 60) + "\n" +
 			"Time remaining: " + (time_remaining / 60 / 60) + ":" + ((time_remaining / 60) % 60) + ":" + (time_remaining % 60);
 	}
 	
@@ -356,6 +357,7 @@ struct settings_status_widget {
 	{
 		::settings_status_widget.dialog.pack(attr::display = false).send(sender);
 		settings.total_kwh = settings.last_kwh = 0.0;
+		settings.changed();
 		cmd.send(CMD_RESET);
 	}
 	
@@ -611,6 +613,47 @@ struct set_max_volt_widget {
 	}
 } set_max_volt_widget;
 
+extern struct SET_CHARGE_TIME_widget SET_CHARGE_TIME_widget;
+struct SET_CHARGE_TIME_widget {
+	struct box box;
+	struct button l_button, r_button;
+	struct field field;
+	
+	int charging_time = 90;
+	
+	static void l_button_callback(struct button &id, client_id_t sender)
+	{
+		int &val = ::SET_CHARGE_TIME_widget.charging_time;
+		val -= 10;
+		::SET_CHARGE_TIME_widget.field.pack(attr::value = val).send_all();
+		cmd.send(CMD_SET_CHARGE_TIME, val);
+	}
+	
+	static void r_button_callback(struct button &id, client_id_t sender)
+	{
+		int &val = ::SET_CHARGE_TIME_widget.charging_time;
+		val += 10;
+		::SET_CHARGE_TIME_widget.field.pack(attr::value = val).send_all();
+		cmd.send(CMD_SET_CHARGE_TIME, val);
+	}
+	
+	static void field_callback(struct field &id, String value, client_id_t sender)
+	{
+		int &val = ::SET_CHARGE_TIME_widget.charging_time;
+		val = value.toInt();
+		id.pack(attr::value = val).send_all();
+		cmd.send(CMD_SET_CHARGE_TIME, val);
+	}
+	
+	SET_CHARGE_TIME_widget() : l_button(l_button_callback), r_button(r_button_callback), field(field_callback) {}
+	packet build()
+	{
+		return
+		box.pack(tab_navigation_widget.additional, (attr::text = l_str(SET_CHARGE_TIME), attr::direction = DIR_H)) +
+		l_button.pack(box, (attr::text = "-", attr::width = "fill")) + field.pack(box, (attr::value = charging_time, attr::width = "fill")) + r_button.pack(box, (attr::text = "+", attr::width = "fill"));
+	}
+} SET_CHARGE_TIME_widget;
+
 extern struct ignore_current_mismatch_widget ignore_current_mismatch_widget;
 struct ignore_current_mismatch_widget {
 	struct box box;
@@ -810,11 +853,12 @@ bool ui::interface(client &cl, int idx) //implementation of interface builder is
 		ADD_TO_INTERFACE(7, set_target_voltage_widget);
 		ADD_TO_INTERFACE(8, set_max_volt_widget);
 		ADD_TO_INTERFACE(9, set_capacity_widget);
-		ADD_TO_INTERFACE(10, ignore_current_mismatch_widget);
-		ADD_TO_INTERFACE(11, ignore_voltage_mismatch_widget);
-		ADD_TO_INTERFACE(12, emulate_charger_widget);
-		ADD_TO_INTERFACE(13, ap_settings_widget);
-		ADD_TO_INTERFACE(14, language_selector_widget);
+		ADD_TO_INTERFACE(10, SET_CHARGE_TIME_widget);
+		ADD_TO_INTERFACE(11, ignore_current_mismatch_widget);
+		ADD_TO_INTERFACE(12, ignore_voltage_mismatch_widget);
+		ADD_TO_INTERFACE(13, emulate_charger_widget);
+		ADD_TO_INTERFACE(14, ap_settings_widget);
+		ADD_TO_INTERFACE(15, language_selector_widget);
 		END_ADD_TO_INTERFACE;
 	}
 }
@@ -917,6 +961,10 @@ void parse(struct cmd &cmd) {
 		case CMD_EMULATE_CHARGER:
 			emulate_charger_widget.switcher.pack(emulate_charger_widget.switcher.get(emulate_charger_widget.emulate = cmd.buf.toInt()));
 			break;
+			
+		case CMD_SET_CHARGE_TIME:
+			SET_CHARGE_TIME_widget.field.pack(attr::value = (SET_CHARGE_TIME_widget.charging_time = cmd.buf.toInt()));
+			break;	
 		
 		default:
 			break;

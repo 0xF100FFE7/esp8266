@@ -82,6 +82,7 @@ typedef struct
 	uint16_t targetChargeVoltage;
 	uint8_t maxChargeAmperage;
 	uint8_t minChargeAmperage;
+	uint8_t charge_time;
 	bool ignore_current_mismatch;
 	bool ignore_voltage_mismatch;
 	bool emulate_charger;
@@ -286,6 +287,10 @@ void parse(struct cmd &cmd) {
 			kangoo_charge_stop();
 		break;
 		
+	case CMD_SET_CHARGE_TIME:
+		settings.charge_time = cmd.buf.toInt();
+		break;
+		
 	default:
 		break;
 	}
@@ -334,6 +339,7 @@ void setup()
 		settings.maxChargeVoltage = MAX_CHARGE_V;
 		settings.targetChargeVoltage = TARGET_CHARGE_V;
 		settings.minChargeAmperage = MIN_CHARGE_A;
+		settings.charge_time = 90;
 		settings.ignore_current_mismatch = true;
 		settings.ignore_voltage_mismatch = true;
 		settings.emulate_charger = true;
@@ -343,7 +349,7 @@ void setup()
 
 	settings.ampHours = settings.kiloWattHours = 0.0;
 
-	attachInterrupt(0, Save, FALLING);
+	//attachInterrupt(0, Save, FALLING);
 	FrequencyTimer2::setPeriod(20000); //interrupt every 20ms
 	FrequencyTimer2::setOnOverflow(timer2Int);
 	
@@ -356,8 +362,8 @@ void setup()
 	carStatus.targetVoltage = settings.targetChargeVoltage;
 	carStatus.contactorOpen = 1;
 	
-	if (settings.emulate_charger)
-		kangoo_charge_start();
+	/*if (settings.emulate_charger)
+		kangoo_charge_start();*/
 }
 
 void loop()
@@ -401,6 +407,7 @@ void loop()
 			settings.SOC = bms_status.soc;
 			bms_status.got_charging_info--;
 		} else {
+			kangoo_charge_state = 8; //Immediate stop
 			Voltage = ina.readBusVoltage() * (settings.voltageCalibration + settings.voltage_calibration_offset);
 			Current = ina.readShuntVoltage() * (settings.currentCalibration + settings.current_calibration_offset);
 			settings.SOC = (-settings.kiloWattHours / settings.packSizeKWH) * 100;
@@ -483,12 +490,13 @@ void loop()
 						cmd.send(CMD_SET_CAPACITY, settings.packSizeKWH);
 						cmd.send(CMD_SET_MAX_VOLT, settings.maxChargeVoltage);
 						cmd.send(CMD_SET_MAX_ASKING_AMPS, settings.maxChargeAmperage);
+						cmd.send(CMD_SET_CHARGE_TIME, settings.charge_time);
 						cmd.send(CMD_IGNORE_CURRENT_MISMATCH, settings.ignore_current_mismatch);
 						cmd.send(CMD_IGNORE_VOLTAGE_MISMATCH, settings.ignore_voltage_mismatch);
 						cmd.send(CMD_EMULATE_CHARGER, settings.emulate_charger);
 						send_initial_settings_over_serial = false;
 					}
-					CANBUS();
+					//CANBUS();
 					BT();
 				}
 				else 
@@ -571,6 +579,10 @@ void loop()
 		}
 		if (canMsgID == 0x155)
 		{
+			//Once car awaken from sleep and charger emulator is enabled
+			if (settings.emulate_charger && !bms_status.got_charging_info)
+				kangoo_charge_start();
+			
 			bms_status.got_charging_info = 50;
 			bms_status.amperage = (((canMsg[1] & 0x0F) << 8 | canMsg[2]) - 0x7D0) * 0.26;
 			bms_status.voltage = (canMsg[6] << 8 | canMsg[7]) / 2;
@@ -898,8 +910,6 @@ void kangoo_charge_cycle()
 	enum {BEGIN, WAIT_TO_RELAY_ON, WAIT_TO_TURNERS_ON, WAIT_TO_START, NORMAL_CYCLE, INTERRUPT, WAIT_TO_RELAY_OFF, WAIT_TO_END, END};// state;
 	int &state = kangoo_charge_state;
 	
-	CAN.sendMsgBuf(0x1C7, 0, 4, msg1);
-	
 	if (counter - counter_prev >= 10) //100ms
 	{
 		counter_prev = counter;
@@ -908,7 +918,8 @@ void kangoo_charge_cycle()
 		case BEGIN:
 			counter = counter_prev = 0;
 			msg2[0] = 0x00;
-			msg2[6] = 0x00;
+			msg2[3] = 0x00;
+			msg2[6] = 0x80;
 			msg4[2] = 0x28;
 			msg4[4] = 0x90;
 			
@@ -924,14 +935,15 @@ void kangoo_charge_cycle()
 
 		case WAIT_TO_TURNERS_ON:
 			if (counter >= 164) {
-				msg4[4] = 0x29;
-				state = WAIT_TO_TURNERS_ON;
+				msg4[4] = 0x28; //0x29 - (1 bit = cooler enabled)
+				state = WAIT_TO_START;
 			}
 			break;
 
 		case WAIT_TO_START:
 			if (counter >= 400) { //4 sec
 				msg2[0] = 0x20;
+				msg2[3] = 0x10; //enables charger counter???
 				state = NORMAL_CYCLE;
 			}
 			break;
@@ -951,14 +963,14 @@ void kangoo_charge_cycle()
 			break;
 			
 		case WAIT_TO_RELAY_OFF:
-			if (counter >= 3) { //3 cycles
+			if (counter >= 30) { //3 cycles
 				msg4[4] = 0xB0;
 				state = WAIT_TO_END;
 			}
 			break;
 		
 		case WAIT_TO_END:
-			if (counter >= 67) {
+			if (counter >= 94) {
 				state = END;
 			}
 			break;
@@ -972,12 +984,14 @@ void kangoo_charge_cycle()
 			CAN.sendMsgBuf(0x429, 0, 8, msg3);
 			CAN.sendMsgBuf(0x4F7, 0, 8, msg4);
 		}
+	} else if (state != END) {
+		CAN.sendMsgBuf(0x1C7, 0, 4, msg1);
 	}
 	
 	counter++;
 }
 
-void CANBUS()
+/*void CANBUS()
 {
 	canMsgID = 0x404;
 	canMsg[0] = highByte((int)(Voltage * 10)); // Voltage High Byte
@@ -1001,7 +1015,7 @@ void CANBUS()
 	canMsg[6] = 0x00; // Not Used
 	canMsg[7] = 0x00; // Not Used
 	CAN.sendMsgBuf(canMsgID, 0, 4, canMsg);
- }
+ }*/
 
 void sendChademoBattSpecs()
 {
@@ -1024,7 +1038,7 @@ void sendChademoChargingTime()
 	canMsgID = CARSIDE_CHARGETIME;
 	canMsg[0] = 0x00; // Not Used
 	canMsg[1] = 0xFF; //not using 10 second increment mode
-	canMsg[2] = 90; //ask for how long of a charge? It will be forceably stopped if we hit this time
+	canMsg[2] = settings.charge_time; //ask for how long of a charge? It will be forceably stopped if we hit this time
 	canMsg[3] = 60; //how long we think the charge will actually take
 	canMsg[4] = 0; //not used
 	canMsg[5] = 0; //not used
