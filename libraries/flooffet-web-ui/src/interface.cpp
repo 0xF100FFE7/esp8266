@@ -362,6 +362,11 @@ namespace ui
 		this->callback.frame = callback;
 	}
 
+	file_requestor::file_requestor()
+	{
+		type = E_FILE_REQUESTOR;
+	}
+
 	//client implementation
 	int number_of_interface_loaders = 0;
 	int number_of_clients = 0;
@@ -483,6 +488,30 @@ namespace ui
 		}
 	}
 	
+	static void handle_update_progress_cb(AsyncWebServerRequest *request, String filename, size_t index, uint8_t *data, size_t len, bool final) {
+		uint32_t free_space = (ESP.getFreeSketchSpace() - 0x1000) & 0xFFFFF000;
+		if (!index){
+			Serial.println("Update");
+			Update.runAsync(true);
+			if (!Update.begin(free_space)) {
+				Update.printError(Serial);
+			}
+		}
+
+		if (Update.write(data, len) != len) {
+			Update.printError(Serial);
+		}
+
+		if (final) {
+			if (!Update.end(true)){
+				Update.printError(Serial);
+			} else {
+				//restartNow = true;//Set flag so main loop can issue restart call
+				Serial.println("Update complete");
+			}
+		}
+	}
+	
 	void start_web_server(const char *username, const char *password)
 	{
 		dns_server.setErrorReplyCode(DNSReplyCode::NoError);
@@ -526,6 +555,10 @@ namespace ui
 			AsyncWebServerResponse *response = request->beginResponse_P(200, "text/css", CSS_MAIN);
 			request->send(response);
 		});
+		
+		server->on("/upload", HTTP_POST, [](AsyncWebServerRequest *request){
+			request->send(200);
+		}, handle_update_progress_cb);
 
 		//capative portal
 		server->onNotFound([](AsyncWebServerRequest *request) {

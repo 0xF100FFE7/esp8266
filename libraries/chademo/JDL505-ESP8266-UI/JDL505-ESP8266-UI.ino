@@ -94,6 +94,7 @@ enum language_item {
 	
 	EMULATE_CHARGER,
 	SET_CHARGE_TIME,
+	UPLOAD_FIRMWARE,
 	LANGUAGE_ITEMS,
 };
 
@@ -169,9 +170,9 @@ struct settings settings;
 /*				LANGUAGE SECTION				*/
 //////////////////////////////////////////////////////////////////////////////////
 const char* languages[NUMBER_OF_SUPPORTED_LANGUAGES][LANGUAGE_ITEMS] PROGMEM = {
-	{"Вибір мови", "Українська", "Головна", "Додатково", "Налаштування", "Статус", "Встановити максимальний струм", "Екстрена зупинка", "Ви дійсно бажаєте зупинити роботу пристрою?", "Статус станції", "Обнулити статистику", "Ви дійсно хочете обнулити статистику?", "Встановити цільову напругу", "Калібрувати струм", "Калібрувати напругу", "Встановити ємність", "Встановити максимальну напругу", "Ігнорувати відхилення струму", "Ігнорувати відхилення напруги", "Налаштування точки доступу", "Зберегти налаштування", "Зміна налаштувань точки доступу призведе до перезавантаження пристрою. Ви дійсно бажаєте продовжити?", "SSID: ", "Пароль: ", "IP: ", "Так", "Ні", "Емулювати CAN", "Встановити час зарядки"},
-	{"Выбор языка", "Русский", "Главная", "Дополнительно", "Настройки", "Статус", "Установить максимальный ток", "Экстренная остановка", "Вы действительно хотите остановить работу устройства?", "Статус станции", "Обнулить статистику", "Вы действительно хотите обнулить статистику?", "Установить целевоею напряжение", "Калибровка тока", "Калибровка напряжения", "Установить емкость", "Установить максимальное напряжение", "Игнорировать отклонения тока", "Игнорировать отклонения напряжения", "Настройка точки доступа", "Сохранить настройки", "Изменение настроек точки доступа приведет к перезагрузке устройства. Вы действительно хотите продолжить?", "SSID: ", "Пароль: ", "IP: ", "Да", "Нет", "Эмулировать CAN", "Установить время зарядки"},
-	{"Select language", "English", "Home", "Additional", "Settings", "Status", "Set max amperage", "Emergency stop", "Do you really want to make an emergency stop?", "Evse status", "Reset statistics", "Are you sure you want to reset statistics?", "Set target voltage", "Calibrate ampers", "Calibrate voltage", "Set capacity", "Set max voltage", "Ignore current mismatch", "Ignore voltage mismatch", "Access point settings", "Save network settings", "Changing the access point settings will reboot the device. Do you really want to continue?", "SSID: ", "Password: ", "IP: ", "Yes", "No", "Emulate CAN", "Set charge time"},
+	{"Вибір мови", "Українська", "Головна", "Додатково", "Налаштування", "Статус", "Встановити максимальний струм", "Екстрена зупинка", "Ви дійсно бажаєте зупинити роботу пристрою?", "Статус станції", "Обнулити статистику", "Ви дійсно хочете обнулити статистику?", "Встановити цільову напругу", "Калібрувати струм", "Калібрувати напругу", "Встановити ємність", "Встановити максимальну напругу", "Ігнорувати відхилення струму", "Ігнорувати відхилення напруги", "Налаштування точки доступу", "Зберегти налаштування", "Зміна налаштувань точки доступу призведе до перезавантаження пристрою. Ви дійсно бажаєте продовжити?", "SSID: ", "Пароль: ", "IP: ", "Так", "Ні", "Емулювати CAN", "Встановити час зарядки", "Завантажити прошивку"},
+	{"Выбор языка", "Русский", "Главная", "Дополнительно", "Настройки", "Статус", "Установить максимальный ток", "Экстренная остановка", "Вы действительно хотите остановить работу устройства?", "Статус станции", "Обнулить статистику", "Вы действительно хотите обнулить статистику?", "Установить целевоею напряжение", "Калибровка тока", "Калибровка напряжения", "Установить емкость", "Установить максимальное напряжение", "Игнорировать отклонения тока", "Игнорировать отклонения напряжения", "Настройка точки доступа", "Сохранить настройки", "Изменение настроек точки доступа приведет к перезагрузке устройства. Вы действительно хотите продолжить?", "SSID: ", "Пароль: ", "IP: ", "Да", "Нет", "Эмулировать CAN", "Установить время зарядки", "Загрузить прошивку"},
+	{"Select language", "English", "Home", "Additional", "Settings", "Status", "Set max amperage", "Emergency stop", "Do you really want to make an emergency stop?", "Evse status", "Reset statistics", "Are you sure you want to reset statistics?", "Set target voltage", "Calibrate ampers", "Calibrate voltage", "Set capacity", "Set max voltage", "Ignore current mismatch", "Ignore voltage mismatch", "Access point settings", "Save network settings", "Changing the access point settings will reboot the device. Do you really want to continue?", "SSID: ", "Password: ", "IP: ", "Yes", "No", "Emulate CAN", "Set charge time", "Load firmware"},
 };
 
 //Localized string
@@ -830,6 +831,19 @@ struct language_selector_widget {
 	}
 } language_selector_widget;
 
+extern struct firmware_update_widget firmware_update_widget;
+struct firmware_update_widget {
+	struct box box;
+	struct file_requestor file;
+	
+	packet build()
+	{		
+		return
+			box.pack(tab_navigation_widget.settings, (attr::text = l_str(UPLOAD_FIRMWARE))) + 
+			file.pack(box);
+	}
+} firmware_update_widget;
+
 
 
 
@@ -859,6 +873,7 @@ bool ui::interface(client &cl, int idx) //implementation of interface builder is
 		ADD_TO_INTERFACE(13, emulate_charger_widget);
 		ADD_TO_INTERFACE(14, ap_settings_widget);
 		ADD_TO_INTERFACE(15, language_selector_widget);
+		ADD_TO_INTERFACE(16, firmware_update_widget);
 		END_ADD_TO_INTERFACE;
 	}
 }
@@ -941,6 +956,7 @@ void parse(struct cmd &cmd) {
 			settings.total_kwh += settings.last_kwh;
 			settings.changed();
 			status.charging = false;
+			break;
 			
 		case CMD_EVSE_STATUS:
 			settings_status_widget.update_evse_status(cmd.buf);

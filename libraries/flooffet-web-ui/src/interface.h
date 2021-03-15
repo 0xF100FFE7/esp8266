@@ -6,6 +6,12 @@
 
 //#define private public
 //#define protected public
+
+//REPLACE SPIFFS WITH LITTLEFS
+#include <FS.h>
+#define SPIFFS LittleFS
+#include <LittleFS.h> 
+
 #include <ESPAsyncWebServer.h>
 #include <DNSServer.h>
 #include <TimeLib.h>
@@ -121,6 +127,8 @@ namespace ui {
 		GET_TIME,
 		FRAME, FRAME_CONFIRMED = FRAME,
 		
+		E_FILE_REQUESTOR = 15,
+		
 		//custom types only (not compatible with web elements).
 		/*E_SWITCHER,
 		E_RADIO,
@@ -235,6 +243,10 @@ namespace ui {
 	
 	struct frame : interactive_element {
 		frame(void (*callback)(client_id_t sender));
+	};
+	
+	struct file_requestor : element {
+		file_requestor();
 	};
 	
 	//client declaration

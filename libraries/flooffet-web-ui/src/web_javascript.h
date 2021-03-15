@@ -18,6 +18,7 @@ const E_DIALOG = 11;
 const GET_TIME = 12;
 const FRAME = 13;
 const E_LOADING = 14;
+const E_REQUEST_FILE = 15;
 
 //Парсер вхідних повідомлень
 //Повертає ui елемент формату:
@@ -398,6 +399,35 @@ function parse_messages(messages)
 			
 		case FRAME:
 			send_frame_confirmation(ui_element.id);
+			break;
+		
+		//mother of g..! MOTHER OF UNIVERSE!!!! 0_0
+		case E_REQUEST_FILE:
+			var form = document.createElement('form');
+			form.style.flexDirection = "row";
+			form.style.margin = "unset";
+			form.id = ui_element.id + "_form";
+			form.method = "post";
+			form.enctype = "multipart/form-data";
+			form.action = "/upload"
+			try_insert_web_element(ui_element.parent, form);
+		
+			var file_input = document.createElement('input');
+			file_input.style.display = "block";
+			file_input.className = "ui_button";
+			file_input.type = "file";
+			file_input.id = ui_element.id;
+			file_input.name = ui_element.id;
+			try_insert_web_element(form.id, file_input);
+			
+			
+			var submit_input = document.createElement('input');
+			submit_input.className = "ui_button";
+			submit_input.type = "submit";
+			submit_input.id = ui_element.id + "_submit";
+			submit_input.name = ui_element.id + "_submit";
+			try_insert_web_element(form.id, submit_input, ui_element.attributes);
+			
 			break;
 			
 		default:

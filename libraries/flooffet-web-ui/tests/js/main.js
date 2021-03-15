@@ -1,31 +1,23 @@
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>ElektroBOX WiFi:</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<link rel="shortcut icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAPFBMVEUAAACA1VWR21qQ2liR3FqR3FqS3VuR3VqR3VuR3VqO21mS21uS3FqS3FqS21uJ2GKQ21qR3FuR3FoAAAB/3Gu7AAAAEnRSTlMABoA3kPBwz8i5Kzioxg4NVcU3uEJHAAAAAWJLR0QAiAUdSAAAAAlwSFlzAAAN1wAADdcBQiibeAAAAAd0SU1FB+EFEhcEM+HpYwQAAABYSURBVBjThY/JDsAgCESt4lpX/v9jLQZJ6qF9t3khAyj1xXUKbQ4BVowDwqOYgExkkW4iY6lPaF06RqM8YItOuRbMaz6xjbsusDAW/drplBg47jP696cXE8bPA1eUDeK2AAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE3LTA1LTE4VDIzOjA0OjUxKzAyOjAwxE59ewAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxNy0wNS0xOFQyMzowNDo1MSswMjowMLUTxccAAAAZdEVYdFNvZnR3YXJlAHd3dy5pbmtzY2FwZS5vcmeb7jwaAAAAAElFTkSuQmCC"/>
-	<link rel="stylesheet" href="./css/style.css" />
-	<!--<script src="zepto.min.js"></script>-->
-	<script src="/js/main.js"></script>
-</head>
-
-	<script>
-		
 const is_touch = ("ontouchstart" in document.documentElement) ? true : false;
 		
 var websock;
 
-const E_HEADER = 0;
-const E_TAB = 1;
-const E_BOX = 2;
-const E_TEXT = 3;
+const E_TAB = 0;
+const E_BOX = 1;
+const E_TEXT = 2;
+const E_RADIO = 3;
 const E_BUTTON = 4;
-const E_FIELD = 5;
-const E_TIME_FIELD = 6;
-const E_RANGE = 7;
-const E_DIALOG = 8;
-const GET_TIME = 9;
-const FRAME = 10;
-const E_LOADING = 11;
+const E_SWITCHER = 5;
+const E_APPLIER = 6;
+const E_FIELD = 7;
+const E_DATE_FIELD = 8;
+const E_TIME_FIELD = 9;
+const E_RANGE = 10;
+const E_DIALOG = 11;
+const GET_TIME = 12;
+const FRAME = 13;
+const E_LOADING = 14;
+const E_REQUEST_FILE = 15;
 
 //Парсер вхідних повідомлень
 //Повертає ui елемент формату:
@@ -259,15 +251,7 @@ function parse_messages(messages)
 
 		console.log(ui_element);
 		switch(ui_element.type) {
-		case E_HEADER:
-			var header = document.createElement('div');
-			header.id = ui_element.id;
-			header.className = "ui_header";
-			try_insert_web_element(ui_element.parent, header, ui_element.attributes);
-			
-			break;
-		
-		//redesign this horrible shit
+
 		case E_TAB:
 			var selected_tab = ui_element.attributes.selected;
 			var panel = get_web_element(ui_element.attributes.panel);
@@ -351,7 +335,10 @@ function parse_messages(messages)
 			
 			break;
 		
+		case E_RADIO:
 		case E_BUTTON:
+		case E_SWITCHER:
+		case E_APPLIER:
 			var button = document.createElement('button');
 			button.id = ui_element.id;
 			button.className = "ui_button";
@@ -360,13 +347,15 @@ function parse_messages(messages)
 			
 			break;
 
+		case E_DATE_FIELD:
+			var date_field = true;
 		case E_TIME_FIELD:
 			var time_field = true;
 		case E_FIELD:
 			var field = document.createElement('input');
 			field.id = ui_element.id;
 			field.className = "ui_field";
-			field.type = time_field ? "time" : "field";
+			field.type = date_field ? "date" : (time_field ? "time" : "field");
 			field.setAttribute("onfocus", "this.oldval = this.value");
 			field.setAttribute("onchange", "this.force_update = true; try {send_field(this.id, this.value)} finally {this.value = this.oldval}");
 			field.setAttribute("size", "4");
@@ -409,6 +398,35 @@ function parse_messages(messages)
 			
 		case FRAME:
 			send_frame_confirmation(ui_element.id);
+			break;
+		
+		//mother of g..! MOTHER OF UNIVERSE!!!! 0_0
+		case E_REQUEST_FILE:
+			var form = document.createElement('form');
+			form.style.flexDirection = "row";
+			form.style.margin = "unset";
+			form.id = ui_element.id + "_form";
+			form.method = "post";
+			form.enctype = "multipart/form-data";
+			form.action = "/upload"
+			try_insert_web_element(ui_element.parent, form);
+		
+			var file_input = document.createElement('input');
+			file_input.style.display = "block";
+			file_input.className = "ui_button";
+			file_input.type = "file";
+			file_input.id = ui_element.id;
+			file_input.name = ui_element.id;
+			try_insert_web_element(form.id, file_input);
+			
+			
+			var submit_input = document.createElement('input');
+			submit_input.className = "ui_button";
+			submit_input.type = "submit";
+			submit_input.id = ui_element.id + "_submit";
+			submit_input.name = ui_element.id + "_submit";
+			try_insert_web_element(form.id, submit_input, ui_element.attributes);
+			
 			break;
 			
 		default:
@@ -502,20 +520,9 @@ function main()
 	}
 }
 
-function offline_test()
+//Not necessary to include next lines in actual ui library
+function test()
 {
-	var messages = "type:8:id:dial:parent:main:type:2:id:_dpppamge:parent:main:dir:v:text:Синхронізувати час з браузерним:type:4:id:_dpppamfm:parent:_dpppamge:text:Зараз:backcolor:orange:type:2:id:_dpppamfe:parent:_dpppamge:dir:h:type:3:id:_dpppamem:parent:_dpppamfe:text:При підключенні\\::backcolor:orange:type:4:id:_dpppamfm:parent:main:backcolor:red:text:&#10008;:type:10:id:_dpppafna:sender:_dpppafkm:id:dial:display:true:";
-	
-	parse_messages(messages);
+	test_message = "type:15:id:some_noob:parent:main:value:youlouse:type:4:id:some_button:parent:main:"; //put something your for tests here
+	parse_messages(test_message);
 }
-
-	</script>
-
-<body onload="offline_test();">
-	<div id = "main"></div>
-	<div style = "visibility: hidden;">inv</div>
-	<div class = "connection_widget">
-		<div id = "connection_title" style = "background: none">connection:</div>
-		<div id = "connection_value" style = "color: orange;">not established</div></div>
-	</div>
-</body>
