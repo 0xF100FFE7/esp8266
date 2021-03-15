@@ -403,10 +403,17 @@ function parse_messages(messages)
 		
 		//mother of g..! MOTHER OF UNIVERSE!!!! 0_0
 		case E_REQUEST_FILE:
+			var hidden_iframe = document.createElement('iframe');
+			hidden_iframe.id = ui_element.id + "_hidden_iframe";
+			hidden_iframe.name = hidden_iframe.id;
+			hidden_iframe.style.display = "none";
+			try_insert_web_element(ui_element.parent, hidden_iframe);			
+			
 			var form = document.createElement('form');
 			form.style.flexDirection = "row";
 			form.style.margin = "unset";
 			form.id = ui_element.id + "_form";
+			form.target = hidden_iframe.id;
 			form.method = "post";
 			form.enctype = "multipart/form-data";
 			form.action = "/upload"

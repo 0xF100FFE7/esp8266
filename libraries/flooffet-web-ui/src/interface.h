@@ -23,6 +23,12 @@
 #define WS_AUTHENTICATION false
 
 namespace ui {
+	extern void firmware_update_begin();
+	extern void firmware_update_end();
+	
+	extern void (*firmware_update_begin_callback)();
+	extern void (*firmware_update_end_callback)();
+	
 	typedef uint32_t client_id_t;
 
 	typedef uint32_t hm_t;

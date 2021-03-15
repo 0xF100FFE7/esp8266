@@ -44,6 +44,9 @@ AltSoftSerial altSerial; //pins 8 and 9
 #define OUT0	5
 #define OUT1	6
 
+#define EMULATE_CHARGER_PIN 2
+#define CHADEMO_PLUG_IN 3
+
 INA226 ina;
 const unsigned long Interval = 10;
 unsigned long Time = 0; 
@@ -65,6 +68,7 @@ int32_t canMsgID = 0;
 unsigned char canMsg[8];
 unsigned char Flag_Recv = 0;
 volatile uint8_t debugTick = 0;
+bool chademo_plug_in = false;
 
 bool send_initial_settings_over_serial = true;
 
@@ -371,6 +375,15 @@ void loop()
 	static struct cmd cmd;
 	if (cmd.get())
 		parse(cmd);
+	
+	if (chademo_plug_in != digitalRead(CHADEMO_PLUG_IN)) {
+		chademo_plug_in = !chademo_plug_in;
+		
+		if (chademo_plug_in == false) {
+			cmd.send(CMD_END_CHARGE);
+			kangoo_charge_stop();
+		}
+	}
 	
 	uint8_t pos;
 	CurrentMillis = millis();
@@ -734,14 +747,14 @@ void loop()
 			chademoDelayedState(STOPPED, 100);
 			break;
 		case FAULTED:
-			cmd.send(CMD_END_CHARGE);
+			//cmd.send(CMD_END_CHARGE);
 			Serial.println(F("Detected fault!"));
 			chademoState = CEASE_CURRENT;
 			//digitalWrite(OUT0, LOW);
 			//digitalWrite(OUT1, LOW);
 			break;
 		case STOPPED:
-			cmd.send(CMD_END_CHARGE);
+			//cmd.send(CMD_END_CHARGE);
 			digitalWrite(OUT0, LOW);
 			digitalWrite(OUT1, LOW);
 			bChademoSendRequests = 0; //don't need to keep sending anymore.
@@ -916,6 +929,7 @@ void kangoo_charge_cycle()
 	
 		switch (state) {
 		case BEGIN:
+			digitalWrite(EMULATE_CHARGER_PIN, HIGH);
 			counter = counter_prev = 0;
 			msg2[0] = 0x00;
 			msg2[3] = 0x00;
@@ -976,6 +990,7 @@ void kangoo_charge_cycle()
 			break;
 			
 		case END:
+			digitalWrite(EMULATE_CHARGER_PIN, END);
 			break;
 		}
 		

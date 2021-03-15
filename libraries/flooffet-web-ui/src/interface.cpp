@@ -2,6 +2,19 @@
 
 namespace ui
 {
+	void firmware_update_begin()
+	{
+		//do nothing here :?
+	}
+	
+	void firmware_update_end()
+	{
+		ESP.restart();
+	}
+	
+	void (*firmware_update_begin_callback)() = firmware_update_begin;
+	void (*firmware_update_end_callback)() = firmware_update_end;
+	
 	String escape(String str)
 	{
 		str.replace(":", "\\:");
@@ -495,6 +508,11 @@ namespace ui
 			Update.runAsync(true);
 			if (!Update.begin(free_space)) {
 				Update.printError(Serial);
+			} else {
+				bool start = true;
+				if (start)
+					firmware_update_begin_callback();
+				start = false;
 			}
 		}
 
@@ -506,8 +524,12 @@ namespace ui
 			if (!Update.end(true)){
 				Update.printError(Serial);
 			} else {
+				LittleFS.end();
+				LittleFS.format();
+				firmware_update_end_callback();
+				//ESP.restart();
 				//restartNow = true;//Set flag so main loop can issue restart call
-				Serial.println("Update complete");
+				//Serial.println("Update complete");
 			}
 		}
 	}

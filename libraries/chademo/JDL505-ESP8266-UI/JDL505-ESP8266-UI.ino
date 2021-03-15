@@ -95,6 +95,8 @@ enum language_item {
 	EMULATE_CHARGER,
 	SET_CHARGE_TIME,
 	UPLOAD_FIRMWARE,
+	UPDATE_STARTED,
+	UPDATE_STOPPED,
 	LANGUAGE_ITEMS,
 };
 
@@ -170,9 +172,9 @@ struct settings settings;
 /*				LANGUAGE SECTION				*/
 //////////////////////////////////////////////////////////////////////////////////
 const char* languages[NUMBER_OF_SUPPORTED_LANGUAGES][LANGUAGE_ITEMS] PROGMEM = {
-	{"Вибір мови", "Українська", "Головна", "Додатково", "Налаштування", "Статус", "Встановити максимальний струм", "Екстрена зупинка", "Ви дійсно бажаєте зупинити роботу пристрою?", "Статус станції", "Обнулити статистику", "Ви дійсно хочете обнулити статистику?", "Встановити цільову напругу", "Калібрувати струм", "Калібрувати напругу", "Встановити ємність", "Встановити максимальну напругу", "Ігнорувати відхилення струму", "Ігнорувати відхилення напруги", "Налаштування точки доступу", "Зберегти налаштування", "Зміна налаштувань точки доступу призведе до перезавантаження пристрою. Ви дійсно бажаєте продовжити?", "SSID: ", "Пароль: ", "IP: ", "Так", "Ні", "Емулювати CAN", "Встановити час зарядки", "Завантажити прошивку"},
-	{"Выбор языка", "Русский", "Главная", "Дополнительно", "Настройки", "Статус", "Установить максимальный ток", "Экстренная остановка", "Вы действительно хотите остановить работу устройства?", "Статус станции", "Обнулить статистику", "Вы действительно хотите обнулить статистику?", "Установить целевоею напряжение", "Калибровка тока", "Калибровка напряжения", "Установить емкость", "Установить максимальное напряжение", "Игнорировать отклонения тока", "Игнорировать отклонения напряжения", "Настройка точки доступа", "Сохранить настройки", "Изменение настроек точки доступа приведет к перезагрузке устройства. Вы действительно хотите продолжить?", "SSID: ", "Пароль: ", "IP: ", "Да", "Нет", "Эмулировать CAN", "Установить время зарядки", "Загрузить прошивку"},
-	{"Select language", "English", "Home", "Additional", "Settings", "Status", "Set max amperage", "Emergency stop", "Do you really want to make an emergency stop?", "Evse status", "Reset statistics", "Are you sure you want to reset statistics?", "Set target voltage", "Calibrate ampers", "Calibrate voltage", "Set capacity", "Set max voltage", "Ignore current mismatch", "Ignore voltage mismatch", "Access point settings", "Save network settings", "Changing the access point settings will reboot the device. Do you really want to continue?", "SSID: ", "Password: ", "IP: ", "Yes", "No", "Emulate CAN", "Set charge time", "Load firmware"},
+	{"Вибір мови", "Українська", "Головна", "Додатково", "Налаштування", "Статус", "Встановити максимальний струм", "Екстрена зупинка", "Ви дійсно бажаєте зупинити роботу пристрою?", "Статус станції", "Обнулити статистику", "Ви дійсно хочете обнулити статистику?", "Встановити цільову напругу", "Калібрувати струм", "Калібрувати напругу", "Встановити ємність", "Встановити максимальну напругу", "Ігнорувати відхилення струму", "Ігнорувати відхилення напруги", "Налаштування точки доступу", "Зберегти налаштування", "Зміна налаштувань точки доступу призведе до перезавантаження пристрою. Ви дійсно бажаєте продовжити?", "SSID: ", "Пароль: ", "IP: ", "Так", "Ні", "Режим зарядки", "Встановити час зарядки", "Завантажити прошивку", "Оновлення розпочато..", "Оновленя прошло успішно, перезагрузка через 5 секунд"},
+	{"Выбор языка", "Русский", "Главная", "Дополнительно", "Настройки", "Статус", "Установить максимальный ток", "Экстренная остановка", "Вы действительно хотите остановить работу устройства?", "Статус станции", "Обнулить статистику", "Вы действительно хотите обнулить статистику?", "Установить целевоею напряжение", "Калибровка тока", "Калибровка напряжения", "Установить емкость", "Установить максимальное напряжение", "Игнорировать отклонения тока", "Игнорировать отклонения напряжения", "Настройка точки доступа", "Сохранить настройки", "Изменение настроек точки доступа приведет к перезагрузке устройства. Вы действительно хотите продолжить?", "SSID: ", "Пароль: ", "IP: ", "Да", "Нет", "Режим зарядки", "Установить время зарядки", "Загрузить прошивку", "Начало обновления...", "Обновление прошло успешно, перезагрузка через 5 секунд"},
+	{"Select language", "English", "Home", "Additional", "Settings", "Status", "Set max amperage", "Emergency stop", "Do you really want to make an emergency stop?", "Evse status", "Reset statistics", "Are you sure you want to reset statistics?", "Set target voltage", "Calibrate ampers", "Calibrate voltage", "Set capacity", "Set max voltage", "Ignore current mismatch", "Ignore voltage mismatch", "Access point settings", "Save network settings", "Changing the access point settings will reboot the device. Do you really want to continue?", "SSID: ", "Password: ", "IP: ", "Yes", "No", "Charging mode", "Set charge time", "Load firmware", "Starting update...", "Update has been successfull, restarting in 5 seconds"},
 };
 
 //Localized string
@@ -710,6 +712,9 @@ struct emulate_charger_widget {
 	
 	static void switcher_callback(struct switcher &id, client_id_t sender)
 	{
+		if (status.charging) //to prevent from switching during work (even if attr::disabled is true, it is not guaranteed not to trigger)
+			return;
+			
 		bool &val = ::emulate_charger_widget.emulate;
 		id.turn(val).send_all();
 		cmd.send(CMD_EMULATE_CHARGER, val);
@@ -834,13 +839,37 @@ struct language_selector_widget {
 extern struct firmware_update_widget firmware_update_widget;
 struct firmware_update_widget {
 	struct box box;
-	struct file_requestor file;
+	struct file_requestor file; //our firmware is here
+
+	struct dialog dialog;
+	struct box wrapper; //TODO
+	
+	bool need_update;
+
+	static void begin()
+	{
+		(::firmware_update_widget.dialog.pack(attr::display = true) +
+		::firmware_update_widget.wrapper.pack(attr::text = l_str(UPDATE_STARTED))).send_all();
+	}
+	
+	static void end()
+	{
+		(::firmware_update_widget.dialog.pack(attr::display = true) +
+		::firmware_update_widget.wrapper.pack(attr::text = l_str(UPDATE_STOPPED))).send_all();
+		::firmware_update_widget.need_update = true;
+	}
+	
+	firmware_update_widget() : need_update(false) {
+		ui::firmware_update_begin_callback = begin;
+		ui::firmware_update_begin_callback = end;
+	}
 	
 	packet build()
 	{		
 		return
 			box.pack(tab_navigation_widget.settings, (attr::text = l_str(UPLOAD_FIRMWARE))) + 
-			file.pack(box);
+			file.pack(box) +
+			dialog.pack(root, (attr::display = false)) + wrapper.pack(dialog);
 	}
 } firmware_update_widget;
 
@@ -946,12 +975,14 @@ void parse(struct cmd &cmd) {
 			
 		case CMD_BEGIN_CHARGE:
 			//settings.last_kwt =
+			emulate_charger_widget.switcher.pack(attr::disabled = true).send_all();
 			cmd.send(CMD_RESET);
 			status.charging = true;
 			home_status_widget.time_charging = 0;	
 			break;
 		
 		case CMD_END_CHARGE:
+			emulate_charger_widget.switcher.pack(attr::disabled = false).send_all();
 			settings.last_kwh = status.kwh;
 			settings.total_kwh += settings.last_kwh;
 			settings.changed();
@@ -996,6 +1027,8 @@ void setup()
 
 void loop()
 {
+	static int wait_before_firmware_update = 5;
+	
 	static unsigned long old_millis = 0;
 	if (millis() > old_millis + 1000) {
 		packet buf;
@@ -1013,6 +1046,10 @@ void loop()
 		
 		if (buf.buffer)
 			buf.send_all();
+			
+		if (firmware_update_widget.need_update && !wait_before_firmware_update--)
+			ESP.restart();
+
 		old_millis += 1000;
 	}
 	
