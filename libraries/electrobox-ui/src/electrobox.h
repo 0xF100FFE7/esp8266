@@ -90,8 +90,11 @@ enum language_item {
 	MANUAL_IP = 97,
 	
 	ARE_YOU_SURE_RESET_STATISTICS = 98,
+	UPLOAD_FIRMWARE = 99,
+	UPDATE_STARTED = 100,
+	UPDATE_STOPPED = 101,
 	
-	LANGUAGE_ITEMS = 99,
+	LANGUAGE_ITEMS = 102,
 	//LANGUAGE_ITEMS = 64,
 };
 
@@ -259,9 +262,9 @@ struct settings settings;
 /*				LANGUAGE SECTION				*/
 //////////////////////////////////////////////////////////////////////////////////
 const char* languages[NUMBER_OF_SUPPORTED_LANGUAGES][LANGUAGE_ITEMS] PROGMEM = {
-	{"Головна", "Налаштування", "Вибір мови", "Українська", "Встановити дату та час", "Рік", "Години", "Місяць", "Хвилини", "День", "Секунди", "Тижневий розклад", "Дні тижня", "Старт зарядки", "Стоп зарядки", "Увімкнути", "Понеділок", "Вівторок", "Середа", "Четвер", "П'ятниця", "Субота", "Неділя", "Статус зарядки", "Пістолет не вставлено", "Триває зарядка", "Автомобіль заряджено", "Перевірте заземлення", "Спрацював захист ПЗВ", "Спрацював захист по напрузі (більше 270V)", "Спрацював захист по току (більше 50А)", "Очікує зарядки по розкладу", "Ручна зупинка", "кВт", "Час та кВт за сесію", "Напруга, струм та потужність", "Регулювання струму", "Перевірка заземлення", "Заряджати по розкладу", "Адаптивний режим", "Обмежити кількість кВт за сесію", "Таймери", "Регулювання яскравості дисплею", "Обмежити тривалість заряду в годинах", "Час до вимкнення дисплею в хвилинах", "Статистика", "Лог змін статусу", "Ввімкнути зарядку", "Синхронізувати час з браузерним", "Очистка логу", "Скинути налаштування", "Налаштування мережі", "Зберегти зміни", "Точка доступу", "Станція", "SSID:", "Пароль:", "IP адрес:", "Cтанція ввімкнена:", "Статус підключення:", "Доступні мережі:", "Сканувати мережу", "Підключення відсутнє", "Підключено", "Спроба підключення", "Неможливо підключитися", "Статистика за період", "За минулу(ий)", "За теперішню(ній)", "Годину:", "День:", "Тиждень:", "Місяць:", "Рік:", "За весь час:", "Обнулити статистику", "Споживано за сесію", "Встановити автоматично", "При підключенні:", "Ви дійсно хочете скинути налаштування?", "Зміна налаштувань точки доступу призведе до перезавантаження пристрою. Ви дійсно бажаєте продовжити?", "Так", "Ні", "DHCP: ", "Статичний ip: ", "Підключитися", "Відключитися", "Застосувати", "Закрити", "Ручна зупинка", "Ручний старт", "Статус:", "Рівень сигналу:", "Маска підмережі: ", "Шлюз: ", "IP зарядки:", "Авто IP: ", "Ручне IP: ", "Ви дійсно хочете обнулити статистику?"},
-	{"Главная", "Настройки", "Выбор языка", "Русский", "Установить дату и время", "Год", "Часы", "Месяц", "Минуты", "День", "Секунды", "Еженедельное расписание", "Дни недели", "Старт заряда", "Стоп зарада", "Включить", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье", "Статус зарядки", "Пистолет не вставлен", "Продолжается зарядка", "Автомобиль заряжен", "Проверьте заземление", "Сработала защита УЗО", "Сработала защита по напряжению (более 270V)", "Сработала защита по току (более 50A)", "Ожидание зарядки по расписанию", "Ручная остановка", "кВт", "Время и кВт за сессию", "Напряжение ток и мощность", "Регулировка тока", "Проверка заземления", "Заряжать по расписанию", "Адаптивний режим", "Ограничить кол-во кВт за сессию", "Таймеры", "Регулировка яркости дисплея", "Ограничить время заряда в часах", "Время до отключения дисплея в минутах", "Статистика", "Лог смен статуса", "Включить зарядку", "Синхронизировать время с браузерным", "Очистить лог", "Сбросить настройки", "Настройки сети", "Сохраниить изменения", "Точка доступа", "Станция", "SSID:", "Пароль:", "IP адрес:", "Станция включена:", "Статус подключения:", "Доступные сети:", "Сканировать сети", "Подключение отсутствует", "Подключено к: ", "Попытка подключения к: ", "Невозможно подключиться к: ", "Статистика за период", "За предыдущий(ую))", "За Текущий(ую)", "Час:", "День:", "Неделю:", "Месяц:", "Год:", "За всё время:", "Обнулить статистику", "Употреблено за сессию", "Автоматически", "При подключении:", "Вы действительно хотите сбросить настройки?", "Изменение настроек точки доступа приведет к перезагрузке устройства. Вы действительно хотите продолжить?", "Да", "Нет", "DHCP: ", "Статический ip: ", "Подключиться", "Отключиться", "Применить", "Закрыть", "Ручная остановка", "Ручной старт", "Статус:", "Уровень сигнала:", "Маска подсети: ", "Шлюз", "IP зарядки:", "Авто IP", "Ручное IP: ", "Вы действительно хотите обнулить статистику?"},
-	{"Home", "Settings", "Select language", "English", "Setup date and time", "Year", "Hours", "Month", "Minutes", "Day", "Seconds", "Weekly sсhedule", "Days of the week", "Start charging", "Stop charging", "Enable", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "Charger status", "Pistol not inserted", "Charging continues", "Vehicle is charged", "Check ground", "RCD protection blocking", "Voltage protection blocking (above 270V)", "Current protection blocking (above 50A)", "Waiting for charging by chedule", "Manual stop", "kWt", "Time and kWt for session", "Voltage, current and kWt", "Current regulator", "Ground check", "Charge by schedule", "Adaptive mode", "Limit kWt for session", "Timers", "Display brightness regulator", "Limit charge time by hours", "Time to turn off the display in minutes", "Statistics", "Status change log", "Enable charger", "Synchronize time with browser time", "Clear log", "Factory reset", "Network settings", "Save settings", "Access point", "Station", "SSID:", "Password:", "IP:", "Station enabled:", "Connection status:", "Available networks:", "Scan networks", "No connection", "Connected to: ", "Attempting to connect to: ", "Failed to connect to: ", "Statistics for a period", "Previous", "Current", "Hour:", "Day:", "Week:", "Month:", "Year:", "For all time:", "Reset statistics", "Consumed for session", "Automatically", "On connect:", "Do you really want to reset?", "Changing the access point settings will reboot the device. Do you really want to continue?", "Yes", "No", "DHCP: ", "Static ip: ", "Connect", "Disconnect", "Apply", "Close", "Manual stop", "Manual start", "Status:", "Signal level:", "Subnetwork mask: ", "Gateway: ", "Charger IP:", "Auto IP: ", "Manual IP: ", "Are you sure you want to reset statistics?"},
+	{"Головна", "Налаштування", "Вибір мови", "Українська", "Встановити дату та час", "Рік", "Години", "Місяць", "Хвилини", "День", "Секунди", "Тижневий розклад", "Дні тижня", "Старт зарядки", "Стоп зарядки", "Увімкнути", "Понеділок", "Вівторок", "Середа", "Четвер", "П'ятниця", "Субота", "Неділя", "Статус зарядки", "Пістолет не вставлено", "Триває зарядка", "Автомобіль заряджено", "Перевірте заземлення", "Спрацював захист ПЗВ", "Спрацював захист по напрузі (більше 270V)", "Спрацював захист по току (більше 50А)", "Очікує зарядки по розкладу", "Ручна зупинка", "кВт", "Час та кВт за сесію", "Напруга, струм та потужність", "Регулювання струму", "Перевірка заземлення", "Заряджати по розкладу", "Адаптивний режим", "Обмежити кількість кВт за сесію", "Таймери", "Регулювання яскравості дисплею", "Обмежити тривалість заряду в годинах", "Час до вимкнення дисплею в хвилинах", "Статистика", "Лог змін статусу", "Ввімкнути зарядку", "Синхронізувати час з браузерним", "Очистка логу", "Скинути налаштування", "Налаштування мережі", "Зберегти зміни", "Точка доступу", "Станція", "SSID:", "Пароль:", "IP адрес:", "Cтанція ввімкнена:", "Статус підключення:", "Доступні мережі:", "Сканувати мережу", "Підключення відсутнє", "Підключено", "Спроба підключення", "Неможливо підключитися", "Статистика за період", "За минулу(ий)", "За теперішню(ній)", "Годину:", "День:", "Тиждень:", "Місяць:", "Рік:", "За весь час:", "Обнулити статистику", "Споживано за сесію", "Встановити автоматично", "При підключенні:", "Ви дійсно хочете скинути налаштування?", "Зміна налаштувань точки доступу призведе до перезавантаження пристрою. Ви дійсно бажаєте продовжити?", "Так", "Ні", "DHCP: ", "Статичний ip: ", "Підключитися", "Відключитися", "Застосувати", "Закрити", "Ручна зупинка", "Ручний старт", "Статус:", "Рівень сигналу:", "Маска підмережі: ", "Шлюз: ", "IP зарядки:", "Авто IP: ", "Ручне IP: ", "Ви дійсно хочете обнулити статистику?",  "Завантажити прошивку", "Оновлення розпочато..", "Оновленя прошло успішно, перезагрузка через 5 секунд"},
+	{"Главная", "Настройки", "Выбор языка", "Русский", "Установить дату и время", "Год", "Часы", "Месяц", "Минуты", "День", "Секунды", "Еженедельное расписание", "Дни недели", "Старт заряда", "Стоп зарада", "Включить", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье", "Статус зарядки", "Пистолет не вставлен", "Продолжается зарядка", "Автомобиль заряжен", "Проверьте заземление", "Сработала защита УЗО", "Сработала защита по напряжению (более 270V)", "Сработала защита по току (более 50A)", "Ожидание зарядки по расписанию", "Ручная остановка", "кВт", "Время и кВт за сессию", "Напряжение ток и мощность", "Регулировка тока", "Проверка заземления", "Заряжать по расписанию", "Адаптивний режим", "Ограничить кол-во кВт за сессию", "Таймеры", "Регулировка яркости дисплея", "Ограничить время заряда в часах", "Время до отключения дисплея в минутах", "Статистика", "Лог смен статуса", "Включить зарядку", "Синхронизировать время с браузерным", "Очистить лог", "Сбросить настройки", "Настройки сети", "Сохраниить изменения", "Точка доступа", "Станция", "SSID:", "Пароль:", "IP адрес:", "Станция включена:", "Статус подключения:", "Доступные сети:", "Сканировать сети", "Подключение отсутствует", "Подключено к: ", "Попытка подключения к: ", "Невозможно подключиться к: ", "Статистика за период", "За предыдущий(ую))", "За Текущий(ую)", "Час:", "День:", "Неделю:", "Месяц:", "Год:", "За всё время:", "Обнулить статистику", "Употреблено за сессию", "Автоматически", "При подключении:", "Вы действительно хотите сбросить настройки?", "Изменение настроек точки доступа приведет к перезагрузке устройства. Вы действительно хотите продолжить?", "Да", "Нет", "DHCP: ", "Статический ip: ", "Подключиться", "Отключиться", "Применить", "Закрыть", "Ручная остановка", "Ручной старт", "Статус:", "Уровень сигнала:", "Маска подсети: ", "Шлюз", "IP зарядки:", "Авто IP", "Ручное IP: ", "Вы действительно хотите обнулить статистику?", "Загрузить прошивку", "Начало обновления...", "Обновление прошло успешно, перезагрузка через 5 секунд"},
+	{"Home", "Settings", "Select language", "English", "Setup date and time", "Year", "Hours", "Month", "Minutes", "Day", "Seconds", "Weekly sсhedule", "Days of the week", "Start charging", "Stop charging", "Enable", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "Charger status", "Pistol not inserted", "Charging continues", "Vehicle is charged", "Check ground", "RCD protection blocking", "Voltage protection blocking (above 270V)", "Current protection blocking (above 50A)", "Waiting for charging by chedule", "Manual stop", "kWt", "Time and kWt for session", "Voltage, current and kWt", "Current regulator", "Ground check", "Charge by schedule", "Adaptive mode", "Limit kWt for session", "Timers", "Display brightness regulator", "Limit charge time by hours", "Time to turn off the display in minutes", "Statistics", "Status change log", "Enable charger", "Synchronize time with browser time", "Clear log", "Factory reset", "Network settings", "Save settings", "Access point", "Station", "SSID:", "Password:", "IP:", "Station enabled:", "Connection status:", "Available networks:", "Scan networks", "No connection", "Connected to: ", "Attempting to connect to: ", "Failed to connect to: ", "Statistics for a period", "Previous", "Current", "Hour:", "Day:", "Week:", "Month:", "Year:", "For all time:", "Reset statistics", "Consumed for session", "Automatically", "On connect:", "Do you really want to reset?", "Changing the access point settings will reboot the device. Do you really want to continue?", "Yes", "No", "DHCP: ", "Static ip: ", "Connect", "Disconnect", "Apply", "Close", "Manual stop", "Manual start", "Status:", "Signal level:", "Subnetwork mask: ", "Gateway: ", "Charger IP:", "Auto IP: ", "Manual IP: ", "Are you sure you want to reset statistics?", "Starting update...", "Update has been successfull, restarting in 5 seconds"},
 };
 
 //Localized string
@@ -1128,6 +1131,43 @@ struct sta_settings {
 	}
 } sta_settings;
 
+extern struct firmware_update_widget firmware_update_widget;
+struct firmware_update_widget {
+	struct box box;
+	struct file_requestor file; //our firmware is here
+
+	struct dialog dialog;
+	struct box wrapper; //TODO
+	
+	bool need_update;
+
+	static void begin()
+	{
+		(::firmware_update_widget.dialog.pack(attr::display = true) +
+		::firmware_update_widget.wrapper.pack(attr::text = l_str(UPDATE_STARTED))).send_all();
+	}
+	
+	static void end()
+	{
+		(::firmware_update_widget.dialog.pack(attr::display = true) +
+		::firmware_update_widget.wrapper.pack(attr::text = l_str(UPDATE_STOPPED))).send_all();
+		::firmware_update_widget.need_update = true;
+	}
+	
+	firmware_update_widget() : need_update(false) {
+		ui::firmware_update_begin_callback = begin;
+		ui::firmware_update_end_callback = end;
+	}
+	
+	packet build()
+	{		
+		return
+			box.pack(navigation_panel.settings, (attr::text = l_str(UPLOAD_FIRMWARE))) + 
+			file.pack(box) +
+			dialog.pack(root, (attr::display = false)) + wrapper.pack(dialog);
+	}
+} firmware_update_widget;
+
 
 
 
@@ -1252,6 +1292,7 @@ bool ui::interface(client &cl, int idx) //implementation of interface builder is
 		ADD_TO_INTERFACE(16, sta_settings);
 		ADD_TO_INTERFACE(17, weekly_schedule);
 		ADD_TO_INTERFACE(18, statistics);
+		ADD_TO_INTERFACE(19, firmware_update_widget);
 		END_ADD_TO_INTERFACE;
 	}
 }
@@ -1284,6 +1325,7 @@ void electrobox_loop()
 	static unsigned long old_millis = 0;
 	static unsigned time_counter = 0;
 	static int statistics_update_counter = 0; //5 minutes
+	static int wait_before_firmware_update = 5;
 	
 	if (millis() > old_millis + 1000) {
 		packet buf;
@@ -1339,6 +1381,9 @@ void electrobox_loop()
 			buf += sta_settings.scan_sta.pack(attr::disabled = false) + sta_settings.list_avail_stations();
 			network::end_scan();
 		}
+		
+		if (firmware_update_widget.need_update && !wait_before_firmware_update--)
+			ESP.restart();
 		
 		if (buf.buffer)
 			buf.send_all();

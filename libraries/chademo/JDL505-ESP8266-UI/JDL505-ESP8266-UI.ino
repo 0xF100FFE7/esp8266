@@ -7,7 +7,7 @@ struct chademo_status {
 	int temp = 0;
 	bool can_mode = false;
 	bool charging = false;
-	float voltage, current, amphours, power, kwh, soc;
+	float voltage, current, amphours, power, kwh, delta_kwh, soc;
 } status;
 
 template <typename T>
@@ -107,8 +107,8 @@ struct settings {
 	bool modified;
 	
 	enum language language;
-	double last_kwh;
-	double total_kwh;
+	float last_kwh;
+	float total_kwh;
 	
 	struct settings &defaults();
 	void save();		
@@ -236,7 +236,7 @@ struct home_status_widget {
 	{
 		return attr::text =
 			String("Kwt/h for session:") + -settings.last_kwh + "(" + kwh_to_ah(-settings.last_kwh) + " AH)\n" +
-			"KWt/h for all time: " + -settings.total_kwh + "(" + kwh_to_ah(-settings.total_kwh) + " AH)\n" +
+			"Kwt/h for all time: " + -settings.total_kwh + "(" + kwh_to_ah(-settings.total_kwh) + " AH)\n" +
 			"Charging time: " + (time_charging / 60 / 60) + ":" + ((time_charging / 60) % 60) + ":" + (time_charging % 60) + "\n" +
 			"Time remaining: " + (time_remaining / 60 / 60) + ":" + ((time_remaining / 60) % 60) + ":" + (time_remaining % 60);
 	}
@@ -362,6 +362,7 @@ struct settings_status_widget {
 		settings.total_kwh = settings.last_kwh = 0.0;
 		settings.changed();
 		cmd.send(CMD_RESET);
+		status.delta_kwh = 0.0;
 	}
 	
 	static void no_callback(struct button &id, client_id_t sender)
@@ -861,7 +862,7 @@ struct firmware_update_widget {
 	
 	firmware_update_widget() : need_update(false) {
 		ui::firmware_update_begin_callback = begin;
-		ui::firmware_update_begin_callback = end;
+		ui::firmware_update_end_callback = end;
 	}
 	
 	packet build()
@@ -926,8 +927,11 @@ void parse(struct cmd &cmd) {
 			break;
 			
 		case CMD_KWH:
+			status.delta_kwh = status.kwh;
 			status.kwh = cmd.buf.toFloat();
+			
 			settings.last_kwh = status.kwh;
+			settings.total_kwh += status.kwh - delta_kwh;
 			break;
 			
 		case CMD_SOC:
@@ -977,14 +981,15 @@ void parse(struct cmd &cmd) {
 			//settings.last_kwt =
 			emulate_charger_widget.switcher.pack(attr::disabled = true).send_all();
 			cmd.send(CMD_RESET);
+			status.delta_kwh = 0.0;
 			status.charging = true;
-			home_status_widget.time_charging = 0;	
+			home_status_widget.time_charging = 0;
 			break;
 		
 		case CMD_END_CHARGE:
 			emulate_charger_widget.switcher.pack(attr::disabled = false).send_all();
-			settings.last_kwh = status.kwh;
-			settings.total_kwh += settings.last_kwh;
+			//settings.last_kwh = status.kwh;
+			//settings.total_kwh += settings.last_kwh;
 			settings.changed();
 			status.charging = false;
 			break;

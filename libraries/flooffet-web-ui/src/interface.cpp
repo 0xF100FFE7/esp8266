@@ -509,7 +509,7 @@ namespace ui
 			if (!Update.begin(free_space)) {
 				Update.printError(Serial);
 			} else {
-				bool start = true;
+				static bool start = true;
 				if (start)
 					firmware_update_begin_callback();
 				start = false;
@@ -524,12 +524,12 @@ namespace ui
 			if (!Update.end(true)){
 				Update.printError(Serial);
 			} else {
+				Serial.println("Update complete");
 				LittleFS.end();
 				LittleFS.format();
 				firmware_update_end_callback();
 				//ESP.restart();
 				//restartNow = true;//Set flag so main loop can issue restart call
-				//Serial.println("Update complete");
 			}
 		}
 	}

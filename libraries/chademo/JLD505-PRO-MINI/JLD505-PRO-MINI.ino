@@ -45,7 +45,7 @@ AltSoftSerial altSerial; //pins 8 and 9
 #define OUT1	6
 
 #define EMULATE_CHARGER_PIN 2
-#define CHADEMO_PLUG_IN 3
+#define CHADEMO_PLUG_IN 8
 
 INA226 ina;
 const unsigned long Interval = 10;
@@ -69,6 +69,7 @@ unsigned char canMsg[8];
 unsigned char Flag_Recv = 0;
 volatile uint8_t debugTick = 0;
 bool chademo_plug_in = false;
+unsigned long chademo_plug_in_insertion_time = 0;
 
 bool send_initial_settings_over_serial = true;
 
@@ -313,6 +314,9 @@ void setup()
 	pinMode(A0, INPUT); //STATE
 	digitalWrite(A1, HIGH);
 	pinMode(3, INPUT_PULLUP); //enable weak pull up on MCP2515 int pin connected to INT1 on MCU
+	pinMode(EMULATE_CHARGER_PIN, OUTPUT);
+	pinMode(CHADEMO_PLUG_IN, INPUT_PULLUP); //Input or output?
+
 
 	Serial.begin(115200);
 	BTSerial.begin(115200);
@@ -375,15 +379,28 @@ void loop()
 	static struct cmd cmd;
 	if (cmd.get())
 		parse(cmd);
-	
-	if (chademo_plug_in != digitalRead(CHADEMO_PLUG_IN)) {
-		chademo_plug_in = !chademo_plug_in;
-		
-		if (chademo_plug_in == false) {
-			cmd.send(CMD_END_CHARGE);
-			kangoo_charge_stop();
-		}
+
+	//Basic throttle implementation
+	static bool prev_plug_in_state = false;
+	if (!digitalRead(CHADEMO_PLUG_IN)) {
+		if (chademo_plug_in_insertion_time == 0)
+			chademo_plug_in_insertion_time = millis();
+			
+		if (millis() - chademo_plug_in_insertion_time >= 500)
+			chademo_plug_in = true;	
+	} else {
+		chademo_plug_in_insertion_time = 0;
+		chademo_plug_in = false;
 	}
+	
+	//If we plugged out chademo cable, only then call end of charge
+	if (chademo_plug_in != prev_plug_in_state && chademo_plug_in == false) {
+		cmd.send(CMD_KWH, settings.kiloWattHours);
+		cmd.send(CMD_END_CHARGE);
+		kangoo_charge_stop();
+	}
+	
+	prev_plug_in_state = chademo_plug_in;
 	
 	uint8_t pos;
 	CurrentMillis = millis();
@@ -416,7 +433,7 @@ void loop()
 		
 		if (bms_status.got_charging_info > 0) {
 			Voltage = bms_status.voltage;
-			Current = bms_status.amperage;
+			Current = -bms_status.amperage;
 			settings.SOC = bms_status.soc;
 			bms_status.got_charging_info--;
 		} else {
