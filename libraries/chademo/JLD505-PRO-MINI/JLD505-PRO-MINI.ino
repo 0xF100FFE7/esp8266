@@ -45,7 +45,7 @@ AltSoftSerial altSerial; //pins 8 and 9
 #define OUT1	6
 
 #define EMULATE_CHARGER_PIN 2
-#define CHADEMO_PLUG_IN 8
+//#define CHADEMO_PLUG_IN A2
 
 INA226 ina;
 const unsigned long Interval = 10;
@@ -91,6 +91,7 @@ typedef struct
 	bool ignore_current_mismatch;
 	bool ignore_voltage_mismatch;
 	bool emulate_charger;
+	bool limit_charge_current_by_bms;
 
 	uint8_t SOC;
 } EESettings;
@@ -151,6 +152,7 @@ typedef struct
 {
 	int got_charging_info;
 	int temp;
+	int max_input_power;
 	float amperage;
 	float voltage;
 	float soc;
@@ -291,6 +293,10 @@ void parse(struct cmd &cmd) {
 		else
 			kangoo_charge_stop();
 		break;
+	
+	case CMD_LIMIT_CHARGE_CURRENT_BY_BMS:
+		settings.limit_charge_current_by_bms = cmd.buf.toInt();
+		break;
 		
 	case CMD_SET_CHARGE_TIME:
 		settings.charge_time = cmd.buf.toInt();
@@ -315,7 +321,7 @@ void setup()
 	digitalWrite(A1, HIGH);
 	pinMode(3, INPUT_PULLUP); //enable weak pull up on MCP2515 int pin connected to INT1 on MCU
 	pinMode(EMULATE_CHARGER_PIN, OUTPUT);
-	pinMode(CHADEMO_PLUG_IN, INPUT_PULLUP); //Input or output?
+	//pinMode(CHADEMO_PLUG_IN, INPUT_PULLUP); //Input or output?
 
 
 	Serial.begin(115200);
@@ -351,6 +357,7 @@ void setup()
 		settings.ignore_current_mismatch = true;
 		settings.ignore_voltage_mismatch = true;
 		settings.emulate_charger = true;
+		settings.limit_charge_current_by_bms = true;
 		settings.SOC = INITIAL_SOC;
 		EEPROM_writeAnything(0, settings);
 	}
@@ -380,8 +387,8 @@ void loop()
 	if (cmd.get())
 		parse(cmd);
 
-	//Basic throttle implementation
-	static bool prev_plug_in_state = false;
+	//Basic debouncer implementation
+	/*static bool prev_plug_in_state = false;
 	if (!digitalRead(CHADEMO_PLUG_IN)) {
 		if (chademo_plug_in_insertion_time == 0)
 			chademo_plug_in_insertion_time = millis();
@@ -401,7 +408,7 @@ void loop()
 	}
 	
 	prev_plug_in_state = chademo_plug_in;
-	
+	*/
 	uint8_t pos;
 	CurrentMillis = millis();
 	uint8_t len;
@@ -438,8 +445,8 @@ void loop()
 			bms_status.got_charging_info--;
 		} else {
 			kangoo_charge_state = 8; //Immediate stop
-			Voltage = ina.readBusVoltage() * (settings.voltageCalibration + settings.voltage_calibration_offset);
-			Current = ina.readShuntVoltage() * (settings.currentCalibration + settings.current_calibration_offset);
+			//Voltage = ina.readBusVoltage() * (settings.voltageCalibration + settings.voltage_calibration_offset);
+			//Current = ina.readShuntVoltage() * (settings.currentCalibration + settings.current_calibration_offset);
 			settings.SOC = (-settings.kiloWattHours / settings.packSizeKWH) * 100;
 		}
 		
@@ -524,6 +531,7 @@ void loop()
 						cmd.send(CMD_IGNORE_CURRENT_MISMATCH, settings.ignore_current_mismatch);
 						cmd.send(CMD_IGNORE_VOLTAGE_MISMATCH, settings.ignore_voltage_mismatch);
 						cmd.send(CMD_EMULATE_CHARGER, settings.emulate_charger);
+						cmd.send(CMD_LIMIT_CHARGE_CURRENT_BY_BMS, settings.limit_charge_current_by_bms);
 						send_initial_settings_over_serial = false;
 					}
 					//CANBUS();
@@ -543,8 +551,9 @@ void loop()
 		Flag_Recv = 0;		
 		CAN.readMsgBuf(&len, canMsg);            // read data,  len: data length, buf: data buf
 		canMsgID = CAN.getCanId();
-		if (canMsgID == EVSE_PARAMS)
-		{
+		switch (canMsgID) {
+		
+		case EVSE_PARAMS:
 			if (chademoState == WAIT_FOR_EVSE_PARAMS) chademoDelayedState(SET_CHARGE_BEGIN, 100);
 			evse_params.supportWeldCheck = canMsg[0];
 			evse_params.availVoltage = canMsg[1] + canMsg[2] * 256;
@@ -561,9 +570,9 @@ void loop()
 
 			//if we want more current then it can provide then revise our request to match max output
 			if (evse_params.availCurrent < carStatus.targetCurrent) carStatus.targetCurrent = min(evse_params.availCurrent, settings.maxChargeAmperage);
-		}
-		if (canMsgID == EVSE_STATUS)
-		{
+			break;
+			
+		case EVSE_STATUS:
 			evse_status.presentVoltage = canMsg[1] + 256 * canMsg[2];
 			evse_status.presentCurrent  = canMsg[3];
 			evse_status.status = canMsg[5];				
@@ -606,9 +615,9 @@ void loop()
 					if ((evse_status.status & EVSE_STATUS_STOPPED) == 0 && evse_status.remainingChargeSeconds > 0) bListenEVSEStatus = 1;
 				}
 			}
-		}
-		if (canMsgID == 0x155)
-		{
+			break;
+			
+		case 0x155:
 			//Once car awaken from sleep and charger emulator is enabled
 			if (settings.emulate_charger && !bms_status.got_charging_info)
 				kangoo_charge_start();
@@ -617,10 +626,18 @@ void loop()
 			bms_status.amperage = (((canMsg[1] & 0x0F) << 8 | canMsg[2]) - 0x7D0) * 0.26;
 			bms_status.voltage = (canMsg[6] << 8 | canMsg[7]) / 2;
 			bms_status.soc = (float)canMsg[4] / 1.6 + ((float)canMsg[5] / 0xFF);
-		}
-		
-		if (canMsgID == 0x424) {
+			break;
+				
+		case 0x424:
+			bms_status.max_input_power = (canMsg[2] / 2);
+			int max_input_amp = bms_status.max_input_power / Voltage;
+			if (settings.limit_charge_current_by_bms && Current > max_input_amp)
+				carStatus.targetCurrent = max_input_amp;
 			bms_status.temp = canMsg[4] - 40;
+			break;
+			
+		default:
+			break;
 		}
 	}
 	
@@ -799,6 +816,7 @@ void USB()
 	cmd.send(CMD_KWH, settings.kiloWattHours);
 	cmd.send(CMD_TEMP, bms_status.temp);
 	cmd.send(CMD_TIME_REMAINING, bms_status.got_charging_info ? evse_status.remainingChargeSeconds : 0);
+	cmd.send(CMD_MAX_INPUT_POWER, bms_status.max_input_power);
 	cmd.send(CMD_UPDATE_STATUS);
 	//cmd.send(90, "\n");
 	
@@ -1007,7 +1025,7 @@ void kangoo_charge_cycle()
 			break;
 			
 		case END:
-			digitalWrite(EMULATE_CHARGER_PIN, END);
+			digitalWrite(EMULATE_CHARGER_PIN, LOW);
 			break;
 		}
 		

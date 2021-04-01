@@ -8,6 +8,7 @@ struct chademo_status {
 	bool can_mode = false;
 	bool charging = false;
 	float voltage, current, amphours, power, kwh, delta_kwh, soc;
+	int max_input_power;
 } status;
 
 template <typename T>
@@ -97,6 +98,7 @@ enum language_item {
 	UPLOAD_FIRMWARE,
 	UPDATE_STARTED,
 	UPDATE_STOPPED,
+	LIMIT_CHARGE_CURRENT_BY_BMS,
 	LANGUAGE_ITEMS,
 };
 
@@ -172,9 +174,9 @@ struct settings settings;
 /*				LANGUAGE SECTION				*/
 //////////////////////////////////////////////////////////////////////////////////
 const char* languages[NUMBER_OF_SUPPORTED_LANGUAGES][LANGUAGE_ITEMS] PROGMEM = {
-	{"Вибір мови", "Українська", "Головна", "Додатково", "Налаштування", "Статус", "Встановити максимальний струм", "Екстрена зупинка", "Ви дійсно бажаєте зупинити роботу пристрою?", "Статус станції", "Обнулити статистику", "Ви дійсно хочете обнулити статистику?", "Встановити цільову напругу", "Калібрувати струм", "Калібрувати напругу", "Встановити ємність", "Встановити максимальну напругу", "Ігнорувати відхилення струму", "Ігнорувати відхилення напруги", "Налаштування точки доступу", "Зберегти налаштування", "Зміна налаштувань точки доступу призведе до перезавантаження пристрою. Ви дійсно бажаєте продовжити?", "SSID: ", "Пароль: ", "IP: ", "Так", "Ні", "Режим зарядки", "Встановити час зарядки", "Завантажити прошивку", "Оновлення розпочато..", "Оновленя прошло успішно, перезагрузка через 5 секунд"},
-	{"Выбор языка", "Русский", "Главная", "Дополнительно", "Настройки", "Статус", "Установить максимальный ток", "Экстренная остановка", "Вы действительно хотите остановить работу устройства?", "Статус станции", "Обнулить статистику", "Вы действительно хотите обнулить статистику?", "Установить целевоею напряжение", "Калибровка тока", "Калибровка напряжения", "Установить емкость", "Установить максимальное напряжение", "Игнорировать отклонения тока", "Игнорировать отклонения напряжения", "Настройка точки доступа", "Сохранить настройки", "Изменение настроек точки доступа приведет к перезагрузке устройства. Вы действительно хотите продолжить?", "SSID: ", "Пароль: ", "IP: ", "Да", "Нет", "Режим зарядки", "Установить время зарядки", "Загрузить прошивку", "Начало обновления...", "Обновление прошло успешно, перезагрузка через 5 секунд"},
-	{"Select language", "English", "Home", "Additional", "Settings", "Status", "Set max amperage", "Emergency stop", "Do you really want to make an emergency stop?", "Evse status", "Reset statistics", "Are you sure you want to reset statistics?", "Set target voltage", "Calibrate ampers", "Calibrate voltage", "Set capacity", "Set max voltage", "Ignore current mismatch", "Ignore voltage mismatch", "Access point settings", "Save network settings", "Changing the access point settings will reboot the device. Do you really want to continue?", "SSID: ", "Password: ", "IP: ", "Yes", "No", "Charging mode", "Set charge time", "Load firmware", "Starting update...", "Update has been successfull, restarting in 5 seconds"},
+	{"Вибір мови", "Українська", "Головна", "Додатково", "Налаштування", "Статус", "Встановити максимальний струм", "Екстрена зупинка", "Ви дійсно бажаєте зупинити роботу пристрою?", "Статус станції", "Обнулити статистику", "Ви дійсно хочете обнулити статистику?", "Встановити цільову напругу", "Калібрувати струм", "Калібрувати напругу", "Встановити ємність", "Встановити максимальну напругу", "Ігнорувати відхилення струму", "Ігнорувати відхилення напруги", "Налаштування точки доступу", "Зберегти налаштування", "Зміна налаштувань точки доступу призведе до перезавантаження пристрою. Ви дійсно бажаєте продовжити?", "SSID: ", "Пароль: ", "IP: ", "Так", "Ні", "Режим зарядки", "Встановити час зарядки", "Завантажити прошивку", "Оновлення розпочато..", "Оновленя прошло успішно, перезагрузка через 5 секунд", "Обмеження струму аккумулятором"},
+	{"Выбор языка", "Русский", "Главная", "Дополнительно", "Настройки", "Статус", "Установить максимальный ток", "Экстренная остановка", "Вы действительно хотите остановить работу устройства?", "Статус станции", "Обнулить статистику", "Вы действительно хотите обнулить статистику?", "Установить целевоею напряжение", "Калибровка тока", "Калибровка напряжения", "Установить емкость", "Установить максимальное напряжение", "Игнорировать отклонения тока", "Игнорировать отклонения напряжения", "Настройка точки доступа", "Сохранить настройки", "Изменение настроек точки доступа приведет к перезагрузке устройства. Вы действительно хотите продолжить?", "SSID: ", "Пароль: ", "IP: ", "Да", "Нет", "Режим зарядки", "Установить время зарядки", "Загрузить прошивку", "Начало обновления...", "Обновление прошло успешно, перезагрузка через 5 секунд", "Ограничение тока аккумулятором"},
+	{"Select language", "English", "Home", "Additional", "Settings", "Status", "Set max amperage", "Emergency stop", "Do you really want to make an emergency stop?", "Evse status", "Reset statistics", "Are you sure you want to reset statistics?", "Set target voltage", "Calibrate ampers", "Calibrate voltage", "Set capacity", "Set max voltage", "Ignore current mismatch", "Ignore voltage mismatch", "Access point settings", "Save network settings", "Changing the access point settings will reboot the device. Do you really want to continue?", "SSID: ", "Password: ", "IP: ", "Yes", "No", "Charging mode", "Set charge time", "Load firmware", "Starting update...", "Update has been successfull, restarting in 5 seconds", "Limit charge current by bms"},
 };
 
 //Localized string
@@ -226,7 +228,8 @@ struct home_status_widget {
 			prefix + "Current: " + -status.current + "\n" +
 			prefix + "Power: " + -status.power + "KWt\n" +
 			prefix + "SOC: " + status.soc + "%\n" +
-			"BATT TEMP: " + status.temp;
+			"BATT TEMP: " + status.temp + "\n" +
+			"Max input power: " + status.max_input_power + "kWt";
 			//"BMS Current: " + bms.amperage + "\n" +
 			//"BMS Voltage: " + bms.voltage + "\n" +
 			//"BMS SOC: " + bms.soc;
@@ -617,8 +620,8 @@ struct set_max_volt_widget {
 	}
 } set_max_volt_widget;
 
-extern struct SET_CHARGE_TIME_widget SET_CHARGE_TIME_widget;
-struct SET_CHARGE_TIME_widget {
+extern struct set_charge_time_widget set_charge_time_widget;
+struct set_charge_time_widget {
 	struct box box;
 	struct button l_button, r_button;
 	struct field field;
@@ -627,36 +630,36 @@ struct SET_CHARGE_TIME_widget {
 	
 	static void l_button_callback(struct button &id, client_id_t sender)
 	{
-		int &val = ::SET_CHARGE_TIME_widget.charging_time;
+		int &val = ::set_charge_time_widget.charging_time;
 		val -= 10;
-		::SET_CHARGE_TIME_widget.field.pack(attr::value = val).send_all();
+		::set_charge_time_widget.field.pack(attr::value = val).send_all();
 		cmd.send(CMD_SET_CHARGE_TIME, val);
 	}
 	
 	static void r_button_callback(struct button &id, client_id_t sender)
 	{
-		int &val = ::SET_CHARGE_TIME_widget.charging_time;
+		int &val = ::set_charge_time_widget.charging_time;
 		val += 10;
-		::SET_CHARGE_TIME_widget.field.pack(attr::value = val).send_all();
+		::set_charge_time_widget.field.pack(attr::value = val).send_all();
 		cmd.send(CMD_SET_CHARGE_TIME, val);
 	}
 	
 	static void field_callback(struct field &id, String value, client_id_t sender)
 	{
-		int &val = ::SET_CHARGE_TIME_widget.charging_time;
+		int &val = ::set_charge_time_widget.charging_time;
 		val = value.toInt();
 		id.pack(attr::value = val).send_all();
 		cmd.send(CMD_SET_CHARGE_TIME, val);
 	}
 	
-	SET_CHARGE_TIME_widget() : l_button(l_button_callback), r_button(r_button_callback), field(field_callback) {}
+	set_charge_time_widget() : l_button(l_button_callback), r_button(r_button_callback), field(field_callback) {}
 	packet build()
 	{
 		return
 		box.pack(tab_navigation_widget.additional, (attr::text = l_str(SET_CHARGE_TIME), attr::direction = DIR_H)) +
 		l_button.pack(box, (attr::text = "-", attr::width = "fill")) + field.pack(box, (attr::value = charging_time, attr::width = "fill")) + r_button.pack(box, (attr::text = "+", attr::width = "fill"));
 	}
-} SET_CHARGE_TIME_widget;
+} set_charge_time_widget;
 
 extern struct ignore_current_mismatch_widget ignore_current_mismatch_widget;
 struct ignore_current_mismatch_widget {
@@ -703,6 +706,29 @@ struct ignore_voltage_mismatch_widget {
 			switcher.pack(box, (switcher.get(ignore)));
 	}
 } ignore_voltage_mismatch_widget;
+
+extern struct limit_charge_current_by_bms_widget limit_charge_current_by_bms_widget;
+struct limit_charge_current_by_bms_widget {
+	struct box box;
+	struct switcher switcher;
+	
+	bool value = true;
+	
+	static void switcher_callback(struct switcher &id, client_id_t sender)
+	{
+		bool &val = ::limit_charge_current_by_bms_widget.value;
+		id.turn(val).send_all();
+		cmd.send(CMD_LIMIT_CHARGE_CURRENT_BY_BMS, val);
+	}
+	
+	limit_charge_current_by_bms_widget() : switcher(switcher_callback) {};
+	packet build()
+	{
+		return
+			box.pack(tab_navigation_widget.additional, (attr::text = l_str(LIMIT_CHARGE_CURRENT_BY_BMS), attr::direction = DIR_H)) + 
+			switcher.pack(box, (switcher.get(value)));
+	}
+} limit_charge_current_by_bms_widget;
 
 extern struct emulate_charger_widget emulate_charger_widget;
 struct emulate_charger_widget {
@@ -897,13 +923,14 @@ bool ui::interface(client &cl, int idx) //implementation of interface builder is
 		ADD_TO_INTERFACE(7, set_target_voltage_widget);
 		ADD_TO_INTERFACE(8, set_max_volt_widget);
 		ADD_TO_INTERFACE(9, set_capacity_widget);
-		ADD_TO_INTERFACE(10, SET_CHARGE_TIME_widget);
-		ADD_TO_INTERFACE(11, ignore_current_mismatch_widget);
-		ADD_TO_INTERFACE(12, ignore_voltage_mismatch_widget);
-		ADD_TO_INTERFACE(13, emulate_charger_widget);
-		ADD_TO_INTERFACE(14, ap_settings_widget);
-		ADD_TO_INTERFACE(15, language_selector_widget);
-		ADD_TO_INTERFACE(16, firmware_update_widget);
+		ADD_TO_INTERFACE(10, set_charge_time_widget);
+		//ADD_TO_INTERFACE(11, ignore_current_mismatch_widget);
+		//ADD_TO_INTERFACE(12, ignore_voltage_mismatch_widget);
+		ADD_TO_INTERFACE(11, limit_charge_current_by_bms_widget);
+		ADD_TO_INTERFACE(12, emulate_charger_widget);
+		ADD_TO_INTERFACE(13, ap_settings_widget);
+		ADD_TO_INTERFACE(14, language_selector_widget);
+		ADD_TO_INTERFACE(15, firmware_update_widget);
 		END_ADD_TO_INTERFACE;
 	}
 }
@@ -931,7 +958,7 @@ void parse(struct cmd &cmd) {
 			status.kwh = cmd.buf.toFloat();
 			
 			settings.last_kwh = status.kwh;
-			settings.total_kwh += status.kwh - delta_kwh;
+			settings.total_kwh += status.kwh - status.delta_kwh;
 			break;
 			
 		case CMD_SOC:
@@ -1015,8 +1042,16 @@ void parse(struct cmd &cmd) {
 			break;
 			
 		case CMD_SET_CHARGE_TIME:
-			SET_CHARGE_TIME_widget.field.pack(attr::value = (SET_CHARGE_TIME_widget.charging_time = cmd.buf.toInt()));
+			set_charge_time_widget.field.pack(attr::value = (set_charge_time_widget.charging_time = cmd.buf.toInt()));
 			break;	
+		
+		case CMD_LIMIT_CHARGE_CURRENT_BY_BMS:
+			limit_charge_current_by_bms_widget.switcher.pack(limit_charge_current_by_bms_widget.switcher.get(limit_charge_current_by_bms_widget.value = cmd.buf.toInt()));
+			break;
+		
+		case CMD_MAX_INPUT_POWER:
+			status.max_input_power = cmd.buf.toInt();
+			break;
 		
 		default:
 			break;
