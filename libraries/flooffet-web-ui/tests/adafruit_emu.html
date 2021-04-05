@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<style>
+	.adafruit_display {
+		background-size: 175px auto;
+		border: 5px solid #770000;
+		width: 320;
+		height: 240;
+		margin: 0;
+	}
+</style>
+
+<canvas id="myCanvas" class="adafruit_display">
+</canvas>
+
+<script>
+	const ILI9341_MAGENTA = "magenta";
+
+	class adafruit_emu {
+      	constructor(canvas_2d_context)
+      	{
+			this.ctx = canvas_2d_context;
+      	}
+        
+      	drawLine(xf, yf, xt, yt, color)
+      	{
+        	ctx.beginPath();
+          	ctx.moveTo(xf, yf);
+          	ctx.lineTo(xt, yt);
+          	ctx.strokeStyle = color;
+          	ctx.stroke();
+      	}
+        
+        drawCircle(xf, yf, size)
+        {
+        	ctx.beginPath();
+			ctx.arc(xf, yf, size, 0, 2 * Math.PI);
+			ctx.stroke();
+        }
+}
+
+const canvas = document.getElementById('myCanvas');
+const ctx = canvas.getContext('2d');
+ctx.fillStyle = "black";
+ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+const tft = new adafruit_emu();
+  
+tft.drawLine(160, 110, 165, 110, ILI9341_MAGENTA);
+tft.drawLine(175, 110, 195, 110, ILI9341_MAGENTA);
+tft.drawLine(205, 110, 210, 110, ILI9341_MAGENTA);
+tft.drawLine(205, 100, 210, 110, ILI9341_MAGENTA);
+tft.drawLine(205, 100, 200, 100, ILI9341_MAGENTA);
+tft.drawLine(195, 90, 200, 100, ILI9341_MAGENTA);
+tft.drawLine(175, 90, 195, 90, ILI9341_MAGENTA);
+tft.drawLine(170, 100, 175, 90, ILI9341_MAGENTA);
+tft.drawLine(160, 110, 165, 100, ILI9341_MAGENTA);
+tft.drawLine(195, 100, 165, 100, ILI9341_MAGENTA);
+tft.drawLine(185, 100, 185, 90, ILI9341_MAGENTA);
+tft.drawCircle(170, 110, 5, ILI9341_MAGENTA);
+tft.drawCircle(200, 110, 5, ILI9341_MAGENTA); 
+</script>
+
+</body>
+</html>
